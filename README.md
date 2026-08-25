@@ -33,7 +33,11 @@ and publishes it to GitHub Pages whenever `main` or `master` is pushed.
    If `origin` already exists, verify it with `git remote -v` instead of adding
    it again.
 
-2. Commit and push the site:
+2. Before the first deployment, open **Settings → Pages** in the GitHub
+   repository and set **Source** to **GitHub Actions**. This enables the Pages
+   site that the deployment workflow needs.
+
+3. Commit and push the site:
 
    ```bash
    git add .
@@ -41,9 +45,8 @@ and publishes it to GitHub Pages whenever `main` or `master` is pushed.
    git push -u origin master
    ```
 
-3. In the GitHub repository, open **Settings → Pages** and set **Source** to
-   **GitHub Actions**. The `Deploy to GitHub Pages` workflow will run on the
-   push; it can also be started manually from the **Actions** tab.
+   The `Deploy to GitHub Pages` workflow will run on the push; it can also be
+   started manually from the **Actions** tab.
 
 4. After the workflow succeeds, open:
    <https://gokulapap.github.io/tatak-landing-site/>
