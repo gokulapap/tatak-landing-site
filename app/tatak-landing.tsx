@@ -1,64 +1,251 @@
 "use client";
+
 import { useEffect, useRef, useState } from "react";
 
-const worldChapters = [
-  {
-    label: "One search",
-    eyebrow: "Door to door",
-    title: "Start where you are. End where you need to be.",
-    body: "Tatak plans from the doorstep, through each transfer, to the right station exit—not merely from stop to stop.",
-    tags: ["Origin to destination", "Every walking link"],
-  },
-  {
-    label: "Every mode",
-    eyebrow: "The network, connected",
-    title: "Bus, metro and walking belong to one journey.",
-    body: "BMTC, Namma Metro and the walks between them are searched together, so the answer reflects how the city actually moves.",
-    tags: ["BMTC", "Namma Metro", "Walk"],
-  },
-  {
-    label: "Honest data",
-    eyebrow: "Clarity over certainty",
-    title: "Live when it is live. Clear when it is not.",
-    body: "A current vehicle, a published departure and a calculated estimate each use a distinct signal. Tatak never invents certainty.",
-    tags: ["Live", "Published", "~ Estimated"],
-  },
-  {
-    label: "Your best route",
-    eyebrow: "Useful trade-offs",
-    title: "Fastest, lowest fare or fewer changes.",
-    body: "Compare complete journeys and choose what best means today, with total time, fare and transfers visible before you leave.",
-    tags: ["60 min", "₹41 total", "1 change"],
-  },
+const APP_URL = "https://app.tatak.tech";
+
+const navigation = [
+  { href: "#why", label: "Why Tatak" },
+  { href: "#journey", label: "Sample journey" },
+  { href: "#signals", label: "Data clarity" },
+  { href: "#workflow", label: "How it works" },
 ];
 
 const preferences = [
-  { id: "fastest", label: "Fastest", headline: "60 min · ₹41 · 1 change", body: "The quickest complete route, with every fare and transfer visible before you leave." },
-  { id: "fare", label: "Lowest fare", headline: "Price, leg by leg", body: "Compare the full journey cost—not a partial fare that changes halfway through." },
-  { id: "changes", label: "Fewer changes", headline: "Simpler when it matters", body: "See every transfer up front and choose a calmer route when speed is not the only priority." },
+  {
+    id: "fastest",
+    label: "Fastest",
+    headline: "60 min · ₹41 · 1 change",
+    body: "Bring the quickest complete journey to the top without hiding its fare or transfer.",
+  },
+  {
+    id: "fare",
+    label: "Lowest fare",
+    headline: "See the complete cost",
+    body: "Compare the fare for the whole journey—not a partial price that changes halfway through.",
+  },
+  {
+    id: "changes",
+    label: "Fewer changes",
+    headline: "Make transfers a choice",
+    body: "Choose a calmer journey when fewer hand-offs matter more than saving a few minutes.",
+  },
 ];
 
 const routeLegs = [
-  { mode: "WALK", className: "walk", title: "Walk to Hebbala Bridge", detail: "940 m · 13 min", status: "On foot" },
-  { mode: "500-A", className: "bus", title: "BMTC to Tin Factory", detail: "13 stops · published 09:50", status: "No tracker" },
-  { mode: "PURPLE", className: "metro", title: "Metro to Indiranagar", detail: "3 stops · ~8 min wait", status: "Live train" },
+  {
+    mode: "Walk",
+    badge: "WALK",
+    className: "walk",
+    title: "Walk to Hebbala Bridge",
+    detail: "940 m · 13 min",
+    status: "On foot",
+    signal: "neutral",
+  },
+  {
+    mode: "Bus",
+    badge: "500-A",
+    className: "bus",
+    title: "BMTC to Tin Factory",
+    detail: "13 stops · departure 09:50",
+    status: "Published",
+    signal: "published",
+  },
+  {
+    mode: "Metro",
+    badge: "PURPLE",
+    className: "metro",
+    title: "Metro to Indiranagar",
+    detail: "3 stops · ~8 min wait",
+    status: "Live context",
+    signal: "live",
+  },
+];
+
+const signalStates = [
+  {
+    id: "live",
+    label: "Live",
+    value: "Now",
+    title: "Moving now",
+    body: "A current vehicle position with a visible update state.",
+  },
+  {
+    id: "published",
+    label: "Published",
+    value: "09:50",
+    title: "On the timetable",
+    body: "An official departure without pretending the vehicle is tracked.",
+  },
+  {
+    id: "estimated",
+    label: "Estimated",
+    value: "~8",
+    title: "Useful, not certain",
+    body: "A calculated wait that never masquerades as live information.",
+  },
+];
+
+const useCases = [
+  {
+    index: "01",
+    eyebrow: "Everyday commute",
+    title: "Choose the trade-off that fits today.",
+    body: "Put time, fare and changes in one view before leaving home or work.",
+    accent: "red",
+  },
+  {
+    index: "02",
+    eyebrow: "Unfamiliar cross-city trip",
+    title: "Know each hand-off before you go.",
+    body: "See the walks, stops and transfers that turn separate modes into one journey.",
+    accent: "purple",
+  },
+  {
+    index: "03",
+    eyebrow: "Airport connection",
+    title: "Find the coach that fits your route.",
+    body: "Explore Vayu Vajra airport-coach services alongside Bengaluru transit information.",
+    accent: "green",
+  },
 ];
 
 const publicAsset = (path: string) =>
   `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}${path}`;
+
+function Brand({ className = "" }: { className?: string }) {
+  return (
+    <a className={`brand ${className}`.trim()} href="#top" aria-label="Tatak home">
+      <span className="brand-mark kn" aria-hidden="true">ತ</span>
+      <span className="brand-name">Tatak</span>
+      <span className="brand-kn kn" lang="kn">ತಟಕ್</span>
+    </a>
+  );
+}
+
+function AppLink({
+  className = "",
+  label = "Try Tatak",
+  tabIndex,
+}: {
+  className?: string;
+  label?: string;
+  tabIndex?: number;
+}) {
+  return (
+    <a
+      className={className}
+      href={APP_URL}
+      target="_blank"
+      rel="noreferrer"
+      aria-label={`${label} (opens in a new tab)`}
+      tabIndex={tabIndex}
+    >
+      <span>{label}</span>
+      <span aria-hidden="true">↗</span>
+    </a>
+  );
+}
+
+function RouteList({ compact = false }: { compact?: boolean }) {
+  return (
+    <div className={`route-list ${compact ? "route-list--compact" : ""}`}>
+      {routeLegs.map((leg, index) => (
+        <div className="route-leg" key={leg.mode}>
+          <div className="route-track" aria-hidden="true">
+            <span>{index + 1}</span>
+            {index < routeLegs.length - 1 && <i />}
+          </div>
+          <span className={`mode-badge ${leg.className}`}>{leg.badge}</span>
+          <div className="route-leg-copy">
+            <strong>{leg.title}</strong>
+            <small>{leg.detail}</small>
+          </div>
+          <span className={`route-status ${leg.signal}`}>
+            <i aria-hidden="true" />
+            {leg.status}
+          </span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function ProductPreview() {
+  return (
+    <figure className="product-preview" data-reveal>
+      <div className="preview-chrome" aria-hidden="true">
+        <span /><span /><span />
+        <b>app.tatak.tech</b>
+        <em>Prototype</em>
+      </div>
+      <div className="preview-shell">
+        <aside className="preview-rail" aria-label="Product sections">
+          <span className="preview-rail-mark kn">ತ</span>
+          <div className="preview-rail-item is-active"><i>⌁</i><span>Plan</span></div>
+          <div className="preview-rail-item"><i>⌕</i><span>Explore</span></div>
+          <div className="preview-rail-item"><i>●</i><span>Live</span></div>
+          <div className="preview-rail-item"><i>↟</i><span>Airport</span></div>
+        </aside>
+
+        <div className="preview-main">
+          <header className="preview-header">
+            <div>
+              <span className="preview-kicker">Plan a journey</span>
+              <strong>Where to?</strong>
+            </div>
+            <span className="preview-city">Bengaluru <i aria-hidden="true" /></span>
+          </header>
+
+          <div className="preview-search" aria-label="Sample route search">
+            <div><i className="origin-dot" /><span><small>FROM</small><strong>Hebbala</strong><em className="kn">ಹೆಬ್ಬಾಳ</em></span></div>
+            <span className="search-link" aria-hidden="true">→</span>
+            <div><i className="destination-dot" /><span><small>TO</small><strong>Indiranagar</strong><em className="kn">ಇಂದಿರಾನಗರ</em></span></div>
+            <span className="preview-search-action" aria-hidden="true">Plan</span>
+          </div>
+
+          <article className="preview-result" aria-label="Top-ranked sample journey">
+            <header>
+              <div><span>Top journey</span><strong>Fastest complete route</strong></div>
+              <span className="confidence-chip"><i /> Mixed signals</span>
+            </header>
+            <div className="preview-summary">
+              <div><strong>60</strong><span>min</span><small>09:37 → ~10:37</small></div>
+              <div><strong>₹41</strong><span>fare</span><small>whole journey</small></div>
+              <div><strong>1</strong><span>change</span><small>shown upfront</small></div>
+            </div>
+            <RouteList compact />
+          </article>
+        </div>
+
+        <aside className="preview-context" aria-label="Data confidence legend">
+          <span className="preview-kicker">What Tatak knows</span>
+          <h2>Useful context.<br />Honest labels.</h2>
+          <div className="context-signal live"><i /><span><strong>Live</strong><small>Vehicle context</small></span></div>
+          <div className="context-signal published"><i /><span><strong>Published</strong><small>Official timetable</small></span></div>
+          <div className="context-signal estimated"><i>~</i><span><strong>Estimated</strong><small>Clearly calculated</small></span></div>
+          <p>Tatak never turns an estimate into a promise.</p>
+        </aside>
+      </div>
+      <figcaption>
+        <span>Product preview</span>
+        <span>Current prototype · interface may evolve</span>
+      </figcaption>
+    </figure>
+  );
+}
 
 export function TatakLanding() {
   const navRef = useRef<HTMLElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [detailsOpen, setDetailsOpen] = useState(false);
   const [preference, setPreference] = useState("fastest");
-  const [activeWorld, setActiveWorld] = useState(0);
 
   useEffect(() => {
     let frame = 0;
     const update = () => {
       frame = 0;
-      navRef.current?.classList.toggle("is-scrolled", window.scrollY > 10);
+      navRef.current?.classList.toggle("is-scrolled", window.scrollY > 12);
     };
     const schedule = () => {
       if (!frame) frame = window.requestAnimationFrame(update);
@@ -74,10 +261,12 @@ export function TatakLanding() {
   useEffect(() => {
     const elements = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal]"));
     document.documentElement.classList.add("reveal-ready");
+
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) {
       elements.forEach((element) => element.classList.add("is-in-view"));
       return;
     }
+
     const observer = new IntersectionObserver(
       (entries) => entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -85,144 +274,295 @@ export function TatakLanding() {
           observer.unobserve(entry.target);
         }
       }),
-      { threshold: 0.1, rootMargin: "0px 0px -6%" },
+      { threshold: 0.08, rootMargin: "0px 0px -5%" },
     );
+
     elements.forEach((element) => observer.observe(element));
     return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
-    const steps = Array.from(document.querySelectorAll<HTMLElement>("[data-world-step]"));
-    if (!("IntersectionObserver" in window)) return;
-    const observer = new IntersectionObserver(
-      (entries) => entries.forEach((entry) => {
-        if (entry.isIntersecting) setActiveWorld(Number((entry.target as HTMLElement).dataset.worldStep));
-      }),
-      { rootMargin: "-38% 0px -38% 0px", threshold: 0 },
-    );
-    steps.forEach((step) => observer.observe(step));
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
     if (!menuOpen) return;
-    const close = (event: KeyboardEvent) => event.key === "Escape" && setMenuOpen(false);
+    const close = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMenuOpen(false);
+    };
     document.addEventListener("keydown", close);
     return () => document.removeEventListener("keydown", close);
   }, [menuOpen]);
 
-  const activePreference = preferences.find((item) => item.id === preference) ?? preferences[0];
-  const worldChapter = worldChapters[activeWorld];
+  const activePreference =
+    preferences.find((item) => item.id === preference) ?? preferences[0];
 
   return (
     <main>
       <a className="skip-link" href="#main-content">Skip to content</a>
 
       <header ref={navRef} className="site-nav">
-        <a className="wordmark" href="#top" aria-label="Tatak home"><span className="wordmark-mark" aria-hidden="true">ತ</span><span>Tatak</span><small className="kn">ತಟಕ್</small></a>
+        <Brand />
         <nav className="desktop-nav" aria-label="Primary navigation">
-          <a href="#why">Why Tatak</a><a href="#journey">Sample journey</a><a href="#principles">How it works</a>
+          {navigation.map((item) => <a key={item.href} href={item.href}>{item.label}</a>)}
         </nav>
-        <a className="nav-cta" href="#journey">Explore a route <span aria-hidden="true">→</span></a>
-        <button type="button" className="menu-toggle" aria-label={menuOpen ? "Close navigation" : "Open navigation"} aria-expanded={menuOpen} aria-controls="mobile-navigation" onClick={() => setMenuOpen((value) => !value)}><span /><span /></button>
-        <nav id="mobile-navigation" className={`mobile-nav ${menuOpen ? "is-open" : ""}`} aria-label="Mobile navigation" aria-hidden={!menuOpen}>
-          <a href="#why" tabIndex={menuOpen ? 0 : -1} onClick={() => setMenuOpen(false)}>Why Tatak <span>01</span></a>
-          <a href="#journey" tabIndex={menuOpen ? 0 : -1} onClick={() => setMenuOpen(false)}>Sample journey <span>02</span></a>
-          <a href="#principles" tabIndex={menuOpen ? 0 : -1} onClick={() => setMenuOpen(false)}>How it works <span>03</span></a>
+        <AppLink className="nav-cta" />
+        <button
+          type="button"
+          className="menu-toggle"
+          aria-label={menuOpen ? "Close navigation" : "Open navigation"}
+          aria-expanded={menuOpen}
+          aria-controls="mobile-navigation"
+          onClick={() => setMenuOpen((value) => !value)}
+        >
+          <span /><span />
+        </button>
+        <nav
+          id="mobile-navigation"
+          className={`mobile-nav ${menuOpen ? "is-open" : ""}`}
+          aria-label="Mobile navigation"
+          aria-hidden={!menuOpen}
+        >
+          {navigation.map((item, index) => (
+            <a key={item.href} href={item.href} tabIndex={menuOpen ? 0 : -1} onClick={() => setMenuOpen(false)}>
+              {item.label}<span>0{index + 1}</span>
+            </a>
+          ))}
+          <AppLink
+            className="mobile-app-link"
+            label="Open Tatak"
+            tabIndex={menuOpen ? 0 : -1}
+          />
         </nav>
       </header>
 
       <section className="hero" id="top">
-        <div className="hero-intro" id="main-content" data-reveal>
-          <div><span className="eyebrow">Multimodal journey planning for Bengaluru</span><h1>The whole city.<br /><em>One honest journey.</em></h1></div>
-          <div className="hero-summary">
-            <p>Tatak connects BMTC, Namma Metro and every walk in between—then shows what is live, what is published and what is only an estimate.</p>
-            <div className="hero-actions"><a className="button button-primary" href="#why">See how Tatak works <span aria-hidden="true">↓</span></a><a className="button button-quiet" href="#journey">View a route</a></div>
+        <div className="hero-copy" id="main-content" data-reveal>
+          <div className="eyebrow"><i /> Multimodal journey planning for Bengaluru</div>
+          <h1>One search for every way <em>across Bengaluru.</em></h1>
+          <p>Plan from door to destination across BMTC, Namma Metro and walking. Compare complete routes by time, fare and changes—with every live, published and estimated signal clearly labeled.</p>
+          <div className="hero-actions">
+            <AppLink className="button button-primary" label="Plan a journey" />
+            <a className="button button-secondary" href="#journey"><span>See a real route</span><span aria-hidden="true">↓</span></a>
+          </div>
+          <div className="hero-note">
+            <span><i className="live-pulse" /> Live prototype</span>
+            <span>Independent project</span>
+            <span>Built for Bengaluru</span>
           </div>
         </div>
-        <div className="hero-metrics" aria-label="Network coverage" data-reveal>
-          <span>Built for the complete journey</span><div><strong>9,100+</strong><small>transit stops</small></div><div><strong>34,000+</strong><small>walk links</small></div><div><strong>3</strong><small>connected modes</small></div>
-        </div>
-      </section>
 
-      <section className="scroll-world" id="why" aria-label="Explore Tatak through Bengaluru">
-        <div className="world-layout">
-          <div className="world-chapters">
-            {worldChapters.map((chapter, index) => (
-              <article key={chapter.label} data-world-step={index} className={activeWorld === index ? "is-active" : ""}>
-                <span className="chapter-count">0{index + 1} / 04</span>
-                <small>{chapter.eyebrow}</small>
-                <h2>{chapter.title}</h2>
-                <p>{chapter.body}</p>
-                <div>{chapter.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
-              </article>
-            ))}
-          </div>
+        <ProductPreview />
 
-          <div className={`world-visual chapter-${activeWorld + 1}`}>
-            <div className="world-image-frame">
-              <picture><source type="image/webp" srcSet={`${publicAsset("/tatak-world-960.webp")} 960w, ${publicAsset("/tatak-world.webp")} 1536w`} sizes="(max-width: 860px) 100vw, 58vw" /><img src={publicAsset("/tatak-world.png")} alt="" width="1536" height="1024" fetchPriority="high" /></picture>
-            </div>
-            <div className="world-readout" aria-live="polite">
-              <header><span>0{activeWorld + 1} / 04</span><b>{worldChapter.label}</b></header>
-              <strong>{worldChapter.eyebrow}</strong>
-              <div>{worldChapter.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
-            </div>
-            <div className="world-progress" aria-hidden="true"><i style={{ width: `${((activeWorld + 1) / worldChapters.length) * 100}%` }} /></div>
-          </div>
+        <div className="network-strip" aria-label="Transport modes supported" data-reveal>
+          <span>One city journey</span>
+          <div><i className="mode-icon walk">01</i><span><strong>Walking</strong><small>First and final mile</small></span></div>
+          <div><i className="mode-icon bus">02</i><span><strong>BMTC</strong><small>City bus connections</small></span></div>
+          <div><i className="mode-icon metro">03</i><span><strong>Namma Metro</strong><small>Purple and Green lines</small></span></div>
         </div>
       </section>
 
-      <section className="journey-section" id="journey">
-        <header className="journey-heading" data-reveal>
-          <div className="section-label"><span>02</span> One real answer</div>
-          <h2>Hebbala to Indiranagar.<br /><em>Nothing hand-waved.</em></h2>
-          <p>The first-ranked route at 09:37, with every leg, change and confidence level in view.</p>
+      <section className="problem-section" id="why" aria-labelledby="problem-title">
+        <header className="section-intro" data-reveal>
+          <div className="section-label"><span>01</span> Why Tatak</div>
+          <h2 id="problem-title">Bengaluru moves in combinations. <em>Your planner should too.</em></h2>
+          <p>A useful answer is not a bus number or a metro line. It is the walk to the stop, the transfer in the middle, the fare for the whole trip—and clarity about what the data can actually promise.</p>
         </header>
-        <div className="journey-layout">
-          <aside className="journey-controls" data-reveal>
-            <span>RANK THIS JOURNEY BY</span>
-            <div className="preference-picker" role="group" aria-label="Journey ranking preference">
-              {preferences.map((item, index) => <button type="button" key={item.id} className={preference === item.id ? "is-active" : ""} aria-pressed={preference === item.id} onClick={() => setPreference(item.id)}><span>0{index + 1}</span>{item.label}</button>)}
+
+        <div className="comparison-grid">
+          <article className="fragment-card" data-reveal>
+            <header><span>Fragmented planning</span><small>Three separate answers</small></header>
+            <div className="fragment-list">
+              <div><span className="fragment-index">A</span><div><strong>Find a nearby bus</strong><small>But where does it leave you?</small></div><i>?</i></div>
+              <div><span className="fragment-index">B</span><div><strong>Check the metro</strong><small>But can you make the transfer?</small></div><i>?</i></div>
+              <div><span className="fragment-index">C</span><div><strong>Estimate the walk</strong><small>But is that in the total time?</small></div><i>?</i></div>
             </div>
-            <div className="preference-note" aria-live="polite"><strong>{activePreference.headline}</strong><p>{activePreference.body}</p></div>
-          </aside>
-          <article className="journey-board" data-reveal aria-label="Detailed sample journey">
-            <header className="board-header"><div><span>FROM</span><strong>Hebbala <small className="kn">ಹೆಬ್ಬಾಳ</small></strong></div><i aria-hidden="true">→</i><div><span>TO</span><strong>Indiranagar <small className="kn">ಇಂದಿರಾನಗರ</small></strong></div><b>{activePreference.label.toUpperCase()}</b></header>
-            <div className="board-summary"><div><strong>60</strong><span>minutes</span><small>09:37 → ~10:37 · 1 change</small></div><div><strong>₹41</strong><span>total fare</span></div></div>
-            <div className="board-legs">{routeLegs.map((leg, index) => <div className="board-leg" key={leg.mode}><span className="leg-number">0{index + 1}</span><span className={`mode ${leg.className}`}>{leg.mode}</span><div><strong>{leg.title}</strong><small>{leg.detail}</small></div><em className={index === 2 ? "is-live" : ""}>{leg.status}</em></div>)}</div>
-            <div className={`board-trust ${detailsOpen ? "is-open" : ""}`} id="journey-proof" aria-hidden={!detailsOpen}>
-              <div><i className="live-dot" /><span><b>Live</b><small>Vehicle position received now</small></span></div><div><i className="published-dot" /><span><b>Published</b><small>Official timetable departure</small></span></div><div><i className="estimate-dot">~</i><span><b>Estimated</b><small>Calculated and clearly marked</small></span></div>
+            <p>Every hand-off becomes your problem.</p>
+          </article>
+
+          <article className="connected-card" data-reveal>
+            <header><span>The Tatak answer</span><small>One complete journey</small></header>
+            <div className="connected-route" aria-label="Connected route from doorstep to destination">
+              <div><i className="walk" /><span><strong>Doorstep</strong><small>Walk</small></span></div>
+              <b aria-hidden="true" />
+              <div><i className="bus" /><span><strong>500-A</strong><small>BMTC</small></span></div>
+              <b aria-hidden="true" />
+              <div><i className="metro" /><span><strong>Purple</strong><small>Metro</small></span></div>
+              <b aria-hidden="true" />
+              <div><i className="finish" /><span><strong>Destination</strong><small>Arrive</small></span></div>
             </div>
-            <button className="board-disclosure" type="button" onClick={() => setDetailsOpen((value) => !value)} aria-expanded={detailsOpen} aria-controls="journey-proof">{detailsOpen ? "Hide how Tatak knows" : "See how Tatak knows"}<span aria-hidden="true">{detailsOpen ? "−" : "+"}</span></button>
+            <div className="answer-metrics">
+              <span><strong>60 min</strong><small>complete time</small></span>
+              <span><strong>₹41</strong><small>total fare</small></span>
+              <span><strong>1 change</strong><small>shown upfront</small></span>
+            </div>
+          </article>
+        </div>
+
+        <figure className="network-visual" data-reveal>
+          <picture>
+            <source type="image/webp" srcSet={`${publicAsset("/tatak-world-960.webp")} 960w, ${publicAsset("/tatak-world.webp")} 1536w`} sizes="(max-width: 760px) 100vw, 1240px" />
+            <img src={publicAsset("/tatak-world.png")} alt="A Bengaluru journey connecting a doorstep, BMTC bus, Namma Metro and a final walk" width="1536" height="1024" loading="lazy" />
+          </picture>
+          <figcaption>
+            <span className="section-label light"><span>One network</span> Door to destination</span>
+            <h3>Not three legs.<br />One decision.</h3>
+            <p>Tatak searches the connected journey, then keeps each mode and transfer visible.</p>
+          </figcaption>
+        </figure>
+      </section>
+
+      <section className="capabilities-section" aria-labelledby="capabilities-title">
+        <header className="section-intro compact" data-reveal>
+          <div className="section-label"><span>02</span> Built for the decision</div>
+          <h2 id="capabilities-title">The context you need <em>before you leave.</em></h2>
+        </header>
+
+        <div className="capability-grid">
+          <article className="capability-card route-capability" data-reveal>
+            <span className="card-number">01</span>
+            <div><small>Door to door</small><h3>Start with places, not transit jargon.</h3><p>Plan from an address or landmark through every walking link and transfer.</p></div>
+            <div className="mini-search" aria-hidden="true"><span><i className="origin-dot" />Hebbala</span><b>→</b><span><i className="destination-dot" />Indiranagar</span></div>
+          </article>
+
+          <article className="capability-card compare-capability" data-reveal>
+            <span className="card-number">02</span>
+            <div><small>Useful trade-offs</small><h3>Best can mean more than fastest.</h3><p>Compare complete journeys by time, total fare or the number of changes.</p></div>
+            <div className="mini-ranking" aria-hidden="true"><span className="is-active">Fastest <b>60 min</b></span><span>Lowest fare <b>₹41</b></span><span>Fewer changes <b>1</b></span></div>
+          </article>
+
+          <article className="capability-card signal-capability" data-reveal>
+            <span className="card-number">03</span>
+            <div><small>Data honesty</small><h3>Know what is live—and what is not.</h3><p>Current positions, published times and calculated estimates never look the same.</p></div>
+            <div className="mini-signals" aria-hidden="true"><span className="live"><i />Live</span><span className="published"><i />Published</span><span className="estimated"><i>~</i>Estimated</span></div>
           </article>
         </div>
       </section>
 
-      <section className="truth-section" id="principles" aria-labelledby="truth-title">
-        <header data-reveal><div className="section-label light"><span>03</span> A clearer signal</div><h2 id="truth-title">Truth, in three states.</h2><p>Green is reserved for live data. Published times look published. Every estimate carries its tilde.</p></header>
-        <div className="truth-grid">
-          <article data-reveal><span className="truth-symbol"><i className="live-dot" /></span><small>LIVE</small><h3>Moving now</h3><p>A current vehicle position with a visible update time.</p></article>
-          <article data-reveal><span className="truth-symbol published">09:50</span><small>PUBLISHED</small><h3>On the timetable</h3><p>An official departure without pretending the vehicle is tracked.</p></article>
-          <article data-reveal><span className="truth-symbol estimated">~8</span><small>ESTIMATED</small><h3>Useful, not certain</h3><p>A calculated wait that never masquerades as live information.</p></article>
+      <section className="journey-section" id="journey" aria-labelledby="journey-title">
+        <header className="section-intro" data-reveal>
+          <div className="section-label"><span>03</span> One real answer</div>
+          <h2 id="journey-title">Hebbala to Indiranagar. <em>Nothing hand-waved.</em></h2>
+          <p>The top-ranked journey at 09:37, with each leg, change and confidence state visible before departure.</p>
+        </header>
+
+        <div className="journey-layout">
+          <aside className="journey-controls" data-reveal>
+            <span>Rank complete journeys by</span>
+            <div className="preference-picker" role="group" aria-label="Journey ranking preference">
+              {preferences.map((item, index) => (
+                <button
+                  type="button"
+                  key={item.id}
+                  className={preference === item.id ? "is-active" : ""}
+                  aria-pressed={preference === item.id}
+                  onClick={() => setPreference(item.id)}
+                >
+                  <span>0{index + 1}</span>{item.label}<i aria-hidden="true">→</i>
+                </button>
+              ))}
+            </div>
+            <div className="preference-note" aria-live="polite">
+              <strong>{activePreference.headline}</strong>
+              <p>{activePreference.body}</p>
+            </div>
+          </aside>
+
+          <article className={`journey-board focus-${preference}`} data-reveal aria-label="Detailed sample journey">
+            <header className="board-header">
+              <div><span>FROM</span><strong>Hebbala <small className="kn">ಹೆಬ್ಬಾಳ</small></strong></div>
+              <i aria-hidden="true">→</i>
+              <div><span>TO</span><strong>Indiranagar <small className="kn">ಇಂದಿರಾನಗರ</small></strong></div>
+              <b>Sorted: {activePreference.label}</b>
+            </header>
+            <div className="board-summary">
+              <div className="summary-time"><strong>60</strong><span>minutes</span><small>09:37 → ~10:37</small></div>
+              <div className="summary-fare"><strong>₹41</strong><span>total fare</span><small>across all legs</small></div>
+              <div className="summary-changes"><strong>1</strong><span>change</span><small>shown upfront</small></div>
+            </div>
+            <RouteList />
+            <div className={`board-trust ${detailsOpen ? "is-open" : ""}`} id="journey-proof" aria-hidden={!detailsOpen}>
+              <div><i className="signal-dot live" /><span><b>Live</b><small>Current vehicle context</small></span></div>
+              <div><i className="signal-dot published" /><span><b>Published</b><small>Official timetable departure</small></span></div>
+              <div><i className="estimate-mark">~</i><span><b>Estimated</b><small>Calculated and clearly marked</small></span></div>
+            </div>
+            <button className="board-disclosure" type="button" onClick={() => setDetailsOpen((value) => !value)} aria-expanded={detailsOpen} aria-controls="journey-proof">
+              {detailsOpen ? "Hide signal details" : "See how Tatak knows"}<span aria-hidden="true">{detailsOpen ? "−" : "+"}</span>
+            </button>
+          </article>
         </div>
       </section>
 
-      <section className="purpose-section">
-        <header data-reveal><div className="section-label"><span>04</span> The whole journey</div><h2>One planner from the first step<br />to the final stop.</h2><p>Tatak removes the seams between modes, without hiding the trade-offs that help you choose.</p></header>
-        <div className="purpose-rows">
-          <article data-reveal><span>01</span><h3>Start anywhere</h3><p>Plan from an address or landmark, not only from a known transit stop.</p></article>
-          <article data-reveal><span>02</span><h3>Change with confidence</h3><p>See where to walk, when to transfer and what each leg will cost.</p></article>
-          <article data-reveal><span>03</span><h3>Know before you go</h3><p>Understand total time, fare, changes and data confidence in one view.</p></article>
+      <section className="signals-section" id="signals" aria-labelledby="signals-title">
+        <header className="signals-header" data-reveal>
+          <div className="section-label light"><span>04</span> A clearer signal</div>
+          <h2 id="signals-title">Truth has a visual language.</h2>
+          <p>Green is reserved for current information. Published times look published. Every estimate carries its tilde.</p>
+        </header>
+        <div className="signal-grid">
+          {signalStates.map((state) => (
+            <article className={state.id} key={state.id} data-reveal>
+              <span className="signal-value">{state.id === "live" && <i />}{state.value}</span>
+              <small>{state.label}</small>
+              <h3>{state.title}</h3>
+              <p>{state.body}</p>
+            </article>
+          ))}
+        </div>
+        <div className="signal-principle" data-reveal>
+          <span className="kn" aria-hidden="true">ತ</span>
+          <p><strong>Clarity over false certainty.</strong> Tatak tells you what the system knows, where it came from and when it is only an estimate.</p>
         </div>
       </section>
 
-      <section className="final-cta" aria-labelledby="cta-title"><span>WHERE TO, THEN?</span><h2 id="cta-title">Know the journey.<br />Then just go.</h2><a href="#journey">Explore the sample journey <span aria-hidden="true">↑</span></a></section>
+      <section className="workflow-section" id="workflow" aria-labelledby="workflow-title">
+        <header className="section-intro compact" data-reveal>
+          <div className="section-label"><span>05</span> How it works</div>
+          <h2 id="workflow-title">From “where to?” to <em>ready to go.</em></h2>
+        </header>
+        <ol className="workflow-list">
+          <li data-reveal><span>01</span><div><small>Set the journey</small><h3>Start where you actually are.</h3><p>Enter an address, place or landmark and the destination you need to reach.</p></div><i aria-hidden="true">A → B</i></li>
+          <li data-reveal><span>02</span><div><small>Connect the network</small><h3>Search complete combinations.</h3><p>Tatak joins walking, BMTC and Namma Metro into door-to-door options.</p></div><i aria-hidden="true">●—●—●</i></li>
+          <li data-reveal><span>03</span><div><small>Choose with context</small><h3>See the trade-off, then decide.</h3><p>Compare time, fare, changes and signal confidence in one calm answer.</p></div><i aria-hidden="true">60 · ₹41 · 1</i></li>
+        </ol>
+        <AppLink className="workflow-cta" label="Plan your journey" />
+      </section>
+
+      <section className="use-cases-section" aria-labelledby="use-cases-title">
+        <header className="section-intro" data-reveal>
+          <div className="section-label"><span>06</span> Made for real movement</div>
+          <h2 id="use-cases-title">For the journey you make every day—and the one you have never made.</h2>
+        </header>
+        <div className="use-case-grid">
+          {useCases.map((item) => (
+            <article className={`use-case ${item.accent}`} key={item.index} data-reveal>
+              <span>{item.index}</span><small>{item.eyebrow}</small><h3>{item.title}</h3><p>{item.body}</p><i aria-hidden="true">↗</i>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="final-cta" aria-labelledby="cta-title">
+        <div data-reveal>
+          <span>Where to, then?</span>
+          <h2 id="cta-title">Know the whole journey.<br /><em>Then just go.</em></h2>
+        </div>
+        <div className="final-cta-copy" data-reveal>
+          <p>Try the independent Tatak prototype and plan a connected Bengaluru journey.</p>
+          <AppLink className="final-cta-link" label="Open Tatak" />
+          <small>Opens the live prototype at app.tatak.tech</small>
+        </div>
+      </section>
 
       <footer className="site-footer">
-        <div><a className="wordmark footer-mark" href="#top" aria-label="Tatak home"><span className="wordmark-mark" aria-hidden="true">ತ</span><span>Tatak</span><small className="kn">ತಟಕ್</small></a><p>One calm answer for a city in motion.</p></div>
-        <nav aria-label="Footer navigation"><a href="#why">Why Tatak</a><a href="#journey">Sample journey</a><a href="#principles">How it works</a></nav>
-        <small>Concept app · Built from real published transit data</small>
+        <div className="footer-main">
+          <div><Brand className="footer-brand" /><p>One calm answer for a city in motion.</p></div>
+          <nav aria-label="Footer navigation">
+            <span>Explore</span>
+            {navigation.map((item) => <a key={item.href} href={item.href}>{item.label}</a>)}
+          </nav>
+          <div className="footer-product"><span>Product</span><AppLink className="footer-app-link" label="Try Tatak" /><a href="#top">Back to top ↑</a></div>
+        </div>
+        <div className="footer-legal">
+          <p>Tatak is an independent hackathon prototype. It is not affiliated with, endorsed by or operated by BMTC, BMRCL or any government body. Tickets shown in the prototype are specimens and are not valid for travel.</p>
+          <span>© 2026 Tatak · Bengaluru</span>
+        </div>
       </footer>
     </main>
   );

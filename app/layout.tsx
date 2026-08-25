@@ -8,7 +8,7 @@ function createMetadata(siteUrl: string): Metadata {
 
   return {
     metadataBase: new URL(siteUrl),
-    title: "Tatak — One honest journey across Bengaluru",
+    title: "Tatak — One search for every way across Bengaluru",
     description:
       "Plan door-to-door journeys across BMTC, Namma Metro and walking — with fares, live context and honest estimates in one answer.",
     icons: {
@@ -16,24 +16,25 @@ function createMetadata(siteUrl: string): Metadata {
       apple: assetUrl("icon-512.png"),
     },
     openGraph: {
-      title: "Every bus. Every metro. One honest journey.",
+      title: "One search for every way across Bengaluru.",
       description:
-        "Tatak connects Bengaluru across BMTC, Namma Metro and every walk in between.",
+        "Plan complete Bengaluru journeys across BMTC, Namma Metro and walking—with live, published and estimated signals clearly labeled.",
       type: "website",
       images: [
         {
-          url: assetUrl("og-editorial.png"),
+          url: assetUrl("og-tatak-premium.png"),
           width: 1200,
           height: 630,
-          alt: "Tatak — Bengaluru, connected",
+          alt: "Tatak — one search for every way across Bengaluru",
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title: "Tatak — Bengaluru, connected",
-      description: "Every bus. Every metro. One honest journey.",
-      images: [assetUrl("og-editorial.png")],
+      title: "Tatak — One search for every way across Bengaluru",
+      description:
+        "Plan complete journeys across BMTC, Namma Metro and walking.",
+      images: [assetUrl("og-tatak-premium.png")],
     },
   };
 }
