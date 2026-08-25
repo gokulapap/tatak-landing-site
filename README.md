@@ -57,4 +57,31 @@ To verify the Pages build locally, run:
 GITHUB_REPOSITORY=gokulapap/tatak-landing-site npm run build:pages
 ```
 
+## Use the `tatak.tech` custom domain
+
+The deployment reads the canonical URL and base path from GitHub Pages, so the
+same workflow supports both the default repository URL and `tatak.tech`.
+
+1. In personal GitHub **Settings → Pages**, add and verify `tatak.tech` using
+   the TXT record that GitHub provides. Keep that TXT record after verification.
+2. In this repository's **Settings → Pages**, enter `tatak.tech` under
+   **Custom domain** and save it.
+3. At the DNS provider for `tatak.tech`, add four `A` records for host `@`:
+
+   ```text
+   185.199.108.153
+   185.199.109.153
+   185.199.110.153
+   185.199.111.153
+   ```
+
+4. Add a `CNAME` record for host `www` pointing to `gokulapap.github.io`.
+   GitHub will redirect `www.tatak.tech` to `tatak.tech`.
+5. Rerun **Deploy to GitHub Pages** from the repository's **Actions** tab.
+6. After GitHub finishes its DNS check and certificate provisioning, enable
+   **Enforce HTTPS** in the repository's Pages settings.
+
+Because this repository deploys through GitHub Actions, a committed `CNAME`
+file is not required.
+
 The site is built with Next.js, React, Vinext, and the canonical Tatak design tokens and bundled fonts.
