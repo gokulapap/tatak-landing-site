@@ -9,6 +9,7 @@ const navigation = [
   { href: "#journey", label: "Sample journey" },
   { href: "#signals", label: "Data clarity" },
   { href: "#workflow", label: "How it works" },
+  { href: "https://app.tatak.tech/stickers.html", label: "Test QR codes", external: true },
 ];
 
 const preferences = [
@@ -300,7 +301,15 @@ export function TatakLanding() {
       <header ref={navRef} className="site-nav">
         <Brand />
         <nav className="desktop-nav" aria-label="Primary navigation">
-          {navigation.map((item) => <a key={item.href} href={item.href}>{item.label}</a>)}
+          {navigation.map((item) => (
+            <a
+              key={item.href}
+              href={item.href}
+              {...(item.external ? { target: "_blank", rel: "noreferrer" } : {})}
+            >
+              {item.label}
+            </a>
+          ))}
         </nav>
         <AppLink className="nav-cta" />
         <button
@@ -320,7 +329,13 @@ export function TatakLanding() {
           aria-hidden={!menuOpen}
         >
           {navigation.map((item, index) => (
-            <a key={item.href} href={item.href} tabIndex={menuOpen ? 0 : -1} onClick={() => setMenuOpen(false)}>
+            <a
+              key={item.href}
+              href={item.href}
+              tabIndex={menuOpen ? 0 : -1}
+              onClick={() => setMenuOpen(false)}
+              {...(item.external ? { target: "_blank", rel: "noreferrer" } : {})}
+            >
               {item.label}<span>0{index + 1}</span>
             </a>
           ))}
@@ -555,7 +570,15 @@ export function TatakLanding() {
           <div><Brand className="footer-brand" /><p>One calm answer for a city in motion.</p></div>
           <nav aria-label="Footer navigation">
             <span>Explore</span>
-            {navigation.map((item) => <a key={item.href} href={item.href}>{item.label}</a>)}
+            {navigation.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                {...(item.external ? { target: "_blank", rel: "noreferrer" } : {})}
+              >
+                {item.label}
+              </a>
+            ))}
           </nav>
           <div className="footer-product"><span>Product</span><AppLink className="footer-app-link" label="Try Tatak" /><a href="#top">Back to top ↑</a></div>
         </div>
