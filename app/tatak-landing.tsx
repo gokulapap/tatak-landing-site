@@ -583,7 +583,7 @@ export function TatakLanding() {
           <div className="footer-product"><span>Product</span><AppLink className="footer-app-link" label="Try Tatak" /><a href="#top">Back to top ↑</a></div>
         </div>
         <div className="footer-legal">
-          <p>Tatak is an independent hackathon prototype. It is not affiliated with, endorsed by or operated by BMTC, BMRCL or any government body. Tickets shown in the prototype are specimens and are not valid for travel.</p>
+          <p>Tatak is an independent hackathon prototype. It is not affiliated with, endorsed by or operated by BMTC, BMRCL or any government body. Tickets shown in the prototype are specimens and are not valid for travel. Two of the five test QR codes are deliberate no-duty cases: scan one to see Tatak ask you to name the route instead of guessing it.</p>
           <span>© 2026 Tatak · Bengaluru</span>
         </div>
       </footer>
