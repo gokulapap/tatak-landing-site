@@ -1,13 +1,13 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-async function render() {
+async function render(path = "/") {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
   workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}`);
   const { default: worker } = await import(workerUrl.href);
 
   return worker.fetch(
-    new Request("https://tatak.example/", {
+    new Request(`https://tatak.example${path}`, {
       headers: { accept: "text/html", host: "tatak.example" },
     }),
     {
@@ -43,6 +43,13 @@ test("server-renders the complete Tatak landing page", async () => {
   assert.match(html, /https:\/\/tatak\.example\/og-tatak-premium\.png/);
   assert.match(html, /Independent project/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|Starter Project/i);
+
+  // The MCP block is a route of its own, reachable from the nav, and no
+  // longer a section of the home page.
+  assert.doesNotMatch(html, /class="[^"]*mcp-panel[^"]*"/);
+  assert.doesNotMatch(html, /id="mcp"/);
+  assert.match(html, /href="\/mcp\/"/);
+  assert.match(html, /href="\/emission\/"/);
 });
 
 test("ships the product stage and accessible interaction structure", async () => {
@@ -62,5 +69,37 @@ test("ships the product stage and accessible interaction structure", async () =>
   assert.match(html, /aria-controls="journey-proof"/);
   assert.match(html, /See how Tatak knows/);
   assert.match(html, /loading="lazy"/);
+  assert.equal((html.match(/<h1\b/g) ?? []).length, 1);
+});
+
+test("server-renders the MCP route", async () => {
+  const response = await render("/mcp");
+  assert.equal(response.status, 200);
+
+  const html = await response.text();
+  assert.match(html, /<title>MCP server - Tatak<\/title>/i);
+  assert.match(html, /https:\/\/app\.tatak\.tech\/api\/mcp/);
+  assert.match(html, /claude mcp add --transport http/);
+  assert.match(html, /MCP_ENABLED/);
+  assert.match(html, /mcp-disabled/);
+  assert.match(html, /plan_journey/);
+  assert.match(html, /meet_in_the_middle/);
+  assert.equal((html.match(/<h1\b/g) ?? []).length, 1);
+});
+
+test("server-renders the emission route with its cited factors", async () => {
+  const response = await render("/emission");
+  assert.equal(response.status, 200);
+
+  const html = await response.text();
+  assert.match(html, /<title>How the emission figure is worked out - Tatak<\/title>/i);
+  assert.match(html, /0\.130 kg CO2/);
+  assert.match(html, /0\.015161 kg CO2/);
+  assert.match(html, /0\.025 kg CO2e/);
+  assert.match(html, /India GHG Program/);
+  assert.match(html, /section 5\.3\.1/);
+  assert.match(html, /section 5\.4\.1/);
+  assert.match(html, /21 kg a year on average/);
+  assert.match(html, /straight line between the journey/);
   assert.equal((html.match(/<h1\b/g) ?? []).length, 1);
 });

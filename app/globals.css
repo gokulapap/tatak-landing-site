@@ -1114,6 +1114,7 @@ img {
   color: var(--ink);
 }
 
+.section-intro h1,
 .section-intro h2,
 .signals-header h2 {
   margin: 26px 0 0;
@@ -1123,6 +1124,7 @@ img {
   letter-spacing: -0.068em;
 }
 
+.section-intro h1 em,
 .section-intro h2 em {
   color: var(--muted);
   font-style: normal;
@@ -1140,8 +1142,16 @@ img {
   display: block;
 }
 
+.section-intro.compact h1,
 .section-intro.compact h2 {
   max-width: 13ch;
+}
+
+/* In the compact (block) intro the paragraph follows the heading directly
+   instead of sitting in its own column, so it needs the gap the two-column
+   layout gives it for free. */
+.section-intro.compact > p {
+  margin-top: 24px;
 }
 
 /* Problem / solution */
@@ -2014,6 +2024,25 @@ img {
   color: white;
 }
 
+.signals-aside {
+  max-width: 70ch;
+  margin: 26px 0 0 95px;
+  color: rgba(255, 255, 255, 0.53);
+  font-size: 12px;
+  line-height: 1.75;
+}
+
+.signals-aside a {
+  color: white;
+  text-decoration: underline;
+  text-decoration-color: rgba(255, 255, 255, 0.34);
+  text-underline-offset: 3px;
+}
+
+.signals-aside a:hover {
+  text-decoration-color: white;
+}
+
 /* Workflow */
 .workflow-section {
   padding: 140px max(24px, calc((100vw - var(--max)) / 2)) 145px;
@@ -2113,10 +2142,14 @@ img {
   transform: translateY(-2px);
 }
 
+/* Route pages. Nothing sits above them but the fixed header, so they carry
+   the top clearance a section between two other sections does not need. */
+.route-section {
+  padding: 154px max(24px, calc((100vw - var(--max)) / 2)) 150px;
+}
+
 /* MCP server */
-.mcp-section {
-  padding: 140px max(24px, calc((100vw - var(--max)) / 2)) 145px;
-  border-top: 1px solid var(--line);
+.mcp-page {
   background: var(--canvas-deep);
 }
 
@@ -2251,6 +2284,256 @@ img {
   color: var(--ink-soft);
   font-size: 13px;
   line-height: 1.8;
+}
+
+/* Shared furniture for the standalone routes */
+.page-subhead {
+  max-width: 22ch;
+  margin: 84px 0 0;
+  font-size: clamp(26px, 3.4vw, 38px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.045em;
+}
+
+.mcp-field > div,
+.mcp-field > .mcp-code {
+  min-width: 0;
+}
+
+.mcp-code {
+  overflow-x: auto;
+  margin: 0;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--canvas);
+}
+
+.mcp-code code {
+  white-space: pre;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.mcp-field > div > p {
+  margin: 14px 0 0;
+  color: var(--ink-soft);
+  font-size: 12px;
+  line-height: 1.75;
+}
+
+.mcp-inline-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--red);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.mcp-inline-link:hover {
+  text-decoration: underline;
+}
+
+.tool-catalogue {
+  margin: 26px 0 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 34px;
+}
+
+.tool-row {
+  padding: 16px 0;
+  display: grid;
+  grid-template-columns: 190px minmax(0, 1fr);
+  gap: 16px;
+  align-items: baseline;
+  border-bottom: 1px solid var(--line);
+}
+
+.tool-row dt code {
+  color: var(--ink);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+}
+
+.tool-row dd {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.note-list {
+  max-width: 82ch;
+  margin: 26px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.note-list li {
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink-soft);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.note-list li:last-child {
+  border-bottom: 0;
+}
+
+.note-list strong {
+  color: var(--ink);
+}
+
+.note-list code {
+  padding: 2px 5px;
+  border-radius: 4px;
+  background: var(--canvas);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 11px;
+}
+
+/* Emission method page */
+.emission-page {
+  background: var(--surface);
+}
+
+/* The claim as it is printed on a ticket, quoted rather than restyled: the
+   figure in the carbon green, the tree line under it, the thank-you last. */
+.claim-sample {
+  max-width: 640px;
+  margin: 56px 0 0;
+  padding: 30px 32px;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--green);
+  border-radius: 14px;
+  background: var(--green-soft);
+}
+
+.claim-sample > span {
+  color: var(--muted);
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.claim-sample > strong {
+  display: block;
+  margin-top: 14px;
+  color: var(--green);
+  font-size: clamp(21px, 2.6vw, 27px);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+}
+
+.claim-sample > p {
+  margin: 12px 0 0;
+  color: var(--ink-soft);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.claim-sample > small {
+  display: block;
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.emission-copy {
+  max-width: 78ch;
+  margin: 26px 0 0;
+  color: var(--ink-soft);
+  font-size: 14px;
+  line-height: 1.85;
+}
+
+.emission-copy q {
+  color: var(--ink);
+  font-style: italic;
+}
+
+.factor-source {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+.factor-source a {
+  overflow-wrap: anywhere;
+  color: var(--ink-soft);
+  text-decoration: underline;
+  text-decoration-color: var(--line-strong);
+  text-underline-offset: 3px;
+}
+
+.factor-source a:hover {
+  color: var(--red);
+  text-decoration-color: var(--red);
+}
+
+/* The two shapes the tree line takes: a duration under one tree-year of
+   avoided CO2, a tree count at or above it. */
+.tree-forms {
+  margin-top: 26px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.tree-forms p {
+  margin: 0;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--canvas);
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+}
+
+/* Contact page */
+.contact-section {
+  padding: 154px max(24px, calc((100vw - var(--max)) / 2)) 150px;
+  background: var(--surface);
+}
+
+.contact-panel {
+  max-width: 640px;
+}
+
+.contact-panel .mcp-field p a {
+  overflow-wrap: anywhere;
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--line-strong);
+  text-underline-offset: 3px;
+}
+
+.contact-panel .mcp-field p a:hover {
+  color: var(--red);
+  text-decoration-color: var(--red);
+}
+
+.contact-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 40px;
+  color: var(--ink-soft);
+  font-size: 11px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.contact-back:hover {
+  color: var(--red);
 }
 
 /* Use cases */
@@ -2528,6 +2811,26 @@ img {
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+.footer-meta {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 7px;
+}
+
+.footer-credit a {
+  color: rgba(255, 255, 255, 0.62);
+  text-decoration: underline;
+  text-decoration-color: rgba(255, 255, 255, 0.3);
+  text-underline-offset: 2px;
+}
+
+.footer-credit a:hover {
+  color: white;
+  text-decoration-color: white;
 }
 
 /* Motion */
@@ -3040,11 +3343,17 @@ img {
   .journey-section,
   .signals-section,
   .workflow-section,
-  .mcp-section,
   .use-cases-section {
     padding: 92px 14px 98px;
   }
 
+  .contact-section,
+  .mcp-page,
+  .emission-page {
+    padding: 112px 14px 98px;
+  }
+
+  .section-intro h1,
   .section-intro h2,
   .signals-header h2 {
     margin-top: 21px;
@@ -3073,7 +3382,7 @@ img {
   }
 
   .mcp-field {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 10px;
     padding: 20px 0;
   }
@@ -3155,8 +3464,27 @@ img {
 
   .capability-grid,
   .use-case-grid,
-  .mcp-tool-grid {
+  .mcp-tool-grid,
+  .tool-catalogue,
+  .tree-forms {
     grid-template-columns: 1fr;
+  }
+
+  .tool-row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .page-subhead {
+    margin-top: 56px;
+  }
+
+  .claim-sample {
+    padding: 22px;
+  }
+
+  .signals-aside {
+    margin-left: 0;
   }
 
   .mcp-tool:last-child {
@@ -3374,6 +3702,10 @@ img {
     align-items: flex-start;
     flex-direction: column;
     gap: 18px;
+  }
+
+  .footer-meta {
+    align-items: flex-start;
   }
 }
 

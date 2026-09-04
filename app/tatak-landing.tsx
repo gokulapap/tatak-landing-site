@@ -1,17 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-
-const APP_URL = "https://app.tatak.tech";
-
-const navigation = [
-  { href: "#why", label: "Why Tatak" },
-  { href: "#journey", label: "Sample journey" },
-  { href: "#signals", label: "Data clarity" },
-  { href: "#workflow", label: "How it works" },
-  { href: "https://app.tatak.tech/stickers.html", label: "Test QR codes", external: true },
-  { href: "#mcp", label: "MCP server" },
-];
+import { useState } from "react";
+import { AppLink, SiteFooter, SiteHeader, publicAsset, useRevealAnimations } from "./site-chrome";
 
 const preferences = [
   {
@@ -112,61 +102,6 @@ const useCases = [
   },
 ];
 
-const mcpTools = [
-  {
-    id: "plan",
-    label: "Plan a trip",
-    prompt: "Plan a trip from Indiranagar to Jayanagar.",
-  },
-  {
-    id: "last-service",
-    label: "Last service home",
-    prompt: "What's the last service from MG Road to Whitefield tonight?",
-  },
-  {
-    id: "meet",
-    label: "Meet in the middle",
-    prompt: "I'm in HSR Layout, a friend is in Hebbal. Where should we meet?",
-  },
-];
-
-const publicAsset = (path: string) =>
-  `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}${path}`;
-
-function Brand({ className = "" }: { className?: string }) {
-  return (
-    <a className={`brand ${className}`.trim()} href="#top" aria-label="Tatak home">
-      <span className="brand-mark kn" aria-hidden="true">ತ</span>
-      <span className="brand-name">Tatak</span>
-      <span className="brand-kn kn" lang="kn">ತಟಕ್</span>
-    </a>
-  );
-}
-
-function AppLink({
-  className = "",
-  label = "Try Tatak",
-  tabIndex,
-}: {
-  className?: string;
-  label?: string;
-  tabIndex?: number;
-}) {
-  return (
-    <a
-      className={className}
-      href={APP_URL}
-      target="_blank"
-      rel="noreferrer"
-      aria-label={`${label} (opens in a new tab)`}
-      tabIndex={tabIndex}
-    >
-      <span>{label}</span>
-      <span aria-hidden="true">↗</span>
-    </a>
-  );
-}
-
 function RouteList({ compact = false }: { compact?: boolean }) {
   return (
     <div className={`route-list ${compact ? "route-list--compact" : ""}`}>
@@ -256,59 +191,10 @@ function ProductPreview() {
 }
 
 export function TatakLanding() {
-  const navRef = useRef<HTMLElement>(null);
-  const [menuOpen, setMenuOpen] = useState(false);
   const [detailsOpen, setDetailsOpen] = useState(false);
   const [preference, setPreference] = useState("fastest");
 
-  useEffect(() => {
-    let frame = 0;
-    const update = () => {
-      frame = 0;
-      navRef.current?.classList.toggle("is-scrolled", window.scrollY > 12);
-    };
-    const schedule = () => {
-      if (!frame) frame = window.requestAnimationFrame(update);
-    };
-    update();
-    window.addEventListener("scroll", schedule, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", schedule);
-      if (frame) window.cancelAnimationFrame(frame);
-    };
-  }, []);
-
-  useEffect(() => {
-    const elements = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal]"));
-    document.documentElement.classList.add("reveal-ready");
-
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) {
-      elements.forEach((element) => element.classList.add("is-in-view"));
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          (entry.target as HTMLElement).classList.add("is-in-view");
-          observer.unobserve(entry.target);
-        }
-      }),
-      { threshold: 0.08, rootMargin: "0px 0px -5%" },
-    );
-
-    elements.forEach((element) => observer.observe(element));
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    if (!menuOpen) return;
-    const close = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setMenuOpen(false);
-    };
-    document.addEventListener("keydown", close);
-    return () => document.removeEventListener("keydown", close);
-  }, [menuOpen]);
+  useRevealAnimations();
 
   const activePreference =
     preferences.find((item) => item.id === preference) ?? preferences[0];
@@ -317,54 +203,7 @@ export function TatakLanding() {
     <main>
       <a className="skip-link" href="#main-content">Skip to content</a>
 
-      <header ref={navRef} className="site-nav">
-        <Brand />
-        <nav className="desktop-nav" aria-label="Primary navigation">
-          {navigation.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              {...(item.external ? { target: "_blank", rel: "noreferrer" } : {})}
-            >
-              {item.label}
-            </a>
-          ))}
-        </nav>
-        <AppLink className="nav-cta" />
-        <button
-          type="button"
-          className="menu-toggle"
-          aria-label={menuOpen ? "Close navigation" : "Open navigation"}
-          aria-expanded={menuOpen}
-          aria-controls="mobile-navigation"
-          onClick={() => setMenuOpen((value) => !value)}
-        >
-          <span /><span />
-        </button>
-        <nav
-          id="mobile-navigation"
-          className={`mobile-nav ${menuOpen ? "is-open" : ""}`}
-          aria-label="Mobile navigation"
-          aria-hidden={!menuOpen}
-        >
-          {navigation.map((item, index) => (
-            <a
-              key={item.href}
-              href={item.href}
-              tabIndex={menuOpen ? 0 : -1}
-              onClick={() => setMenuOpen(false)}
-              {...(item.external ? { target: "_blank", rel: "noreferrer" } : {})}
-            >
-              {item.label}<span>0{index + 1}</span>
-            </a>
-          ))}
-          <AppLink
-            className="mobile-app-link"
-            label="Open Tatak"
-            tabIndex={menuOpen ? 0 : -1}
-          />
-        </nav>
-      </header>
+      <SiteHeader isHome />
 
       <section className="hero" id="top">
         <div className="hero-copy" id="main-content" data-reveal>
@@ -543,6 +382,10 @@ export function TatakLanding() {
           <span className="kn" aria-hidden="true">ತ</span>
           <p><strong>Clarity over false certainty.</strong> Tatak tells you what the system knows, where it came from and when it is only an estimate.</p>
         </div>
+        <p className="signals-aside" data-reveal>
+          The same rule covers the CO2 a ticket says a journey avoided: modelled from published factors, never measured.{" "}
+          <a href={publicAsset("/emission/")}>See how that figure is worked out<span aria-hidden="true"> →</span></a>
+        </p>
       </section>
 
       <section className="workflow-section" id="workflow" aria-labelledby="workflow-title">
@@ -558,51 +401,9 @@ export function TatakLanding() {
         <AppLink className="workflow-cta" label="Plan your journey" />
       </section>
 
-      <section className="mcp-section" id="mcp" aria-labelledby="mcp-title">
-        <header className="section-intro compact" data-reveal>
-          <div className="section-label"><span>06</span> Talk to it directly</div>
-          <h2 id="mcp-title">Point any assistant <em>at the same planner.</em></h2>
-          <p>Tatak&apos;s route planner is also available as an MCP server, so an AI assistant can query Bengaluru&apos;s bus and metro network on its own, without the app open.</p>
-        </header>
-
-        <div className="mcp-panel" data-reveal>
-          <div className="mcp-field">
-            <span>Endpoint</span>
-            <code>https://app.tatak.tech/api/mcp</code>
-          </div>
-          <div className="mcp-field">
-            <span>Authorization</span>
-            <p>Send the token as <code>Authorization: Bearer &lt;token&gt;</code> or as <code>x-api-key: &lt;token&gt;</code>. claude.ai&apos;s custom connector form reserves the Authorization header for its own sign-in, so use <code>x-api-key</code> there.</p>
-          </div>
-          <div className="mcp-field">
-            <span>Connecting from claude.ai</span>
-            <ol className="mcp-steps">
-              <li>Add a custom connector with the endpoint above.</li>
-              <li>Choose “None” for the OAuth client - the form recommends it for a server that uses an API key.</li>
-              <li>Add a header named <code>x-api-key</code> and paste the token as its value.</li>
-            </ol>
-          </div>
-          <div className="mcp-field mcp-token-field">
-            <span>Token</span>
-            <code className="mcp-token">Available on request</code>
-          </div>
-          <p className="mcp-legacy">Older clients that speak the earlier HTTP+SSE transport have a fallback at <code>https://app.tatak.tech/api/mcp/sse</code>, though that endpoint isn&apos;t live in production yet.</p>
-        </div>
-
-        <div className="mcp-tool-grid">
-          {mcpTools.map((tool) => (
-            <article className="mcp-tool" key={tool.id} data-reveal>
-              <small>{tool.label}</small>
-              <p>“{tool.prompt}”</p>
-            </article>
-          ))}
-        </div>
-        <p className="mcp-note" data-reveal>It also finds stops near a place, reads out a route, checks what&apos;s due next, plans a trip to the airport, works out when to leave to arrive on time, and shows where you can reach within a set time. And it won&apos;t guess a place it isn&apos;t sure about: ask about HSR Layout, which has more than one match in Bengaluru, and it names the candidates instead of picking one for you.</p>
-      </section>
-
       <section className="use-cases-section" aria-labelledby="use-cases-title">
         <header className="section-intro" data-reveal>
-          <div className="section-label"><span>07</span> Made for real movement</div>
+          <div className="section-label"><span>06</span> Made for real movement</div>
           <h2 id="use-cases-title">For the journey you make every day—and the one you have never made.</h2>
         </header>
         <div className="use-case-grid">
@@ -626,28 +427,7 @@ export function TatakLanding() {
         </div>
       </section>
 
-      <footer className="site-footer">
-        <div className="footer-main">
-          <div><Brand className="footer-brand" /><p>One calm answer for a city in motion.</p></div>
-          <nav aria-label="Footer navigation">
-            <span>Explore</span>
-            {navigation.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                {...(item.external ? { target: "_blank", rel: "noreferrer" } : {})}
-              >
-                {item.label}
-              </a>
-            ))}
-          </nav>
-          <div className="footer-product"><span>Product</span><AppLink className="footer-app-link" label="Try Tatak" /><a href="#top">Back to top ↑</a></div>
-        </div>
-        <div className="footer-legal">
-          <p>Tatak is an independent hackathon prototype. It is not affiliated with, endorsed by or operated by BMTC, BMRCL or any government body. Tickets shown in the prototype are specimens and are not valid for travel. Two of the five test QR codes are deliberate no-duty cases: scan one to see Tatak ask you to name the route instead of guessing it.</p>
-          <span>© 2026 Tatak · Bengaluru</span>
-        </div>
-      </footer>
+      <SiteFooter isHome />
     </main>
   );
 }
