@@ -1114,6 +1114,7 @@ img {
   color: var(--ink);
 }
 
+.section-intro h1,
 .section-intro h2,
 .signals-header h2 {
   margin: 26px 0 0;
@@ -1123,6 +1124,7 @@ img {
   letter-spacing: -0.068em;
 }
 
+.section-intro h1 em,
 .section-intro h2 em {
   color: var(--muted);
   font-style: normal;
@@ -1140,8 +1142,16 @@ img {
   display: block;
 }
 
+.section-intro.compact h1,
 .section-intro.compact h2 {
   max-width: 13ch;
+}
+
+/* In the compact (block) intro the paragraph follows the heading directly
+   instead of sitting in its own column, so it needs the gap the two-column
+   layout gives it for free. */
+.section-intro.compact > p {
+  margin-top: 24px;
 }
 
 /* Problem / solution */
@@ -2113,10 +2123,14 @@ img {
   transform: translateY(-2px);
 }
 
+/* Route pages. Nothing sits above them but the fixed header, so they carry
+   the top clearance a section between two other sections does not need. */
+.route-section {
+  padding: 154px max(24px, calc((100vw - var(--max)) / 2)) 150px;
+}
+
 /* MCP server */
-.mcp-section {
-  padding: 140px max(24px, calc((100vw - var(--max)) / 2)) 145px;
-  border-top: 1px solid var(--line);
+.mcp-page {
   background: var(--canvas-deep);
 }
 
@@ -2251,6 +2265,116 @@ img {
   color: var(--ink-soft);
   font-size: 13px;
   line-height: 1.8;
+}
+
+/* Shared furniture for the standalone routes */
+.page-subhead {
+  max-width: 22ch;
+  margin: 84px 0 0;
+  font-size: clamp(26px, 3.4vw, 38px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.045em;
+}
+
+.mcp-field > div,
+.mcp-field > .mcp-code {
+  min-width: 0;
+}
+
+.mcp-code {
+  overflow-x: auto;
+  margin: 0;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--canvas);
+}
+
+.mcp-code code {
+  white-space: pre;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.mcp-field > div > p {
+  margin: 14px 0 0;
+  color: var(--ink-soft);
+  font-size: 12px;
+  line-height: 1.75;
+}
+
+.mcp-inline-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--red);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.mcp-inline-link:hover {
+  text-decoration: underline;
+}
+
+.tool-catalogue {
+  margin: 26px 0 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 34px;
+}
+
+.tool-row {
+  padding: 16px 0;
+  display: grid;
+  grid-template-columns: 190px minmax(0, 1fr);
+  gap: 16px;
+  align-items: baseline;
+  border-bottom: 1px solid var(--line);
+}
+
+.tool-row dt code {
+  color: var(--ink);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+}
+
+.tool-row dd {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.note-list {
+  max-width: 82ch;
+  margin: 26px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.note-list li {
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink-soft);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.note-list li:last-child {
+  border-bottom: 0;
+}
+
+.note-list strong {
+  color: var(--ink);
+}
+
+.note-list code {
+  padding: 2px 5px;
+  border-radius: 4px;
+  background: var(--canvas);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 11px;
 }
 
 /* Contact page */
@@ -3098,15 +3222,17 @@ img {
   .journey-section,
   .signals-section,
   .workflow-section,
-  .mcp-section,
   .use-cases-section {
     padding: 92px 14px 98px;
   }
 
-  .contact-section {
+  .contact-section,
+  .mcp-page {
     padding: 112px 14px 98px;
   }
 
+
+  .section-intro h1,
   .section-intro h2,
   .signals-header h2 {
     margin-top: 21px;
@@ -3135,7 +3261,7 @@ img {
   }
 
   .mcp-field {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 10px;
     padding: 20px 0;
   }
@@ -3217,9 +3343,20 @@ img {
 
   .capability-grid,
   .use-case-grid,
-  .mcp-tool-grid {
+  .mcp-tool-grid,
+  .tool-catalogue {
     grid-template-columns: 1fr;
   }
+
+  .tool-row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .page-subhead {
+    margin-top: 56px;
+  }
+
 
   .mcp-tool:last-child {
     grid-column: auto;

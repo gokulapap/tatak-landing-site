@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { AppLink, CONTACT_EMAIL, SiteFooter, SiteHeader, publicAsset, useRevealAnimations } from "./site-chrome";
+import { AppLink, SiteFooter, SiteHeader, publicAsset, useRevealAnimations } from "./site-chrome";
 
 const preferences = [
   {
@@ -99,24 +99,6 @@ const useCases = [
     title: "Find the coach that fits your route.",
     body: "Explore Vayu Vajra airport-coach services alongside Bengaluru transit information.",
     accent: "green",
-  },
-];
-
-const mcpTools = [
-  {
-    id: "plan",
-    label: "Plan a trip",
-    prompt: "Plan a trip from Indiranagar to Jayanagar.",
-  },
-  {
-    id: "last-service",
-    label: "Last service home",
-    prompt: "What's the last service from MG Road to Whitefield tonight?",
-  },
-  {
-    id: "meet",
-    label: "Meet in the middle",
-    prompt: "I'm in HSR Layout, a friend is in Hebbal. Where should we meet?",
   },
 ];
 
@@ -415,51 +397,9 @@ export function TatakLanding() {
         <AppLink className="workflow-cta" label="Plan your journey" />
       </section>
 
-      <section className="mcp-section" id="mcp" aria-labelledby="mcp-title">
-        <header className="section-intro compact" data-reveal>
-          <div className="section-label"><span>06</span> Talk to it directly</div>
-          <h2 id="mcp-title">Point any assistant <em>at the same planner.</em></h2>
-          <p>Tatak&apos;s route planner is also available as an MCP server, so an AI assistant can query Bengaluru&apos;s bus and metro network on its own, without the app open.</p>
-        </header>
-
-        <div className="mcp-panel" data-reveal>
-          <div className="mcp-field">
-            <span>Endpoint</span>
-            <code>https://app.tatak.tech/api/mcp</code>
-          </div>
-          <div className="mcp-field">
-            <span>Authorization</span>
-            <p>Send the token as <code>Authorization: Bearer &lt;token&gt;</code> or as <code>x-api-key: &lt;token&gt;</code>. claude.ai&apos;s custom connector form reserves the Authorization header for its own sign-in, so use <code>x-api-key</code> there.</p>
-          </div>
-          <div className="mcp-field">
-            <span>Connecting from claude.ai</span>
-            <ol className="mcp-steps">
-              <li>Add a custom connector with the endpoint above.</li>
-              <li>Choose “None” for the OAuth client - the form recommends it for a server that uses an API key.</li>
-              <li>Add a header named <code>x-api-key</code> and paste the token below as its value.</li>
-            </ol>
-          </div>
-          <div className="mcp-field mcp-token-field">
-            <span>Token</span>
-            <code className="mcp-token">Email <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a> for one.</code>
-          </div>
-          <p className="mcp-legacy">Older clients that speak the earlier HTTP+SSE transport have a fallback at <code>https://app.tatak.tech/api/mcp/sse</code>, though that endpoint isn&apos;t live in production yet.</p>
-        </div>
-
-        <div className="mcp-tool-grid">
-          {mcpTools.map((tool) => (
-            <article className="mcp-tool" key={tool.id} data-reveal>
-              <small>{tool.label}</small>
-              <p>“{tool.prompt}”</p>
-            </article>
-          ))}
-        </div>
-        <p className="mcp-note" data-reveal>It also finds stops near a place, reads out a route, checks what&apos;s due next, plans a trip to the airport, works out when to leave to arrive on time, and shows where you can reach within a set time. And it won&apos;t guess a place it isn&apos;t sure about: ask about HSR Layout, which has more than one match in Bengaluru, and it names the candidates instead of picking one for you.</p>
-      </section>
-
       <section className="use-cases-section" aria-labelledby="use-cases-title">
         <header className="section-intro" data-reveal>
-          <div className="section-label"><span>07</span> Made for real movement</div>
+          <div className="section-label"><span>06</span> Made for real movement</div>
           <h2 id="use-cases-title">For the journey you make every day—and the one you have never made.</h2>
         </header>
         <div className="use-case-grid">
