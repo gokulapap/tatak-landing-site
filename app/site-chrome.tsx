@@ -13,11 +13,19 @@ type NavItem = {
   route?: boolean;
 };
 
+/**
+ * Four entries, and the four in-page anchors that used to sit in front of
+ * them are gone. They pointed at sections of the page a visitor is already
+ * scrolling through, so they earned a slot in the header by describing the
+ * page rather than by taking anyone anywhere new.
+ *
+ * What is left is the five things a visitor cannot reach by scrolling: the
+ * sticker sheet, and the four pages behind this one.
+ *
+ * One array feeds the desktop nav, the mobile nav and the footer, so this
+ * list is every link in all three.
+ */
 export const navigation: NavItem[] = [
-  { href: "#why", label: "Why Tatak" },
-  { href: "#journey", label: "Sample journey" },
-  { href: "#signals", label: "Data clarity" },
-  { href: "#workflow", label: "How it works" },
   { href: "https://app.tatak.tech/stickers.html", label: "Test QR codes", external: true },
   { href: "/mcp/", label: "MCP server", route: true },
   { href: "/emission/", label: "Emission method", route: true },
