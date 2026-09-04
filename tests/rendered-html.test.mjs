@@ -49,6 +49,7 @@ test("server-renders the complete Tatak landing page", async () => {
   assert.doesNotMatch(html, /class="[^"]*mcp-panel[^"]*"/);
   assert.doesNotMatch(html, /id="mcp"/);
   assert.match(html, /href="\/mcp\/"/);
+  assert.match(html, /href="\/emission\/"/);
 });
 
 test("ships the product stage and accessible interaction structure", async () => {
@@ -83,5 +84,22 @@ test("server-renders the MCP route", async () => {
   assert.match(html, /mcp-disabled/);
   assert.match(html, /plan_journey/);
   assert.match(html, /meet_in_the_middle/);
+  assert.equal((html.match(/<h1\b/g) ?? []).length, 1);
+});
+
+test("server-renders the emission route with its cited factors", async () => {
+  const response = await render("/emission");
+  assert.equal(response.status, 200);
+
+  const html = await response.text();
+  assert.match(html, /<title>How the emission figure is worked out - Tatak<\/title>/i);
+  assert.match(html, /0\.130 kg CO2/);
+  assert.match(html, /0\.015161 kg CO2/);
+  assert.match(html, /0\.025 kg CO2e/);
+  assert.match(html, /India GHG Program/);
+  assert.match(html, /section 5\.3\.1/);
+  assert.match(html, /section 5\.4\.1/);
+  assert.match(html, /21 kg a year on average/);
+  assert.match(html, /straight line between the journey/);
   assert.equal((html.match(/<h1\b/g) ?? []).length, 1);
 });

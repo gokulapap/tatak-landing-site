@@ -382,6 +382,10 @@ export function TatakLanding() {
           <span className="kn" aria-hidden="true">ತ</span>
           <p><strong>Clarity over false certainty.</strong> Tatak tells you what the system knows, where it came from and when it is only an estimate.</p>
         </div>
+        <p className="signals-aside" data-reveal>
+          The same rule covers the CO2 a ticket says a journey avoided: modelled from published factors, never measured.{" "}
+          <a href={publicAsset("/emission/")}>See how that figure is worked out<span aria-hidden="true"> →</span></a>
+        </p>
       </section>
 
       <section className="workflow-section" id="workflow" aria-labelledby="workflow-title">

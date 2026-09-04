@@ -2024,6 +2024,25 @@ img {
   color: white;
 }
 
+.signals-aside {
+  max-width: 70ch;
+  margin: 26px 0 0 95px;
+  color: rgba(255, 255, 255, 0.53);
+  font-size: 12px;
+  line-height: 1.75;
+}
+
+.signals-aside a {
+  color: white;
+  text-decoration: underline;
+  text-decoration-color: rgba(255, 255, 255, 0.34);
+  text-underline-offset: 3px;
+}
+
+.signals-aside a:hover {
+  text-decoration-color: white;
+}
+
 /* Workflow */
 .workflow-section {
   padding: 140px max(24px, calc((100vw - var(--max)) / 2)) 145px;
@@ -2375,6 +2394,108 @@ img {
   background: var(--canvas);
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-size: 11px;
+}
+
+/* Emission method page */
+.emission-page {
+  background: var(--surface);
+}
+
+/* The claim as it is printed on a ticket, quoted rather than restyled: the
+   figure in the carbon green, the tree line under it, the thank-you last. */
+.claim-sample {
+  max-width: 640px;
+  margin: 56px 0 0;
+  padding: 30px 32px;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--green);
+  border-radius: 14px;
+  background: var(--green-soft);
+}
+
+.claim-sample > span {
+  color: var(--muted);
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.claim-sample > strong {
+  display: block;
+  margin-top: 14px;
+  color: var(--green);
+  font-size: clamp(21px, 2.6vw, 27px);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+}
+
+.claim-sample > p {
+  margin: 12px 0 0;
+  color: var(--ink-soft);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.claim-sample > small {
+  display: block;
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.emission-copy {
+  max-width: 78ch;
+  margin: 26px 0 0;
+  color: var(--ink-soft);
+  font-size: 14px;
+  line-height: 1.85;
+}
+
+.emission-copy q {
+  color: var(--ink);
+  font-style: italic;
+}
+
+.factor-source {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+.factor-source a {
+  overflow-wrap: anywhere;
+  color: var(--ink-soft);
+  text-decoration: underline;
+  text-decoration-color: var(--line-strong);
+  text-underline-offset: 3px;
+}
+
+.factor-source a:hover {
+  color: var(--red);
+  text-decoration-color: var(--red);
+}
+
+/* The two shapes the tree line takes: a duration under one tree-year of
+   avoided CO2, a tree count at or above it. */
+.tree-forms {
+  margin-top: 26px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.tree-forms p {
+  margin: 0;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--canvas);
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
 }
 
 /* Contact page */
@@ -3227,10 +3348,10 @@ img {
   }
 
   .contact-section,
-  .mcp-page {
+  .mcp-page,
+  .emission-page {
     padding: 112px 14px 98px;
   }
-
 
   .section-intro h1,
   .section-intro h2,
@@ -3344,7 +3465,8 @@ img {
   .capability-grid,
   .use-case-grid,
   .mcp-tool-grid,
-  .tool-catalogue {
+  .tool-catalogue,
+  .tree-forms {
     grid-template-columns: 1fr;
   }
 
@@ -3357,6 +3479,13 @@ img {
     margin-top: 56px;
   }
 
+  .claim-sample {
+    padding: 22px;
+  }
+
+  .signals-aside {
+    margin-left: 0;
+  }
 
   .mcp-tool:last-child {
     grid-column: auto;

@@ -20,6 +20,7 @@ export const navigation: NavItem[] = [
   { href: "#workflow", label: "How it works" },
   { href: "https://app.tatak.tech/stickers.html", label: "Test QR codes", external: true },
   { href: "/mcp/", label: "MCP server", route: true },
+  { href: "/emission/", label: "Emission method", route: true },
   { href: "/contact/", label: "Contact", route: true },
 ];
 
