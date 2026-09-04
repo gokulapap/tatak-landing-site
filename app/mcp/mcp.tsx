@@ -100,7 +100,7 @@ export function McpPage() {
             <span>If it answers 503</span>
             <p>The endpoint is gated by <code>MCP_ENABLED</code>, which defaults to off. With the flag unset or false a deployment answers <code>503 mcp-disabled</code> before it reads the body, before it checks the token and before it loads the graph. With the flag on and no token configured it answers <code>mcp-unconfigured</code> and refuses everybody. Either way the switch is the operator&apos;s, not your client&apos;s.</p>
           </div>
-          <p className="mcp-legacy">Older clients that speak the earlier 2024-11-05 HTTP+SSE transport have a fallback at <code>https://app.tatak.tech/api/mcp/sse</code>, though that endpoint isn&apos;t live in production yet. Everything else about it is the same: same flag, same token, same nine tools.</p>
+          <p className="mcp-legacy">Older clients that speak the earlier 2024-11-05 HTTP+SSE transport have a fallback at <code>https://app.tatak.tech/api/mcp/sse</code>. Everything else about it is the same: same flag, same token, same nine tools.</p>
         </div>
 
         <h2 className="page-subhead" data-reveal>Ask it like this</h2>
