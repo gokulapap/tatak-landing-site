@@ -2498,6 +2498,11 @@ img {
   letter-spacing: -0.01em;
 }
 
+/* Sample users page */
+.sample-users-page {
+  background: var(--surface);
+}
+
 /* Contact page */
 .contact-section {
   padding: 154px max(24px, calc((100vw - var(--max)) / 2)) 150px;
@@ -3349,7 +3354,8 @@ img {
 
   .contact-section,
   .mcp-page,
-  .emission-page {
+  .emission-page,
+  .sample-users-page {
     padding: 112px 14px 98px;
   }
 
