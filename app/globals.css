@@ -3888,7 +3888,7 @@ img {
 .section-intro.compact.fleet-intro {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(320px, 0.9fr);
-  align-items: center;
+  align-items: start;
   gap: clamp(28px, 4vw, 64px);
 }
 
@@ -3910,41 +3910,48 @@ img {
   line-height: 1.75;
 }
 
-/* A bento: the network this page leads with gets the wide cell, the three
-   coach classes share the row beneath it. No borders and no drop shadow -
-   the photographs are the block, and a frame around each one only makes the
-   column look like a pile of prints. */
-.fleet-photos {
+/* The four buses as a lineup: one column, fronts flush left, every
+   illustration sharing the same viewBox and scale, so the city bus visibly
+   stops short of the coaches and the coaches visibly stand taller. No
+   frames, no cards, no shadows: the drawings sit straight on the page. */
+.fleet-lineup {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 8px;
+  /* `minmax(0, 1fr)` rather than a bare `1fr`: an auto minimum would take
+     the SVG's intrinsic 1300px width as the column's floor and push the whole
+     page wider than a phone. */
+  grid-template-columns: minmax(0, 1fr);
+  gap: 18px;
   margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-.fleet-photos img {
-  /* The width and height attributes are presentational hints that set a real
-     CSS height, and `aspect-ratio` only fills in a dimension that is missing,
-     so without this every cell renders at the photograph's own height. */
-  height: auto;
+.fleet-lineup li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 4px;
+}
+
+.fleet-lineup img {
+  display: block;
   width: 100%;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-  border-radius: 14px;
-  background: var(--surface);
+  height: auto;
+  aspect-ratio: 1300 / 400;
 }
 
-.fleet-photos img:first-of-type {
-  grid-column: 1 / -1;
-  aspect-ratio: 16 / 9;
-  border-radius: 18px;
-}
-
-.fleet-photos figcaption {
-  grid-column: 1 / -1;
-  margin-top: 2px;
-  color: var(--muted);
+.fleet-lineup p {
+  margin: 0;
+  color: var(--ink);
   font-size: 10px;
-  line-height: 1.6;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.fleet-lineup p span {
+  margin-left: 8px;
+  color: var(--muted);
+  font-weight: 600;
 }
 
 @media (max-width: 900px) {
@@ -3952,15 +3959,8 @@ img {
     display: block;
   }
 
-  .fleet-photos {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .fleet-lineup {
+    gap: 14px;
     margin-top: 32px;
-  }
-
-  /* On two columns the wide cell would leave a hole in the row, so every
-     photograph takes the same square cell. */
-  .fleet-photos img:first-of-type {
-    grid-column: 1 / -1;
-    aspect-ratio: 16 / 10;
   }
 }

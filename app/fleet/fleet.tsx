@@ -189,6 +189,35 @@ const coachClasses = [
   },
 ];
 
+// The four buses drawn in the intro, in the order the page discusses them:
+// the two walk-up services first, then the two air conditioned ones.
+const fleetLineup = [
+  {
+    id: "bmtc-bengaluru-sarige",
+    name: "Bengaluru Sarige",
+    detail: "BMTC ordinary, walk-up",
+    alt: "A blue BMTC Bengaluru Sarige city bus in side profile",
+  },
+  {
+    id: "ksrtc-karnataka-sarige",
+    name: "Karnataka Sarige",
+    detail: "KSRTC intercity, walk-up",
+    alt: "A red and silver KSRTC Karnataka Sarige intercity bus in side profile",
+  },
+  {
+    id: "bmtc-vajra-volvo",
+    name: "Vajra",
+    detail: "BMTC air conditioned Volvo",
+    alt: "A deep red BMTC Vajra Volvo air conditioned city bus in side profile",
+  },
+  {
+    id: "nwkrtc-airavat-gold-class",
+    name: "Airavat Gold Class",
+    detail: "NWKRTC air conditioned coach, reserved",
+    alt: "A yellow NWKRTC Airavat Gold Class coach with a blue wave along its flank, in side profile",
+  },
+];
+
 const busTiers = [
   {
     id: "ordinary",
@@ -232,15 +261,19 @@ export function FleetPage() {
             <h1 id="fleet-title">Fleet types we support</h1>
             <p>Tatak plans over three tiers of BMTC city bus, three Namma Metro lines and sixteen intercity coach classes. Whether you can simply get on and pay is decided by the service class, not by the operator on the livery: only some of these are sold by the seat.</p>
           </div>
-          <figure className="fleet-photos">
-            <img src={publicAsset("/fleet/bmtc-bengaluru-sarige.webp")} alt="A blue BMTC Bengaluru Sarige city bus on route 201" width="900" height="675" loading="lazy" />
-            <img src={publicAsset("/fleet/ksrtc-karnataka-sarige.webp")} alt="A red KSRTC Karnataka Sarige intercity bus" width="716" height="282" loading="lazy" />
-            <img src={publicAsset("/fleet/bmtc-vajra-volvo.webp")} alt="A red BMTC Vajra Volvo air conditioned city bus" width="900" height="529" loading="lazy" />
-            <img src={publicAsset("/fleet/ksrtc-airavat-gold-class.webp")} alt="A yellow NWKRTC Airavat Gold Class coach" width="800" height="533" loading="lazy" />
-            <figcaption>
-              Bengaluru Sarige and Vajra photographs by FriendsofBMTC and Hayathkhan.h, Wikimedia Commons, CC BY-SA. Karnataka Sarige by Arhan Jain and Airavat Gold Class by NWKRTC, CC0.
-            </figcaption>
-          </figure>
+          {/* Side-profile illustrations at one scale, 100 units to the
+              metre, drawn from Wikimedia Commons reference photographs of
+              each bus. Fronts align on the left, so the lengths and floor
+              heights read as a fleet lineup rather than four separate
+              pictures. */}
+          <ul className="fleet-lineup">
+            {fleetLineup.map((bus) => (
+              <li key={bus.id}>
+                <img src={publicAsset(`/fleet/${bus.id}.svg`)} alt={bus.alt} width="1300" height="400" loading="lazy" />
+                <p>{bus.name} <span>{bus.detail}</span></p>
+              </li>
+            ))}
+          </ul>
         </header>
 
         <h2 className="page-subhead" data-reveal>BMTC city buses</h2>
