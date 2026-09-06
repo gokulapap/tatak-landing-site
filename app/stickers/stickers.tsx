@@ -190,58 +190,213 @@ const intercityStickers: Sticker[] = [
 const unreservedIntercity = intercityStickers.filter((s) => s.boarding === "Walk-up");
 const reservedIntercity = intercityStickers.filter((s) => s.boarding === "Reserved");
 
+// The sticker's own colour, not the site's. BMTC keys it by tier
+// (Ordinary/Vajra/Vayu Vajra); every printed BMTC sticker in
+// public/stickers.html uses exactly these three hex values.
+const bmtcColor: Record<string, string> = {
+  ordinary: "#c62828",
+  "ac-vajra": "#1565c0",
+  "airport-vayu-vajra": "#6a1b9a",
+};
+
+// The intercity sheet (public/stickers-intercity.html) keys colour by
+// operator rather than by class, because the walk-up Karnataka Sarige
+// sticker is the only class it printed. The five reserved classes below
+// are not in that sheet at all, so they inherit their operator's colour
+// rather than inventing a fourth palette - KSRTC, KKRTC and NWKRTC coaches
+// already read as themselves regardless of which class they're running.
+const operatorColor: Record<string, string> = {
+  KSRTC: "#8e2323",
+  NWKRTC: "#0f5f66",
+  KKRTC: "#3b3b8f",
+};
+
+// The BMTC sheet's skyline: a bus stop, a tree, a tower and an office block
+// sitting along the sticker's bottom edge at 10% opacity. Ported verbatim
+// from the `.sky` svg in public/stickers.html.
+function BusSkyline() {
+  return (
+    <svg
+      className="sticker-sky"
+      viewBox="0 0 390 78"
+      preserveAspectRatio="xMidYMax meet"
+      aria-hidden="true"
+    >
+      <g fill="currentColor">
+        <rect x="26" y="58" width="3" height="20" />
+        <path d="M27.5 40c11 0 19 6 19 12 0 3.4-3.2 6-8 6H16.5c-4.8 0-8-2.6-8-6 0-6 8-12 19-12Z" />
+        <path d="M58 78V44h4v-6h3v-5h2v5h3v6h4v34Z" />
+        <rect x="82" y="62" width="34" height="16" />
+        <g opacity=".55">
+          <rect x="86" y="62" width="2" height="16" />
+          <rect x="94" y="62" width="2" height="16" />
+          <rect x="102" y="62" width="2" height="16" />
+          <rect x="110" y="62" width="2" height="16" />
+        </g>
+        <g transform="translate(126,0)">
+          <path d="M46 30h-2v-4h-1.6v-2H44v-3h4v3h1.6v2H48v4h-2Z" transform="translate(-1,0)" />
+          <path d="M31 34c0-8 6.7-14 15-14s15 6 15 14Z" />
+          <rect x="28" y="34" width="36" height="5" />
+          <rect x="18" y="39" width="56" height="10" />
+          <rect x="10" y="49" width="72" height="4" />
+          <g>
+            <rect x="14" y="53" width="4" height="17" />
+            <rect x="24" y="53" width="4" height="17" />
+            <rect x="34" y="53" width="4" height="17" />
+            <rect x="44" y="53" width="4" height="17" />
+            <rect x="54" y="53" width="4" height="17" />
+            <rect x="64" y="53" width="4" height="17" />
+            <rect x="74" y="53" width="4" height="17" />
+          </g>
+          <rect x="0" y="44" width="10" height="26" />
+          <rect x="82" y="44" width="10" height="26" />
+          <path d="M5 38l5 6H0Z" />
+          <path d="M87 38l5 6h-10Z" />
+          <rect x="-4" y="70" width="100" height="4" />
+          <rect x="-10" y="74" width="112" height="4" />
+        </g>
+        <rect x="240" y="60" width="3" height="18" />
+        <path d="M241.5 44c9.5 0 16.5 5.2 16.5 10.4 0 3-2.8 5.6-7 5.6h-19c-4.2 0-7-2.6-7-5.6C225 49.2 232 44 241.5 44Z" />
+        <g transform="translate(268,0)">
+          <rect x="0" y="52" width="122" height="7" />
+          <rect x="10" y="59" width="9" height="19" />
+          <rect x="58" y="59" width="9" height="19" />
+          <rect x="106" y="59" width="9" height="19" />
+          <path d="M14 52V38.6c0-2.6 2.1-4.6 4.6-4.6h66.8c2.5 0 4.6 2 4.6 4.6V52Z" />
+          <g fill="#131518" opacity=".55">
+            <rect x="20" y="39" width="13" height="7" rx="1.6" />
+            <rect x="38" y="39" width="13" height="7" rx="1.6" />
+            <rect x="56" y="39" width="13" height="7" rx="1.6" />
+            <rect x="74" y="39" width="10" height="7" rx="1.6" />
+          </g>
+        </g>
+      </g>
+    </svg>
+  );
+}
+
+// The intercity sheet's skyline: a highway shoulder and two ridgelines,
+// standing in for the ghat roads these coaches actually run. Ported
+// verbatim from the `.sky` svg in public/stickers-intercity.html.
+function RouteSkyline() {
+  return (
+    <svg className="sticker-sky" viewBox="0 0 390 78" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
+      <g fill="currentColor">
+        <path d="M0 78V56c22-16 40-6 58-18s34-20 56-6 30 26 52 18 34-26 58-16 38 30 62 22 42-22 62-10 30 20 42 16V78Z" />
+        <g opacity=".5">
+          <path d="M0 78V70c30-4 52 6 78 2s44-14 72-12 46 12 74 8 46-14 76-10 60 12 90 8V78Z" />
+        </g>
+        <g opacity=".9">
+          <rect x="0" y="74" width="390" height="4" />
+          <rect x="10" y="71" width="26" height="2" opacity=".55" />
+          <rect x="60" y="71" width="26" height="2" opacity=".55" />
+          <rect x="110" y="71" width="26" height="2" opacity=".55" />
+          <rect x="160" y="71" width="26" height="2" opacity=".55" />
+          <rect x="210" y="71" width="26" height="2" opacity=".55" />
+          <rect x="260" y="71" width="26" height="2" opacity=".55" />
+          <rect x="310" y="71" width="26" height="2" opacity=".55" />
+          <rect x="360" y="71" width="26" height="2" opacity=".55" />
+        </g>
+      </g>
+    </svg>
+  );
+}
+
 function StickerCard({ sticker, accent }: { sticker: Sticker; accent: "bmtc" | "intercity" }) {
   const bin = mintBin(sticker.hub, sticker.serial);
   const digits = bin.slice(sticker.hub.length + 1);
   const payload = payloadFor(bin);
   const matrix = qrMatrix(payload);
+  const color = accent === "bmtc" ? bmtcColor[sticker.id] : operatorColor[sticker.corporation];
+  const vehicleNoun = accent === "bmtc" ? "bus" : "coach";
+  const [headLine1, headLine2] =
+    accent === "bmtc" ? ["Book a ticket", "on this bus"] : ["Board and buy", "on this coach"];
 
   return (
-    <article className={`sticker-card is-${accent}`} data-reveal>
-      <div className="sticker-card-head">
-        <span className="sticker-corp">{sticker.corporation}</span>
-        {sticker.boarding === "Reserved" ? (
-          <span className="fleet-tag">Reserved</span>
-        ) : (
-          <span className="fleet-tag is-walk-up">Walk-up</span>
-        )}
+    <div className="sticker-unit" data-reveal>
+      {/* The sticker: a solid-colour block with white ink, not a content
+          card. This markup and every class name under .sticker-figure is
+          a direct port of the printed sheet - see public/stickers.html
+          and public/stickers-intercity.html in the app repository. */}
+      <figure className="sticker-figure" style={{ background: color }}>
+        <div className="sticker-sweep" aria-hidden="true" />
+        {accent === "bmtc" ? <BusSkyline /> : <RouteSkyline />}
+        <div className="sticker-inner">
+          <div className="sticker-top">
+            <div className="sticker-head">
+              {headLine1}
+              <br />
+              <span>{headLine2}</span>
+            </div>
+            <div className="sticker-brand">
+              <span className="sticker-brand-name">Tatak</span>
+              <span className="sticker-brand-kn" lang="kn">ತಟಕ್</span>
+            </div>
+          </div>
+          <div className="sticker-body">
+            <div className="sticker-codeblock">
+              <div className="sticker-rail" aria-hidden="true">
+                <i className="sticker-rail-dot" />
+                <i className="sticker-rail-line" />
+                <i className="sticker-rail-dot" />
+              </div>
+              <div className="sticker-hub">{sticker.hub}</div>
+              <div className="sticker-digits">{digits}</div>
+            </div>
+            <div className="sticker-qrwrap">
+              <div className="sticker-qr">
+                <svg
+                  viewBox={`0 0 ${matrix.length} ${matrix.length}`}
+                  shapeRendering="crispEdges"
+                  fill="#1a1c1f"
+                  role="img"
+                  aria-label={`QR code for ${vehicleNoun} ${bin}`}
+                  dangerouslySetInnerHTML={{ __html: qrSvgRects(matrix) }}
+                />
+              </div>
+              <div className="sticker-qrcap">or scan</div>
+            </div>
+          </div>
+          <div className="sticker-rule" aria-hidden="true" />
+          <div className="sticker-foot">
+            <div className="sticker-kn" lang="kn">ಟಟಕ್‌ನಲ್ಲಿ ಈ ಸಂಖ್ಯೆ ನಮೂದಿಸಿ</div>
+            <div className="sticker-foot-right">
+              <span className="sticker-tier-chip">{sticker.className}</span>
+              <span className="sticker-plate-chip">{sticker.plate}</span>
+            </div>
+          </div>
+          <div className="sticker-mark">SPECIMEN · PROTOTYPE · NOT A {sticker.corporation} NOTICE</div>
+        </div>
+      </figure>
+
+      {/* Everything below the sticker is the page, not the artefact - it
+          stays in the landing site's own type and spacing. */}
+      <div className="sticker-about">
+        <div className="sticker-about-head">
+          <h3 className="sticker-class">{sticker.className}</h3>
+          {sticker.boarding === "Reserved" ? (
+            <span className="fleet-tag">Reserved</span>
+          ) : (
+            <span className="fleet-tag is-walk-up">Walk-up</span>
+          )}
+        </div>
+        <p className="sticker-bin">{bin} &middot; {sticker.corporationName}</p>
+        <p className="sticker-detail">{sticker.layout}</p>
+        <dl className="sticker-meta">
+          <div>
+            <dt>Corridor</dt>
+            <dd>{sticker.route}</dd>
+          </div>
+          <div>
+            <dt>Plate</dt>
+            <dd>{sticker.plate}</dd>
+          </div>
+        </dl>
+        <a className="sticker-open" href={payload} target="_blank" rel="noreferrer">
+          Open in Tatak <span aria-hidden="true">↗</span>
+        </a>
       </div>
-      <div className="sticker-card-body">
-        <div className="sticker-code">
-          <span className="sticker-hub">{sticker.hub}</span>
-          <span className="sticker-digits">{digits}</span>
-        </div>
-        <div className="sticker-qr">
-          <svg
-            viewBox={`0 0 ${matrix.length} ${matrix.length}`}
-            shapeRendering="crispEdges"
-            fill="#171815"
-            role="img"
-            aria-label={`QR code for ${sticker.className}, ${bin}`}
-            dangerouslySetInnerHTML={{ __html: qrSvgRects(matrix) }}
-          />
-        </div>
-      </div>
-      <p className="sticker-class">{sticker.className}</p>
-      <p className="sticker-detail">{sticker.layout}</p>
-      <dl className="sticker-meta">
-        <div>
-          <dt>Corridor</dt>
-          <dd>{sticker.route}</dd>
-        </div>
-        <div>
-          <dt>Plate</dt>
-          <dd>{sticker.plate}</dd>
-        </div>
-        <div>
-          <dt>Operator</dt>
-          <dd>{sticker.corporationName}</dd>
-        </div>
-      </dl>
-      <a className="sticker-open" href={payload} target="_blank" rel="noreferrer">
-        Open in Tatak <span aria-hidden="true">↗</span>
-      </a>
-    </article>
+    </div>
   );
 }
 

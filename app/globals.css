@@ -2522,88 +2522,161 @@ img {
   margin-top: 22px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  gap: 28px;
 }
 
-.sticker-card {
-  padding: 22px;
+.sticker-unit {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  border: 1px solid var(--line);
-  border-left: 3px solid var(--line-strong);
-  border-radius: 14px;
-  background: var(--surface);
-  transition: border-color 200ms ease, box-shadow 200ms ease, transform 200ms ease;
-}
-
-.sticker-card:hover {
-  border-color: var(--line-strong);
-  box-shadow: var(--shadow-sm);
-  transform: translateY(-4px);
-}
-
-.sticker-card.is-bmtc {
-  border-left-color: var(--red);
-}
-
-.sticker-card.is-intercity {
-  border-left-color: var(--blue);
-}
-
-.sticker-card-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.sticker-corp {
-  color: var(--muted);
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.sticker-card-body {
-  display: flex;
-  align-items: center;
   gap: 14px;
 }
 
-.sticker-code {
+/* The sticker itself: a solid-colour block with white ink, ported
+   class-for-class from the printed sheets (public/stickers.html and
+   public/stickers-intercity.html in the app repository). It deliberately
+   does not use the site's card surface, border or radius scale - this is
+   a distinct designed artefact, not a piece of editorial content. */
+.sticker-figure {
+  container-type: inline-size;
+  position: relative;
+  margin: 0;
+  width: min(360px, 100%);
+  border-radius: 16px;
+  overflow: hidden;
+  color: #fff;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.22);
+  isolation: isolate;
+}
+
+.sticker-sweep {
+  position: absolute;
+  inset: auto -30% 30% auto;
+  width: 120%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.09);
+  z-index: 0;
+}
+
+.sticker-sky {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  color: #fff;
+  opacity: 0.1;
+  z-index: 0;
+}
+
+.sticker-inner {
+  position: relative;
+  z-index: 1;
+  padding: 18px 20px 13px;
+}
+
+.sticker-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.sticker-head {
+  font-weight: 800;
+  line-height: 1.15;
+  font-size: 14px;
+}
+
+.sticker-head span {
+  opacity: 0.72;
+}
+
+.sticker-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 1;
+}
+
+.sticker-brand-name {
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: -0.3px;
+}
+
+.sticker-brand-kn {
+  opacity: 0.6;
+  font-size: 10px;
+  margin-top: 2px;
+}
+
+.sticker-body {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 10px;
+}
+
+.sticker-codeblock {
   flex: 1 1 auto;
   min-width: 0;
   display: flex;
   flex-direction: column;
 }
 
+.sticker-rail {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  opacity: 0.55;
+  margin-bottom: 6px;
+}
+
+.sticker-rail-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: 1.6px solid #fff;
+}
+
+.sticker-rail-line {
+  flex: 0 0 auto;
+  width: 42px;
+  height: 2px;
+  background: #fff;
+}
+
 .sticker-hub {
-  color: var(--muted);
-  font-size: 10px;
   font-weight: 800;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
+  letter-spacing: 0.24em;
+  opacity: 0.72;
+  font-size: 13px;
+  margin-bottom: 2px;
 }
 
 .sticker-digits {
-  color: var(--ink);
-  font-size: 26px;
   font-weight: 800;
-  letter-spacing: -0.02em;
+  line-height: 0.9;
+  font-size: 15cqw;
   font-variant-numeric: tabular-nums;
-  line-height: 1.1;
+}
+
+.sticker-qrwrap {
+  flex: 0 0 auto;
+  width: 31cqw;
+  background: #fff;
+  border-radius: 9px;
+  padding: 8px 8px 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18);
 }
 
 .sticker-qr {
-  flex: 0 0 auto;
-  width: 74px;
-  height: 74px;
-  padding: 7px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: #fff;
+  width: 100%;
+  aspect-ratio: 1;
 }
 
 .sticker-qr svg {
@@ -2612,12 +2685,98 @@ img {
   height: 100%;
 }
 
+.sticker-qrcap {
+  color: #5c6470;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-size: 2.6cqw;
+  margin-top: 3px;
+}
+
+.sticker-rule {
+  height: 2px;
+  margin: 13px 0 10px;
+  background: repeating-linear-gradient(to right, rgba(255, 255, 255, 0.55) 0 4px, transparent 4px 7px);
+}
+
+.sticker-foot {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.sticker-kn {
+  flex: 1 1 auto;
+  opacity: 0.84;
+  font-size: 11px;
+  line-height: 1.35;
+}
+
+.sticker-foot-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+}
+
+.sticker-tier-chip {
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 9.5px;
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 5px;
+  padding: 3px 7px;
+}
+
+.sticker-plate-chip {
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  opacity: 0.7;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+.sticker-mark {
+  font-weight: 800;
+  letter-spacing: 0.11em;
+  opacity: 0.6;
+  text-align: center;
+  font-size: 8px;
+  margin-top: 11px;
+}
+
+/* Everything below the sticker is the page, not the artefact, so it stays
+   in the landing site's own type and spacing. */
+.sticker-about {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sticker-about-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
 .sticker-class {
   margin: 0;
   color: var(--ink);
-  font-size: 17px;
+  font-size: 15px;
   font-weight: 800;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
+}
+
+.sticker-bin {
+  margin: 0;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  overflow-wrap: anywhere;
 }
 
 .sticker-detail {
@@ -3761,10 +3920,6 @@ img {
   .tree-forms,
   .sticker-grid {
     grid-template-columns: 1fr;
-  }
-
-  .sticker-card-body {
-    flex-wrap: wrap;
   }
 
   .tool-row {
