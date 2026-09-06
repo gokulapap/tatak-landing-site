@@ -4017,3 +4017,39 @@ img {
 .line-dot.is-green { background: #00953b; }
 .line-dot.is-purple { background: #7a288a; }
 .line-dot.is-yellow { background: #f2c200; }
+
+/* The three trains, one per line, across the full measure. Three abreast
+   rather than the pairs' two, since there are three lines and they belong
+   together. */
+.fleet-trio {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(12px, 2vw, 26px);
+  margin: 6px 0 0;
+  padding: 0;
+}
+
+.fleet-trio img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 626 / 629;
+}
+
+.fleet-trio p {
+  margin: 0;
+  color: var(--ink);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.fleet-trio p span {
+  display: block;
+  margin-top: 3px;
+  color: var(--muted);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}

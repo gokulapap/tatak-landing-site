@@ -223,6 +223,27 @@ const intercityFleet = [
   },
 ];
 
+const metroFleet = [
+  {
+    id: "namma-metro-green",
+    name: "Green Line",
+    detail: "towards Silk Institute",
+    alt: "A Namma Metro Green Line train seen from the front and platform side",
+  },
+  {
+    id: "namma-metro-purple",
+    name: "Purple Line",
+    detail: "towards Challaghatta",
+    alt: "A Namma Metro Purple Line train seen from the front and platform side",
+  },
+  {
+    id: "namma-metro-yellow",
+    name: "Yellow Line",
+    detail: "towards Bommasandra",
+    alt: "A Namma Metro Yellow Line train seen from the front and platform side",
+  },
+];
+
 const busTiers = [
   {
     id: "ordinary",
@@ -374,6 +395,18 @@ export function FleetPage() {
         <p className="fleet-note wide" data-reveal>The fare column is Tatak&apos;s own multiplier over each corridor&apos;s ordinary fare, not a published price. Six classes have no multiplier yet, so they read &ldquo;Not modelled&rdquo; rather than a number backed out of one observation.</p>
 
         <h2 className="page-subhead" data-reveal>Namma Metro</h2>
+        {/* Three leading cars on the same camera as the four buses, so a
+            train and a coach sitting on one page compare honestly. Cut to
+            15 m rather than a real 21.6 m car, which would run past the
+            shared viewBox; everything else is at true scale. */}
+        <ul className="fleet-trio" data-reveal>
+          {metroFleet.map((train) => (
+            <li key={train.id}>
+              <img src={publicAsset(`/fleet/${train.id}.svg`)} alt={train.alt} width="626" height="629" loading="lazy" />
+              <p>{train.name} <span>{train.detail}</span></p>
+            </li>
+          ))}
+        </ul>
         <div className="mcp-panel" data-reveal>
           <div className="mcp-field">
             <span>Lines</span>

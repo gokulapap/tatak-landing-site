@@ -1,9 +1,10 @@
-# Bus vectors
+# Vehicle vectors
 
-Four Karnataka buses drawn as flat SVG, in a three-quarter view from the front
-and door side. They are the source of the drawings the fleet page serves from
-`public/fleet/`, and they are meant to be reused anywhere else that needs a
-recognisable vehicle rather than a photograph.
+Seven Karnataka vehicles drawn as flat SVG, in a three-quarter view from the
+front and door or platform side. Four buses under `buses/` and three metro
+trains under `metro/`. They are the source of what the fleet page serves from
+`public/fleet/`, and are meant to be reused anywhere that needs a recognisable
+vehicle rather than a photograph.
 
 | File | Vehicle | Livery |
 | --- | --- | --- |
@@ -11,6 +12,18 @@ recognisable vehicle rather than a photograph.
 | `bmtc-vajra-volvo.svg` | BMTC Vajra, the air conditioned Volvo | deep red, twin white swooshes |
 | `ksrtc-karnataka-sarige.svg` | KSRTC Karnataka Sarige, the unreserved coach | red over a silver midband |
 | `nwkrtc-airavat-gold-class.svg` | NWKRTC Airavat Gold Class, reserved | yellow, blue wave, green curtains |
+
+And under `metro/`:
+
+| File | Line | Board |
+| --- | --- | --- |
+| `namma-metro-green.svg` | Green | `SILK INSTITUTE` |
+| `namma-metro-purple.svg` | Purple | `CHALLAGHATTA` |
+| `namma-metro-yellow.svg` | Yellow | `BOMMASANDRA` |
+
+The trains are light grey with the line colour as a band under the window sill,
+wrapping around the corner chamfers onto the front. Green `#1fa04c`, purple
+`#7c3399`, yellow `#f3c317`.
 
 ## They share one camera, and that is the point
 
@@ -33,6 +46,12 @@ Two consequences worth knowing before you use them:
   Airavat 12 m and 3.62 m on a high floor with luggage bays and a third axle.
   Nothing is scaled per file, so the coach genuinely stands taller than the
   city bus. Do not rescale one on its own or that breaks.
+
+  The one deliberate exception is the metro car length. A real car is about
+  21.6 m, which projects past the shared viewBox and would be cropped, so the
+  cars are drawn at 15 m. Every other metro dimension is true: 2.88 m wide,
+  3.9 m to the roof crest, floor at 1.1 m, 1.4 m doors on a 4.6 m pitch. The
+  shortening costs one door bay and nothing else.
 
 The horizon sits below every window sill, so you see the underside of the roof
 curve and none of the roof deck, the way you would standing next to one. The
@@ -62,14 +81,21 @@ they show opposite directions of one working.
 `generate.mjs` emits all four. It is the source; the SVGs are output.
 
 ```
-node assets/vectors/buses/generate.mjs assets/vectors/buses
-node assets/vectors/buses/generate.mjs public/fleet
+node assets/vectors/generate.mjs public/fleet
+```
+
+It emits all seven into one directory. The library keeps them split by mode, so
+copy them across after regenerating:
+
+```
+cp public/fleet/bmtc-*.svg public/fleet/ksrtc-*.svg public/fleet/nwkrtc-*.svg assets/vectors/buses/
+cp public/fleet/namma-metro-*.svg assets/vectors/metro/
 ```
 
 An optional third argument writes review PNGs, which needs `sharp`:
 
 ```
-node assets/vectors/buses/generate.mjs assets/vectors/buses /tmp/bus-png
+node assets/vectors/generate.mjs public/fleet /tmp/vehicle-png
 ```
 
 Change a livery, a board or a dimension in the generator rather than editing an
@@ -79,6 +105,10 @@ shared camera the set depends on.
 
 ## Where they came from
 
-Drawn from Wikimedia Commons reference photographs of each vehicle, used to get
-liveries, proportions and the camera angle right. No photograph is embedded and
+The buses are drawn from Wikimedia Commons reference photographs, used to get
+liveries, proportions and the camera angle right. The trains carry estimates
+where the stock is not documented: roof height, windscreen rake, sheeting line
+and bogie centres are typical metro values rather than measured Namma Metro
+ones, and the front wordmark is a plain bar in the line colour rather than a
+fabricated BMRCL logo. No photograph is embedded and
 none ships, so nothing here carries an attribution requirement.

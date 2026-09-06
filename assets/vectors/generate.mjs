@@ -304,7 +304,12 @@ function plate(sh, s, v0, v1, w0, w1) {
 // perspective rather than being pasted flat. Sizes are in centimetres on
 // the face; a monospace stack so the advance is predictable without a
 // webfont, since these load through <img>.
+//
+// `u` is either the depth of the face plane or a (v, w) -> image mapper for
+// a face that is not at constant u, such as a raked windscreen; the local
+// derivative is taken through the mapper either way.
 function boardText(sh, str, vCenter, wBase, sizeCm, advance, fill, u = -0.01) {
+  const M = typeof u === "function" ? u : ([v, w]) => P(u, v, w);
   const n = str.length;
   const h = 0.002;
   const glyphs = [];
@@ -312,9 +317,9 @@ function boardText(sh, str, vCenter, wBase, sizeCm, advance, fill, u = -0.01) {
     const ch = str[i];
     if (ch === " ") continue;
     const v = vCenter + ((n - 1) / 2 - i) * advance;
-    const p0 = P(u, v, wBase);
-    const px = P(u, v - h, wBase);
-    const py = P(u, v, wBase - h);
+    const p0 = M([v, wBase]);
+    const px = M([v - h, wBase]);
+    const py = M([v, wBase - h]);
     const a = (px[0] - p0[0]) / h / 100, b = (px[1] - p0[1]) / h / 100;
     const c = (py[0] - p0[0]) / h / 100, d = (py[1] - p0[1]) / h / 100;
     const m = [a, b, c, d, p0[0], p0[1]].map((x) => Math.round(x * 1000) / 1000).join(" ");
@@ -608,6 +613,241 @@ function airavat(sh) {
 }
 
 // ---------------------------------------------------------------------
+// Namma Metro. Same bay, same camera. The train frame is the bus frame:
+// u along the car from the cab face, v across from the platform side, w up
+// from rail top, which sits on the road line the buses stand on.
+//
+// The car is a leading car cut to a length whose end lands inside the
+// frame the buses fixed, not a whole rake: a full 21.6 m car would run past
+// the right edge of the shared viewBox. Height, width, door pitch and the
+// window band are at true scale; only the number of door bays is reduced.
+//
+// The front is not the bus profile. Below the windscreen the face is
+// vertical; above it the face rakes back, then an arc turns into the roof.
+// The roof is crowned across v, so the arc is elliptical per v and the
+// crest of the front outline bows up in the middle. At this eye height the
+// roof surface itself is hidden behind the eave in every image column, so
+// nothing on it is drawn.
+
+const STEEL = "#3a3b37";
+const STEEL_LIGHT = "#55564f";
+const RAIL = "#a3a49e";
+const METRO_LED = "#ffa11f";
+
+function crown(t, v) {
+  const { W, H, He } = t;
+  // A bell that is flat at both eaves, so the chamfers meet the flank level.
+  return (H - He) * Math.sin((Math.PI * v) / W) ** 2;
+}
+// The depth of the front face at height w: zero below the rake start.
+function faceU(t, w) {
+  const { wRake, rakeK, He, R } = t;
+  return w <= wRake ? 0 : (Math.min(w, He - R) - wRake) * rakeK;
+}
+function trainProfile(t, v, n = 8) {
+  const { g, He, R, wRake } = t;
+  const wArc = He - R;
+  const u0 = faceU(t, wArc);
+  const bump = crown(t, v);
+  const pts = [[0, g], [0, wRake], [u0, wArc]];
+  for (let i = 1; i <= n; i++) {
+    const a = Math.PI - (i / n) * (Math.PI / 2);
+    pts.push([u0 + R + R * Math.cos(a), wArc + (R + bump) * Math.sin(a)]);
+  }
+  return pts;
+}
+// Mapper for the raked face: (v, w) on the face, du in front of it.
+const rakedFace = (t, du = -0.008) => ([v, w]) => P(faceU(t, w) + du, v, w);
+
+function trainBody(sh, t) {
+  const { L, W, He, g, R, c, base, sideK = 0.84, chamferK = 1.04, farK = 0.9, roofK = 0.8 } = t;
+  const ARC = 2; // index of the arc start in trainProfile
+  const uCrest = faceU(t, He - R) + R;
+  const crestLine = (v0, v1, n = 12) => {
+    const pts = [];
+    for (let i = 0; i <= n; i++) {
+      const v = v0 + ((v1 - v0) * i) / n;
+      pts.push(P(uCrest, v, He + crown(t, v)));
+    }
+    return pts;
+  };
+
+  // Far corner chamfer.
+  const farA = trainProfile(t, W - c).map(([pu, w]) => P(pu, W - c, w));
+  const farB = trainProfile(t, W).map(([pu, w]) => P(c + pu, W, w));
+  sh.poly(farA.concat(farB.slice().reverse()), shade(base, farK));
+
+  // Front face: near outline up, crest across, far outline down.
+  const near = trainProfile(t, c).map(([pu, w]) => P(pu, c, w));
+  const far = trainProfile(t, W - c).map(([pu, w]) => P(pu, W - c, w));
+  sh.poly(near.concat(crestLine(c, W - c).slice(1, -1), far.slice().reverse()), base);
+  // The arc into the roof, darker since it turns away.
+  sh.poly(near.slice(ARC).concat(crestLine(c, W - c).slice(1, -1), far.slice(ARC).reverse()), shade(base, roofK));
+
+  // Near corner chamfer.
+  const nearA = trainProfile(t, c).map(([pu, w]) => P(pu, c, w));
+  const nearB = trainProfile(t, 0).map(([pu, w]) => P(c + pu, 0, w));
+  sh.poly(nearA.concat(nearB.slice().reverse()), shade(base, chamferK));
+  sh.poly(nearA.slice(ARC).concat(nearB.slice(ARC).reverse()), shade(base, roofK * chamferK));
+
+  // Platform-side flank, squared off at the car end.
+  const prof0 = trainProfile(t, 0).map(([pu, w]) => [c + pu, w]);
+  const flank = prof0.concat([[L - 0.08, He], [L, He - 0.08], [L, g]]);
+  sh.poly(flank.map(side()), shade(base, sideK));
+  const eave = prof0.slice(ARC).concat([[L - 0.08, He], [L - 0.08, He - 0.06], [c + uCrest, He - 0.06]]);
+  sh.poly(eave.map(side()), shade(base, sideK * 0.93));
+  return { sideTone: shade(base, sideK) };
+}
+
+// Bogies, underframe and the two rails. Drawn before the body, which then
+// hides everything above the sheeting line g; what survives is the part a
+// standing person sees under a metro car from track level: the lower half
+// of each wheel on the rail, the bogie frame between them, the equipment
+// boxes hung between the bogies.
+function runningGear(sh, t, bogies) {
+  const { L, W } = t;
+  const gauge = 1.435, vRail = W / 2 - gauge / 2, railW = 0.07, wheelR = 0.43, tread = 0.13;
+  const void_ = [[0.05, 0.03], [L, 0.03], [L, W - 0.05], [0.05, W - 0.05]].map(([u, v]) => P(u, v, 0));
+  sh.poly(void_, "#1c1c1a", 'fill-opacity="0.78"');
+  for (const v of [vRail, W - vRail]) {
+    sh.poly([[-0.6, v - railW / 2], [L + 0.1, v - railW / 2], [L + 0.1, v + railW / 2], [-0.6, v + railW / 2]].map(([u, vv]) => P(u, vv, 0)), RAIL);
+  }
+  // Far-side wheels and frame first, dark.
+  const wheel = (uc, vOut, vIn, faceTone) => {
+    const outer = circle(uc, wheelR, wheelR, 44).map(side(vOut));
+    const inner = circle(uc, wheelR, wheelR, 44).map(side(vIn));
+    sh.poly(hull(outer.concat(inner)), "#2b2c29");
+    sh.poly(outer, faceTone);
+    sh.poly(circle(uc, wheelR, wheelR * 0.3, 20).map(side(vOut)), HUB);
+  };
+  for (const uc of bogies) {
+    sh.poly(rrect(uc - 1.5, 0.3, uc + 1.5, 0.82, 0.04).map(side(W - 0.3)), "#2e2f2b");
+    wheel(uc - 1.1, W - vRail - tread / 2 - 0.02, W - vRail + tread / 2, "#3f403c");
+    wheel(uc + 1.1, W - vRail - tread / 2 - 0.02, W - vRail + tread / 2, "#3f403c");
+  }
+  // Equipment boxes between the bogies, then the near bogies over them.
+  const [b0, b1] = bogies;
+  sh.poly(rrect(b0 + 1.9, 0.34, b1 - 1.9, 0.84, 0.03).map(side(0.34)), STEEL);
+  sh.poly(rrect(0.34, 0.34, W - 0.34, 0.84, 0.03).map(front(b0 + 1.9)), shade(STEEL, 1.1));
+  for (const u of [b0 + 3.4, b0 + 3.46, b1 - 3.4, b1 - 3.46]) {
+    sh.poly([[u, 0.36], [u + 0.02, 0.36], [u + 0.02, 0.82], [u, 0.82]].map(side(0.335)), "#22231f");
+  }
+  for (const uc of bogies) {
+    sh.poly(rrect(uc - 1.55, 0.3, uc + 1.55, 0.82, 0.05).map(side(0.28)), STEEL);
+    sh.poly(rrect(0.28, 0.3, W - 0.28, 0.82, 0.05).map(front(uc - 1.55)), STEEL_LIGHT);
+    sh.poly([[uc - 1.5, 0.52], [uc + 1.5, 0.52], [uc + 1.5, 0.56], [uc - 1.5, 0.56]].map(side(0.275)), STEEL_LIGHT);
+    wheel(uc - 1.1, vRail - tread / 2 - 0.02, vRail + tread / 2, "#565752");
+    wheel(uc + 1.1, vRail - tread / 2 - 0.02, vRail + tread / 2, "#565752");
+    // Axle boxes at the wheel centres, outboard of the wheels.
+    for (const uw of [uc - 1.1, uc + 1.1]) sh.poly(rrect(uw - 0.16, 0.3, uw + 0.16, 0.6, 0.05).map(side(0.27)), STEEL_LIGHT);
+  }
+}
+
+// A pair of sliding leaves in a black frame, glazed at the top, with the
+// line band carried across the lower panels.
+function slidingDoor(sh, u0, u1, wFloor, wSill, wHead, wTop, tone, band, bandTone) {
+  sh.poly(rrect(u0, wFloor, u1, wTop, 0.03).map(side()), INK);
+  const mid = (u0 + u1) / 2;
+  const leaf = (a, b) => {
+    sh.poly(rrect(a, wFloor + 0.03, b, wTop - 0.03, 0.03).map(side()), tone);
+    sh.poly([[a, band[0]], [b, band[0]], [b, band[1]], [a, band[1]]].map(side()), bandTone);
+    sh.poly(rrect(a + 0.09, wSill, b - 0.09, wHead, 0.07).map(side()), GLASS);
+    sh.poly([[a + 0.11, wHead - 0.02], [b - 0.11, wHead - 0.02], [b - 0.11, wSill + (wHead - wSill) * 0.58], [a + 0.11, wSill + (wHead - wSill) * 0.58]].map(side()), "#ffffff", 'fill-opacity="0.07"');
+  };
+  leaf(u0 + 0.03, mid - 0.015);
+  leaf(mid + 0.015, u1 - 0.03);
+}
+
+// A saloon window with a grab pole seen through the glass.
+function saloonWindow(sh, u0, u1, w0, w1) {
+  sideWindow(sh, u0, u1, w0, w1, { seat: null, sillGlow: false });
+  const up = u0 + (u1 - u0) * 0.42;
+  sh.poly([[up, w0 + 0.03], [up + 0.03, w0 + 0.03], [up + 0.03, w1 - 0.03], [up, w1 - 0.03]].map(side()), "#b9b7ae");
+  sh.poly([[u0 + 0.02, w1 - 0.02], [u1 - 0.02, w1 - 0.02], [u1 - 0.02, w0 + (w1 - w0) * 0.58], [u0 + 0.02, w0 + (w1 - w0) * 0.58]].map(side()), "#ffffff", 'fill-opacity="0.07"');
+}
+
+function nammaMetro(sh, line) {
+  const t = { L: 15, W: 2.88, H: 3.9, He: 3.62, g: 0.62, c: 0.2, R: 0.42, wRake: 1.2, rakeK: 0.14, base: "#e4e5e2" };
+  const { L, W, He, g, c } = t;
+  const band = line.band;
+  const wFloor = 1.1, wSill = 2.05, wHead = 3.08, bandW = [1.72, 2.02];
+  const bogies = [2.6, L - 2.6];
+
+  runningGear(sh, t, bogies);
+  const { sideTone } = trainBody(sh, t);
+  const FR = rakedFace(t);
+  const uBand = c + faceU(t, bandW[1]);
+
+  // Flank: solebar band under the floor, the line band, the window band.
+  sh.poly([[c, g], [L, g], [L, wFloor - 0.08], [c, wFloor - 0.08]].map(side()), shade(t.base, 0.66));
+  sh.poly([[c, wFloor - 0.08], [L, wFloor - 0.08], [L, wFloor - 0.04], [c, wFloor - 0.04]].map(side()), shade(t.base, 0.56));
+  sh.poly([[uBand, bandW[0]], [L, bandW[0]], [L, bandW[1]], [uBand, bandW[1]]].map(side()), shade(band, 0.86));
+  sh.poly([[uBand, bandW[0] - 0.05], [L, bandW[0] - 0.05], [L, bandW[0]], [uBand, bandW[0]]].map(side()), shade(band, 0.6));
+  // Window band, with a raked front edge behind the cab pillar.
+  const uWin0 = c + faceU(t, wSill - 0.05) + 0.34, uWin1 = c + faceU(t, wHead + 0.05) + 0.34;
+  sh.poly([[uWin0, wSill - 0.05], [L - 0.2, wSill - 0.05], [L - 0.2, wHead + 0.05], [uWin1, wHead + 0.05]].map(side()), INK);
+  // Cab side window and the crew door.
+  sh.poly([[uWin0 + 0.04, wSill], [1.45, wSill], [1.45, wHead], [uWin1 + 0.04, wHead]].map(side()), GLASS);
+  sh.poly([[uWin0 + 0.06, wHead - 0.02], [1.43, wHead - 0.02], [1.43, wSill + (wHead - wSill) * 0.58], [uWin0 + 0.06, wSill + (wHead - wSill) * 0.58]].map(side()), "#ffffff", 'fill-opacity="0.07"');
+  sh.poly(rrect(1.58, wFloor, 2.3, wHead + 0.05, 0.03).map(side()), INK);
+  sh.poly(rrect(1.61, wFloor + 0.03, 2.27, wHead + 0.02, 0.03).map(side()), sideTone);
+  sh.poly([[1.61, bandW[0]], [2.27, bandW[0]], [2.27, bandW[1]], [1.61, bandW[1]]].map(side()), shade(band, 0.86));
+  sh.poly(rrect(1.68, wSill, 2.2, wHead - 0.05, 0.05).map(side()), GLASS);
+  // Three door bays at the real 4.6 m pitch, two saloon windows between.
+  const doors = [[2.9, 4.3], [7.5, 8.9], [12.1, 13.5]];
+  const windows = [[4.45, 5.85], [6.0, 7.35], [9.05, 10.45], [10.6, 11.95], [13.65, 14.75]];
+  for (const [a, b] of windows) saloonWindow(sh, a, b, wSill, wHead);
+  for (const [a, b] of doors) slidingDoor(sh, a, b, wFloor, wSill, wHead - 0.1, wHead + 0.02, sideTone, bandW, shade(band, 0.86));
+  // Car-end gangway rubber.
+  sh.poly([[L - 0.06, g], [L, g], [L, He - 0.12], [L - 0.06, He - 0.12]].map(side()), INK);
+
+  // Front: apron, coupler, the line band wrapping the corners, black mask
+  // with the windscreen and the destination board, lamp clusters.
+  sh.poly([[c + 0.04, g], [W - c - 0.04, g], [W - c - 0.04, 0.9], [c + 0.04, 0.9]].map(front(-0.004)), INK);
+  sh.poly([[c + 0.04, 0.9], [W - c - 0.04, 0.9], [W - c - 0.04, 0.96], [c + 0.04, 0.96]].map(front(-0.004)), shade(t.base, 0.6));
+  sh.poly([[-0.28, 1.32, 0.46], [0, 1.32, 0.46], [0, 1.32, 0.66], [-0.28, 1.32, 0.66]].map(([u, v, w]) => P(u, v, w)), "#2a2b28");
+  sh.poly(rrect(1.32, 0.46, 1.56, 0.66, 0.04).map(front(-0.28)), INK);
+  const wrap = (w0, w1, tone) => {
+    sh.poly([[c, w0], [W - c, w0], [W - c, w1], [c, w1]].map(FR), tone);
+    sh.poly([P(faceU(t, w0) - 0.006, c, w0), P(c + faceU(t, w0) - 0.006, 0, w0), P(c + faceU(t, w1) - 0.006, 0, w1), P(faceU(t, w1) - 0.006, c, w1)], shade(tone, 1.04));
+    sh.poly([P(faceU(t, w0) - 0.006, W - c, w0), P(c + faceU(t, w0) - 0.006, W, w0), P(c + faceU(t, w1) - 0.006, W, w1), P(faceU(t, w1) - 0.006, W - c, w1)], shade(tone, 0.9));
+  };
+  wrap(bandW[0], bandW[1], band);
+  wrap(bandW[0] - 0.05, bandW[0], shade(band, 0.6));
+  sh.poly(rrect(0.3, 2.08, W - 0.3, 3.16, 0.16).map(FR), INK);
+  sh.poly(rrect(0.4, 2.16, W - 0.4, 2.8, 0.1).map(rakedFace(t, -0.01)), GLASS_FRONT);
+  sh.poly([[0.45, 2.75], [W - 0.45, 2.75], [W - 0.45, 2.55], [0.45, 2.42]].map(rakedFace(t, -0.01)), "#ffffff", 'fill-opacity="0.08"');
+  sh.poly(rrect(0.5, 2.86, W - 0.5, 3.1, 0.03).map(rakedFace(t, 0.012)), "#2a2b28");
+  sh.poly(rrect(0.53, 2.88, W - 0.53, 3.08, 0.02).map(rakedFace(t, 0.012)), "#0b0c0b");
+  boardText(sh, line.destination, W / 2, 2.935, 12, 0.108, METRO_LED, rakedFace(t, 0.01));
+  for (const v0 of [0.62, W - 1.3]) {
+    sh.line([rakedFace(t, -0.012)([v0, 2.18]), rakedFace(t, -0.012)([v0 + 0.3, 2.7])], INK, 3);
+  }
+  // Wordmark bar under the band, in the line colour.
+  sh.poly(rrect(W / 2 - 0.36, 1.32, W / 2 + 0.36, 1.4, 0.03, 2).map(front(-0.005)), shade(band, 0.86));
+  sh.poly(circle(W / 2 - 0.48, 1.36, 0.06, 16).map(front(-0.005)), shade(band, 0.86));
+  for (const v of [0.34, W - 0.72]) {
+    sh.poly(rrect(v, 0.98, v + 0.38, 1.46, 0.06).map(front(-0.008)), INK);
+    roundLamp(sh, v + 0.19, 1.3, 0.1, "#8a8a84");
+    sh.poly(circle(v + 0.19, 1.08, 0.06, 16).map(front(-0.012)), "#d92c2c");
+  }
+  return t;
+}
+
+// ---------------------------------------------------------------------
+
+const metroLines = [
+  { id: "namma-metro-green", line: "Green Line", band: "#1fa04c", destination: "SILK INSTITUTE" },
+  { id: "namma-metro-purple", line: "Purple Line", band: "#7c3399", destination: "CHALLAGHATTA" },
+  { id: "namma-metro-yellow", line: "Yellow Line", band: "#f3c317", destination: "BOMMASANDRA" },
+];
+
+const trains = metroLines.map((m) => ({
+  id: m.id,
+  title: `Namma Metro ${m.line} train, leading car, three-quarter view from the front and platform side`,
+  note: `Standard-gauge metro stock: light grey body with a ${m.line.split(" ")[0].toLowerCase()} band under a continuous black window band, raked windscreen in a black mask, three pairs of sliding doors, bogies under the sheeting, on rail. A 15 m leading car: the length is cut so the car end lands inside the frame the 12 m coaches fixed; height, width and door pitch are at true scale.`,
+  draw: (sh) => nammaMetro(sh, m),
+}));
 
 const buses = [
   { id: "bmtc-bengaluru-sarige", title: "BMTC Bengaluru Sarige city bus, three-quarter view from the front and door side", note: "Ashok Leyland front-engine body: mid-blue, white rear panel with a diagonal front edge, black-framed sliding windows, two folding doors, yellow grab poles.", draw: bengaluruSarige },
@@ -616,14 +856,17 @@ const buses = [
   { id: "nwkrtc-airavat-gold-class", title: "NWKRTC Airavat Gold Class coach, three-quarter view from the front and door side", note: "Volvo multi-axle high-floor coach: yellow with a blue and white wave rising along the flank, luggage bays under the floor, green curtains in the windows.", draw: airavat },
 ];
 
-const sheets = buses.map((b) => {
+const draw = (list) => list.map((b) => {
   const sh = new Sheet();
   b.draw(sh);
   return sh;
 });
+const sheets = draw(buses);
+const trainSheets = draw(trains);
 
-// One viewBox for all four: the union of their extents, with a margin, and
-// the near ground contact placed identically in each file.
+// One viewBox for all seven: the union of the four bus extents, with a
+// margin, and the near ground contact placed identically in each file. The
+// buses fix the box; the trains are drawn to fit inside it and checked.
 const pad = 18;
 const minx = Math.min(...sheets.map((s) => s.minx)) - pad;
 const maxx = Math.max(...sheets.map((s) => s.maxx)) + pad;
@@ -635,24 +878,34 @@ const ox = -minx, oy = -miny;
 const outDir = process.argv[2] || path.resolve("public/fleet");
 mkdirSync(outDir, { recursive: true });
 
-const header = (b) => {
+const header = (b, shared) => {
   const horizon = r1(oy);
   const vpu = r1(VP_U[0] + ox), vpv = r1(VP_V[0] + ox);
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${vbW} ${vbH}" role="img">
 <title>${b.title}</title>
 <!-- ${b.note} -->
-<!-- Projected through one pinhole camera shared by all four fleet drawings: station point at road level x=0, eye height ${EYE} m, level view, focal length ${F} units; the vehicle parked with its front door corner ${X0} m right and ${Z0} m ahead, yawed ${Math.round((THETA * 180) / Math.PI)} degrees. Horizon at y=${horizon}; vanishing points at x=${vpu} (length) and x=${vpv} (width) in this viewBox. -->
+<!-- Projected through one pinhole camera shared by ${shared}: station point at road level x=0, eye height ${EYE} m, level view, focal length ${F} units; the vehicle parked with its front door corner ${X0} m right and ${Z0} m ahead, yawed ${Math.round((THETA * 180) / Math.PI)} degrees. Horizon at y=${horizon}; vanishing points at x=${vpu} (length) and x=${vpv} (width) in this viewBox. -->
 <g transform="translate(${r1(ox)} ${r1(oy)})">
 `;
 };
 
-buses.forEach((b, i) => {
-  const svg = header(b) + sheets[i].parts.join("\n") + "\n</g>\n</svg>\n";
+const all = buses.map((b, i) => [b, sheets[i], "all four fleet drawings"])
+  .concat(trains.map((b, i) => [b, trainSheets[i], "all seven fleet drawings, four buses and three metro cars"]));
+
+for (const [b, sh, shared] of all) {
+  const svg = header(b, shared) + sh.parts.join("\n") + "\n</g>\n</svg>\n";
   writeFileSync(path.join(outDir, `${b.id}.svg`), svg);
-});
+}
 
 console.log(`viewBox 0 0 ${vbW} ${vbH}; horizon y=${r1(oy)}; VPs x=${r1(VP_U[0] + ox)}, ${r1(VP_V[0] + ox)}`);
-sheets.forEach((s, i) => console.log(buses[i].id, `x ${r1(s.minx + ox)}..${r1(s.maxx + ox)} y ${r1(s.miny + oy)}..${r1(s.maxy + oy)}`));
+let overflow = false;
+for (const [b, s] of all) {
+  const x0 = s.minx + ox, x1 = s.maxx + ox, y0 = s.miny + oy, y1 = s.maxy + oy;
+  const out = x0 < 0 || y0 < 0 || x1 > vbW || y1 > vbH;
+  overflow ||= out;
+  console.log(b.id, `x ${r1(x0)}..${r1(x1)} y ${r1(y0)}..${r1(y1)}${out ? "  OUTSIDE THE BOX" : ""}`);
+}
+if (overflow) process.exitCode = 1;
 
 // Optional review renders.
 if (process.argv[3]) {
@@ -660,8 +913,8 @@ if (process.argv[3]) {
   const dir = process.argv[3];
   mkdirSync(dir, { recursive: true });
   const bg = `<rect width="${vbW}" height="${vbH}" fill="#f6f2ea"/>`;
-  await Promise.all(buses.map((b, i) => {
-    const svg = header(b).replace("<title>", bg + "<title>") + sheets[i].parts.join("\n") + "\n</g>\n</svg>\n";
+  await Promise.all(all.map(([b, sh, shared]) => {
+    const svg = header(b, shared).replace("<title>", bg + "<title>") + sh.parts.join("\n") + "\n</g>\n</svg>\n";
     return sharp(Buffer.from(svg)).resize(1000).png().toFile(path.join(dir, `${b.id}.png`));
   }));
 }
