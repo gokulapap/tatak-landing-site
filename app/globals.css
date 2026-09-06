@@ -4031,7 +4031,9 @@ img {
      which reads as the metro being the important one rather than as three
      vehicles drawn to one scale. */
   max-width: 840px;
-  margin: 6px 0 0;
+  /* Centred, not left-aligned. Capping the width left the row hugging the
+     left edge with a third of the measure empty beside it. */
+  margin: 6px auto 0;
   padding: 0;
 }
 
