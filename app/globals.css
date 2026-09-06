@@ -2396,6 +2396,115 @@ img {
   font-size: 11px;
 }
 
+/* Fleet page */
+.fleet-page {
+  background: var(--canvas-deep);
+}
+
+.fleet-copy {
+  max-width: 82ch;
+  margin: 26px 0 0;
+  color: var(--ink-soft);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.fleet-table-wrap {
+  overflow-x: auto;
+  margin-top: 34px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+}
+
+.fleet-table {
+  width: 100%;
+  min-width: 720px;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.fleet-table caption {
+  padding: 22px 26px 0;
+  color: var(--muted);
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.fleet-table th,
+.fleet-table td {
+  padding: 16px 26px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+
+.fleet-table thead th {
+  padding-top: 20px;
+  color: var(--muted);
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.fleet-table tbody th {
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.fleet-table td {
+  color: var(--ink-soft);
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+.fleet-table tbody tr:last-child th,
+.fleet-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.fleet-table code {
+  padding: 2px 5px;
+  border-radius: 4px;
+  background: var(--canvas);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 11px;
+}
+
+/* Walk-up is the one cell in the class table a rider acts on, so it carries
+   the ink fill and every reserved cell stays outlined. */
+.fleet-tag {
+  display: inline-block;
+  padding: 4px 9px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  color: var(--ink-soft);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.fleet-tag.is-walk-up {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: white;
+}
+
+.fleet-note {
+  max-width: 78ch;
+  margin: 22px 0 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.75;
+}
+
 /* Emission method page */
 .emission-page {
   background: var(--surface);
@@ -3355,8 +3464,18 @@ img {
   .contact-section,
   .mcp-page,
   .emission-page,
+  .fleet-page,
   .sample-users-page {
     padding: 112px 14px 98px;
+  }
+
+  .fleet-table caption {
+    padding: 18px 18px 0;
+  }
+
+  .fleet-table th,
+  .fleet-table td {
+    padding: 14px 18px;
   }
 
   .section-intro h1,

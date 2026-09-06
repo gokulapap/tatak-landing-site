@@ -49,6 +49,7 @@ test("server-renders the complete Tatak landing page", async () => {
   assert.doesNotMatch(html, /class="[^"]*mcp-panel[^"]*"/);
   assert.doesNotMatch(html, /id="mcp"/);
   assert.match(html, /href="\/mcp\/"/);
+  assert.match(html, /href="\/fleet\/"/);
   assert.match(html, /href="\/emission\/"/);
 });
 
@@ -101,5 +102,25 @@ test("server-renders the emission route with its cited factors", async () => {
   assert.match(html, /section 5\.4\.1/);
   assert.match(html, /21 kg a year on average/);
   assert.match(html, /straight line between the journey/);
+  assert.equal((html.match(/<h1\b/g) ?? []).length, 1);
+});
+
+test("server-renders the fleet route with figures from the app's own tables", async () => {
+  const response = await render("/fleet");
+  assert.equal(response.status, 200);
+
+  const html = await response.text();
+  assert.match(html, /<title>Every vehicle Tatak plans over - Tatak<\/title>/i);
+  assert.match(html, /Karnataka Sarige/);
+  assert.match(html, /Rajahamsa Executive/);
+  assert.match(html, /Pallakki non-AC sleeper/);
+  assert.match(html, /Airavat Club Class/);
+  assert.match(html, /Ambaari Utsav/);
+  assert.match(html, /Walk-up/);
+  assert.match(html, /Unresolved/);
+  assert.match(html, /Vayu Vajra/);
+  assert.match(html, /KIA-/);
+  assert.match(html, /₹10 to ₹90/);
+  assert.match(html, /Purple, Green and Yellow/);
   assert.equal((html.match(/<h1\b/g) ?? []).length, 1);
 });
