@@ -139,25 +139,35 @@ test("server-renders the stickers route with every category and a working payloa
   assert.match(html, /AC \(Vajra\)/);
   assert.match(html, /Airport \(Vayu Vajra\)/);
 
-  // The nine intercity classes named in the brief, split unreserved/reserved.
+  // Karnataka Sarige is the only intercity sticker, because it is the only
+  // intercity class you can board and pay on. A sticker on a reserved coach
+  // would invite a scan that can only be refused: the seat was sold before
+  // boarding and there is nothing to buy at the door.
   assert.match(html, /Karnataka Sarige/);
-  assert.match(html, /Rajahamsa Executive/);
-  assert.match(html, />Airavat</);
-  assert.match(html, /Airavat Club Class/);
-  assert.match(html, /Ambaari Utsav/);
-  assert.match(html, />Pallakki</);
-  assert.match(html, /Kalyana Ratha/);
-  assert.match(html, /Amoghavarsha/);
-  assert.match(html, />AC Sleeper</);
   assert.match(html, /Walk-up/);
-  assert.match(html, /Reserved/);
+  for (const reserved of [
+    "Rajahamsa Executive",
+    "Airavat Club Class",
+    "Ambaari Utsav",
+    "Pallakki",
+    "Kalyana Ratha",
+    "Amoghavarsha",
+    "AC Sleeper",
+  ]) {
+    assert.ok(!html.includes(reserved), `${reserved} should have no sticker`);
+  }
+
+  // Tapping a sticker opens it large, which is how a code gets read off a
+  // laptop screen by a phone camera.
+  assert.match(html, /class="sticker-open-zoom"/);
 
   // Every QR encodes a real board payload, and every BIN carries a Damm
   // check character (mintBin computes it, not a hand-typed literal).
-  assert.match(html, /https:\/\/app\.tatak\.tech\/board\?code=BLR-10429/);
-  assert.match(html, /https:\/\/app\.tatak\.tech\/board\?code=KBS-01010/);
-  assert.match(html, /https:\/\/app\.tatak\.tech\/board\?code=HSP-01170/);
-  assert.match(html, /https:\/\/app\.tatak\.tech\/board\?code=HUB-03391/);
+  // The four that remain: the three BMTC tiers and Karnataka Sarige. The
+  // HSP and HUB codes this used to assert belonged to reserved coaches.
+  for (const bin of ["BLR-10429", "BLR-20935", "BLR-30876", "KBS-01010"]) {
+    assert.match(html, new RegExp(`https://app\\.tatak\\.tech/board\\?code=${bin}`));
+  }
   assert.match(html, /class="[^"]*sticker-qr[^"]*"/);
 
   assert.equal((html.match(/<h1\b/g) ?? []).length, 1);

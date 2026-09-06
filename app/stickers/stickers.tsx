@@ -1,5 +1,6 @@
 "use client";
 
+import { useCallback, useEffect, useRef, useState } from "react";
 import { AppLink, SiteFooter, SiteHeader, publicAsset, useRevealAnimations } from "../site-chrome";
 import { mintBin } from "./bin";
 import { qrMatrix, qrSvgRects } from "./qr";
@@ -188,7 +189,6 @@ const intercityStickers: Sticker[] = [
 ];
 
 const unreservedIntercity = intercityStickers.filter((s) => s.boarding === "Walk-up");
-const reservedIntercity = intercityStickers.filter((s) => s.boarding === "Reserved");
 
 // The sticker's own colour, not the site's. BMTC keys it by tier
 // (Ordinary/Vajra/Vayu Vajra); every printed BMTC sticker in
@@ -312,13 +312,23 @@ function StickerCard({ sticker, accent }: { sticker: Sticker; accent: "bmtc" | "
   const [headLine1, headLine2] =
     accent === "bmtc" ? ["Book a ticket", "on this bus"] : ["Board and buy", "on this coach"];
 
-  return (
-    <div className="sticker-unit" data-reveal>
-      {/* The sticker: a solid-colour block with white ink, not a content
-          card. This markup and every class name under .sticker-figure is
-          a direct port of the printed sheet - see public/stickers.html
-          and public/stickers-intercity.html in the app repository. */}
-      <figure className="sticker-figure" style={{ background: color }}>
+  // Tapping a sticker opens it large, the way the printed sheets did. A code
+  // read off a laptop at arm's length is the whole point of the page, and at
+  // grid size the QR is smaller than a phone camera likes.
+  const dialogRef = useRef<HTMLDialogElement | null>(null);
+  const [open, setOpen] = useState(false);
+  const show = useCallback(() => setOpen(true), []);
+  const hide = useCallback(() => setOpen(false), []);
+
+  useEffect(() => {
+    const el = dialogRef.current;
+    if (!el) return;
+    if (open && !el.open) el.showModal();
+    if (!open && el.open) el.close();
+  }, [open]);
+
+  const figure = () => (
+    <figure className="sticker-figure" style={{ background: color }}>
         <div className="sticker-sweep" aria-hidden="true" />
         {accent === "bmtc" ? <BusSkyline /> : <RouteSkyline />}
         <div className="sticker-inner">
@@ -367,7 +377,39 @@ function StickerCard({ sticker, accent }: { sticker: Sticker; accent: "bmtc" | "
           </div>
           <div className="sticker-mark">SPECIMEN · PROTOTYPE · NOT A {sticker.corporation} NOTICE</div>
         </div>
-      </figure>
+    </figure>
+  );
+
+  return (
+    <div className="sticker-unit" data-reveal>
+      {/* The sticker: a solid-colour block with white ink, not a content
+          card. This markup and every class name under .sticker-figure is
+          a direct port of the printed sheet - see public/stickers.html
+          and public/stickers-intercity.html in the app repository. */}
+      <button
+        type="button"
+        className="sticker-open-zoom"
+        onClick={show}
+        aria-label={`Enlarge the ${sticker.className} sticker, ${bin}`}
+      >
+        {figure()}
+      </button>
+
+      <dialog ref={dialogRef} className="sticker-zoom" onClose={hide} onClick={hide}>
+        {/* Clicking the backdrop closes; clicking the sticker itself must not,
+            so the shell stops the event before it reaches the dialog. */}
+        <div className="sticker-zoom-shell" onClick={(e) => e.stopPropagation()}>
+          {figure()}
+          <p className="sticker-zoom-note">
+            Point a phone camera at the code.
+            <span>{bin} &middot; {sticker.className}</span>
+          </p>
+          <div className="sticker-zoom-actions">
+            <a href={payload} target="_blank" rel="noreferrer">Open in Tatak</a>
+            <button type="button" onClick={hide}>Close</button>
+          </div>
+        </div>
+      </dialog>
 
       {/* Everything below the sticker is the page, not the artefact - it
           stays in the landing site's own type and spacing. */}
@@ -444,18 +486,14 @@ export function StickersPage() {
         </div>
 
         <h2 className="page-subhead" data-reveal>Intercity</h2>
-        <p className="fleet-copy" data-reveal>Karnataka Sarige is the one unreserved intercity class - board it and pay like a city bus. Every other class here is sold by numbered seat before boarding. Fares, layouts and the full class list are on the <a href={publicAsset("/fleet/")}>Fleet</a> page.</p>
+        <p className="fleet-copy" data-reveal>Karnataka Sarige is the one unreserved intercity class, so it is the only one with a sticker: board it and pay like a city bus. Every other coach is sold by numbered seat before boarding and has no ticket to buy on board. Fares, layouts and the full class list are on the <a href={publicAsset("/fleet/")}>Fleet</a> page.</p>
 
-        <h3 className="sticker-subhead" data-reveal>Unreserved</h3>
+        {/* Only the unreserved class. A sticker exists so somebody standing at
+            a bus can buy the ride they are about to take, and a reserved coach
+            has nothing to sell there: the seat was booked before boarding.
+            Printing one would be an invitation to scan and be refused. */}
         <div className="sticker-grid" data-reveal>
           {unreservedIntercity.map((sticker) => (
-            <StickerCard key={sticker.id} sticker={sticker} accent="intercity" />
-          ))}
-        </div>
-
-        <h3 className="sticker-subhead" data-reveal>Reserved</h3>
-        <div className="sticker-grid" data-reveal>
-          {reservedIntercity.map((sticker) => (
             <StickerCard key={sticker.id} sticker={sticker} accent="intercity" />
           ))}
         </div>
