@@ -51,6 +51,8 @@ test("server-renders the complete Tatak landing page", async () => {
   assert.match(html, /href="\/mcp\/"/);
   assert.match(html, /href="\/fleet\/"/);
   assert.match(html, /href="\/emission\/"/);
+  assert.match(html, /href="\/stickers\/"/);
+  assert.doesNotMatch(html, /app\.tatak\.tech\/stickers\.html/);
 });
 
 test("ships the product stage and accessible interaction structure", async () => {
@@ -122,5 +124,41 @@ test("server-renders the fleet route with figures from the app's own tables", as
   assert.match(html, /KIA-/);
   assert.match(html, /₹10 to ₹90/);
   assert.match(html, /Purple, Green and Yellow/);
+  assert.equal((html.match(/<h1\b/g) ?? []).length, 1);
+});
+
+test("server-renders the stickers route with every category and a working payload", async () => {
+  const response = await render("/stickers");
+  assert.equal(response.status, 200);
+
+  const html = await response.text();
+  assert.match(html, /<title>QR stickers - Tatak<\/title>/i);
+
+  // BMTC tiers - the app's own vocabulary, not invented labels.
+  assert.match(html, />Ordinary</);
+  assert.match(html, /AC \(Vajra\)/);
+  assert.match(html, /Airport \(Vayu Vajra\)/);
+
+  // The nine intercity classes named in the brief, split unreserved/reserved.
+  assert.match(html, /Karnataka Sarige/);
+  assert.match(html, /Rajahamsa Executive/);
+  assert.match(html, />Airavat</);
+  assert.match(html, /Airavat Club Class/);
+  assert.match(html, /Ambaari Utsav/);
+  assert.match(html, />Pallakki</);
+  assert.match(html, /Kalyana Ratha/);
+  assert.match(html, /Amoghavarsha/);
+  assert.match(html, />AC Sleeper</);
+  assert.match(html, /Walk-up/);
+  assert.match(html, /Reserved/);
+
+  // Every QR encodes a real board payload, and every BIN carries a Damm
+  // check character (mintBin computes it, not a hand-typed literal).
+  assert.match(html, /https:\/\/app\.tatak\.tech\/board\?code=BLR-10429/);
+  assert.match(html, /https:\/\/app\.tatak\.tech\/board\?code=KBS-01010/);
+  assert.match(html, /https:\/\/app\.tatak\.tech\/board\?code=HSP-01170/);
+  assert.match(html, /https:\/\/app\.tatak\.tech\/board\?code=HUB-03391/);
+  assert.match(html, /class="[^"]*sticker-qr[^"]*"/);
+
   assert.equal((html.match(/<h1\b/g) ?? []).length, 1);
 });
