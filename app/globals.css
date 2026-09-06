@@ -3879,3 +3879,184 @@ img {
     transform: none;
   }
 }
+
+/* A section and the vehicles it describes, on one row: copy left, drawings
+   right, which is the rhythm the rest of this site already uses. Stacking
+   them left-aligned instead left the whole right half of the page empty. */
+.fleet-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 0.92fr);
+  align-items: center;
+  gap: clamp(28px, 4vw, 70px);
+  /* Zeroing the subhead's own top margin below pulled each heading up against
+     whatever ended the previous section, so the row carries the separation
+     instead. Kept modest: 84px of subhead margin was what made these gaps
+     read as holes in the first place. */
+  margin: clamp(30px, 3.4vw, 52px) 0 30px;
+}
+
+.fleet-row-copy .page-subhead {
+  margin-top: 0;
+}
+
+.fleet-row-copy .fleet-copy {
+  max-width: 52ch;
+}
+
+.fleet-row-copy .fleet-copy:last-child {
+  margin-bottom: 0;
+}
+
+/* The BMTC pair and the coach pair. Two abreast, so a city bus is never shown
+   beside a coach in a page whose whole argument is that they are different
+   products. */
+.fleet-pair {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(12px, 2vw, 22px);
+  margin: 0;
+  padding: 0;
+}
+
+.fleet-pair img {
+  display: block;
+  width: 100%;
+  /* The drawings share one viewBox, so one ratio keeps the shared horizon and
+     the near front corner in the same place in every cell. */
+  height: auto;
+  aspect-ratio: 626 / 629;
+}
+
+.fleet-pair p {
+  margin: 0;
+  color: var(--ink);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* The qualifier takes its own line. Inline, the longer labels wrapped
+   mid-phrase at this width, which reads as a fault rather than a second line. */
+.fleet-pair p span {
+  display: block;
+  margin-top: 3px;
+  color: var(--muted);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+
+@media (max-width: 900px) {
+  .fleet-row {
+    display: block;
+  }
+
+  .fleet-pair {
+    margin-top: 26px;
+  }
+}
+
+/* The compact intro caps its heading at 13ch, which is right for the stacked
+   display headings elsewhere but breaks this one across two lines and leaves
+   a band of empty page beside it. This title is short enough to sit on one
+   line at desktop widths; the clamped font size still wraps it on a phone. */
+.fleet-page .section-intro.compact h1 {
+  max-width: none;
+}
+
+/* Three lines the owner wants running the full measure rather than sitting in
+   the left column: the page's opening paragraph and the two notes under the
+   fare tables. They are asides about the table above them, so a long measure
+   reads fine here in a way it would not for body copy. */
+.fleet-page .section-intro.compact > p,
+.fleet-page .fleet-note.wide,
+.fleet-page .fleet-copy.wide,
+.fleet-page .note-list.wide {
+  max-width: none;
+}
+
+/* This page stacks a heading, a panel and a table in close succession, and the
+   site-wide 84px above a subhead plus 72px above a panel compound into a gap
+   that reads as a missing section rather than as breathing room. */
+.fleet-page .page-subhead {
+  margin-top: clamp(34px, 3.6vw, 56px);
+}
+
+.fleet-page .mcp-panel {
+  margin-top: 22px;
+}
+
+/* The three lines, named and shown in their own colour. A rider knows Namma
+   Metro by the colour before the name, so the dot does the work. */
+.metro-lines {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 26px;
+  margin: 0;
+  padding: 0;
+}
+
+.metro-lines li {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.line-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  flex: none;
+  /* Yellow on an off-white ground has almost no edge of its own, so every dot
+     carries the same faint ring rather than singling one out. */
+  box-shadow: inset 0 0 0 1px rgba(20, 18, 15, 0.18);
+}
+
+.line-dot.is-green { background: #00953b; }
+.line-dot.is-purple { background: #7a288a; }
+.line-dot.is-yellow { background: #f2c200; }
+
+/* The three trains, one per line, across the full measure. Three abreast
+   rather than the pairs' two, since there are three lines and they belong
+   together. */
+.fleet-trio {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(12px, 2vw, 24px);
+  /* Capped rather than left to fill the measure. Three cells across the full
+     width made each train half again as large as a bus in the pairs above,
+     which reads as the metro being the important one rather than as three
+     vehicles drawn to one scale. */
+  max-width: 840px;
+  /* Centred, not left-aligned. Capping the width left the row hugging the
+     left edge with a third of the measure empty beside it. */
+  margin: 6px auto 0;
+  padding: 0;
+}
+
+.fleet-trio img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 626 / 629;
+}
+
+.fleet-trio p {
+  margin: 0;
+  color: var(--ink);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.fleet-trio p span {
+  display: block;
+  margin-top: 3px;
+  color: var(--muted);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
