@@ -3986,3 +3986,34 @@ img {
 .fleet-page .mcp-panel {
   margin-top: 22px;
 }
+
+/* The three lines, named and shown in their own colour. A rider knows Namma
+   Metro by the colour before the name, so the dot does the work. */
+.metro-lines {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 26px;
+  margin: 0;
+  padding: 0;
+}
+
+.metro-lines li {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.line-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  flex: none;
+  /* Yellow on an off-white ground has almost no edge of its own, so every dot
+     carries the same faint ring rather than singling one out. */
+  box-shadow: inset 0 0 0 1px rgba(20, 18, 15, 0.18);
+}
+
+.line-dot.is-green { background: #00953b; }
+.line-dot.is-purple { background: #7a288a; }
+.line-dot.is-yellow { background: #f2c200; }

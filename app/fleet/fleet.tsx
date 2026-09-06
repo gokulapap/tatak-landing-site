@@ -377,7 +377,11 @@ export function FleetPage() {
         <div className="mcp-panel" data-reveal>
           <div className="mcp-field">
             <span>Lines</span>
-            <p>Purple, Green and Yellow. Station order comes from OpenStreetMap route relations rather than from a vendor map, because a map drawn for display is not a map you can route over.</p>
+            <ul className="metro-lines">
+              <li><i className="line-dot is-green" aria-hidden="true" />Green</li>
+              <li><i className="line-dot is-purple" aria-hidden="true" />Purple</li>
+              <li><i className="line-dot is-yellow" aria-hidden="true" />Yellow</li>
+            </ul>
           </div>
           <div className="mcp-field">
             <span>Pricing</span>
