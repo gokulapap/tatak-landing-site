@@ -123,7 +123,11 @@ test("server-renders the fleet route with figures from the app's own tables", as
   assert.match(html, /Vayu Vajra/);
   assert.match(html, /KIA-/);
   assert.match(html, /₹10 to ₹90/);
-  assert.match(html, /Purple, Green and Yellow/);
+  // The three lines are named beside their own colour rather than in a
+  // sentence, so assert the names and the dots that carry the colour.
+  for (const line of ["Green", "Purple", "Yellow"]) {
+    assert.match(html, new RegExp(`line-dot is-${line.toLowerCase()}[^>]*></i>${line}`));
+  }
   assert.equal((html.match(/<h1\b/g) ?? []).length, 1);
 });
 
