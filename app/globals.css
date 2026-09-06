@@ -4025,7 +4025,12 @@ img {
   list-style: none;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(12px, 2vw, 26px);
+  gap: clamp(12px, 2vw, 24px);
+  /* Capped rather than left to fill the measure. Three cells across the full
+     width made each train half again as large as a bus in the pairs above,
+     which reads as the metro being the important one rather than as three
+     vehicles drawn to one scale. */
+  max-width: 840px;
   margin: 6px 0 0;
   padding: 0;
 }
