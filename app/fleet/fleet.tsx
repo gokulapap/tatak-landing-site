@@ -226,11 +226,52 @@ export function FleetPage() {
       <SiteHeader />
 
       <section className="fleet-page route-section" id="main-content" aria-labelledby="fleet-title">
-        <header className="section-intro compact" data-reveal>
+        <header className="section-intro compact fleet-intro" data-reveal>
           <div className="section-label"><span>01</span> Fleet</div>
-          <h1 id="fleet-title">Fleet types we support</h1>
-          <p>Tatak plans over sixteen intercity coach classes, three tiers of BMTC city bus and three metro lines. The division that decides what you can actually do at a stop is not the operator on the livery. It is whether the vehicle is sold by the seat.</p>
+          <div className="fleet-intro-copy">
+            <h1 id="fleet-title">Fleet types we support</h1>
+            <p>Tatak plans over three tiers of BMTC city bus, three Namma Metro lines and sixteen intercity coach classes. Whether you can simply get on and pay is decided by the service class, not by the operator on the livery: only some of these are sold by the seat.</p>
+          </div>
+          <figure className="fleet-photos">
+            <img src={publicAsset("/fleet/bmtc-bengaluru-sarige.webp")} alt="A blue BMTC Bengaluru Sarige city bus on route 201" width="900" height="675" loading="lazy" />
+            <img src={publicAsset("/fleet/ksrtc-karnataka-sarige.webp")} alt="A red KSRTC Karnataka Sarige intercity bus" width="716" height="282" loading="lazy" />
+            <img src={publicAsset("/fleet/bmtc-vajra-volvo.webp")} alt="A red BMTC Vajra Volvo air conditioned city bus" width="900" height="529" loading="lazy" />
+            <img src={publicAsset("/fleet/ksrtc-airavat-gold-class.webp")} alt="A yellow NWKRTC Airavat Gold Class coach" width="800" height="533" loading="lazy" />
+            <figcaption>
+              Bengaluru Sarige and Vajra photographs by FriendsofBMTC and Hayathkhan.h, Wikimedia Commons, CC BY-SA. Karnataka Sarige by Arhan Jain and Airavat Gold Class by NWKRTC, CC0.
+            </figcaption>
+          </figure>
         </header>
+
+        <h2 className="page-subhead" data-reveal>BMTC city buses</h2>
+        <p className="fleet-copy" data-reveal>BMTC tiers are read off the route short name in the feed, which is where the network already encodes them. Ordinary and Vajra share one fare shape and differ by a factor of two. The airport coach does not: it is priced by distance rather than by stage, because a run to Kempegowda International is a different product from a ride across town. Majestic to the airport is about 35 km of road and lands around ₹300 to ₹350.</p>
+
+        <div className="fleet-table-wrap" data-reveal>
+          <table className="fleet-table">
+            <caption>The three BMTC service tiers</caption>
+            <thead>
+              <tr>
+                <th scope="col">Tier</th>
+                <th scope="col">Route prefix</th>
+                <th scope="col">How it is priced</th>
+                <th scope="col">Floor</th>
+                <th scope="col">Ceiling</th>
+              </tr>
+            </thead>
+            <tbody>
+              {busTiers.map((tier) => (
+                <tr key={tier.id}>
+                  <th scope="row">{tier.name}</th>
+                  <td><code>{tier.prefix}</code></td>
+                  <td>{tier.pricing}</td>
+                  <td>{tier.floor}</td>
+                  <td>{tier.ceiling}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p className="fleet-note" data-reveal>Bus fares are computed from distance rather than from stop count. On limited-stop routes consecutive stops can sit several kilometres apart, so counting stops would underprice a long express hop.</p>
 
         <h2 className="page-subhead" data-reveal>Reserved or walk-up</h2>
         <p className="fleet-copy" data-reveal>Karnataka Sarige is run by KSRTC, NWKRTC and KKRTC, the same three corporations that run Airavat and Pallakki, and it is boarded exactly like a BMTC bus: you get on, you pay, there is no seat with your name against it. The other fifteen coach classes are numbered-seat products that cannot be boarded without a prior transaction - Ashwamedha included, even though its own fare says it is priced like the walk-up class next to it. The split therefore cuts across the operators rather than along them, and Tatak keys the boarding gate to the service class and never to the corporation. The app&apos;s own spec says why in as many words: gating by operator &ldquo;would block a plain mofussil bus from ever appearing as a walk-up option&rdquo;.</p>
@@ -279,36 +320,6 @@ export function FleetPage() {
           <li><strong>Shakti free travel reaches Karnataka Sarige and Ashwamedha, and nothing else.</strong> The scheme covers ordinary and express service, and Ashwamedha&apos;s own name carries the word &ldquo;express&rdquo; - a textual match, not an inference from its price. A woman boarding a Rajahamsa, an Airavat, a Pallakki, an Ambaari or any of the other fourteen classes pays the full fare. It is a rule about the class of coach, not about the corporation running it or the person boarding.</li>
           <li><strong>The senior concession is 25 per cent, up to Rajahamsa.</strong> It applies on Karnataka Sarige, Rajahamsa Executive and Ashwamedha - priced at the ordinary floor, Ashwamedha sits squarely inside &ldquo;Rajahamsa and lower&rdquo; even though its own name says &ldquo;express&rdquo;. A source places Airavat, Airavat Club Class, Airavat Club Class 2.0, Ambaari Dream Class and Ambaari Utsav above the concession&apos;s stated ceiling. Pallakki and Non-AC Sleeper are the open case: nothing puts a non-AC sleeper inside that ceiling or outside it, so Tatak publishes no rate for either rather than picking one, and the newer classes with no independent source of their own - EV Power Plus, Flybus, Kalyana Ratha, Amoghavarsha, AC Seater Executive Chair, the plain AC Sleeper - inherit the same open case rather than a guess built off price alone. An unresolved cell and an ineligible cell are different facts, and the app keeps them apart.</li>
         </ul>
-
-        <h2 className="page-subhead" data-reveal>City buses</h2>
-        <p className="fleet-copy" data-reveal>BMTC tiers are read off the route short name in the feed, which is where the network already encodes them. Ordinary and Vajra share one fare shape and differ by a factor of two. The airport coach does not: it is priced by distance rather than by stage, because a run to Kempegowda International is a different product from a ride across town. Majestic to the airport is about 35 km of road and lands around ₹300 to ₹350.</p>
-
-        <div className="fleet-table-wrap" data-reveal>
-          <table className="fleet-table">
-            <caption>The three BMTC service tiers</caption>
-            <thead>
-              <tr>
-                <th scope="col">Tier</th>
-                <th scope="col">Route prefix</th>
-                <th scope="col">How it is priced</th>
-                <th scope="col">Floor</th>
-                <th scope="col">Ceiling</th>
-              </tr>
-            </thead>
-            <tbody>
-              {busTiers.map((tier) => (
-                <tr key={tier.id}>
-                  <th scope="row">{tier.name}</th>
-                  <td><code>{tier.prefix}</code></td>
-                  <td>{tier.pricing}</td>
-                  <td>{tier.floor}</td>
-                  <td>{tier.ceiling}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <p className="fleet-note" data-reveal>Bus fares are computed from distance rather than from stop count. On limited-stop routes consecutive stops can sit several kilometres apart, so counting stops would underprice a long express hop.</p>
 
         <h2 className="page-subhead" data-reveal>Namma Metro</h2>
         <div className="mcp-panel" data-reveal>

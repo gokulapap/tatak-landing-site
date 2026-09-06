@@ -3879,3 +3879,73 @@ img {
     transform: none;
   }
 }
+
+/* Fleet page intro: the heading and its paragraph on the left, a stack of
+   fleet photographs on the right. `.section-intro.compact` sets `display:
+   block`, which is what left this row's right-hand side empty; the grid is
+   restored here rather than by dropping `compact`, because compact is also
+   what keeps the heading and paragraph tight against each other. */
+.section-intro.compact.fleet-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.72fr);
+  align-items: center;
+  gap: clamp(32px, 5vw, 76px);
+}
+
+.section-intro.compact.fleet-intro .section-label {
+  grid-column: 1 / -1;
+}
+
+/* The 13ch cap belongs to the stacked display heading this page no longer
+   uses. A plain name wants the room to sit on one line. */
+.section-intro.compact.fleet-intro h1 {
+  max-width: 20ch;
+}
+
+.fleet-intro-copy > p {
+  max-width: 48ch;
+  margin: 24px 0 0;
+  color: var(--ink-soft);
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+.fleet-photos {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+}
+
+/* Every photograph is scaled but never cropped on disk, so the frame does the
+   cropping. Two of the four are CC BY-SA, where a crop would be an adaptation
+   carrying share-alike onto it; a CSS frame leaves the file itself untouched. */
+.fleet-photos img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 7;
+  object-fit: cover;
+  border-radius: 10px;
+  background: var(--surface);
+}
+
+.fleet-photos figcaption {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+@media (max-width: 900px) {
+  .section-intro.compact.fleet-intro {
+    display: block;
+  }
+
+  .fleet-photos {
+    margin-top: 34px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .fleet-photos figcaption {
+    grid-column: 1 / -1;
+  }
+}
