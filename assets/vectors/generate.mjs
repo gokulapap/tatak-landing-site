@@ -614,96 +614,366 @@ function airavat(sh) {
 
 // ---------------------------------------------------------------------
 // Namma Metro. Same bay, same camera. The train frame is the bus frame:
-// u along the car from the cab face, v across from the platform side, w up
-// from rail top, which sits on the road line the buses stand on.
+// u along the car from the tip of the nose, v across from the platform
+// side, w up from rail top, which sits on the road line the buses stand on.
 //
 // The car is a leading car cut to a length whose end lands inside the
 // frame the buses fixed, not a whole rake: a full 21.6 m car would run past
 // the right edge of the shared viewBox. Height, width, door pitch and the
 // window band are at true scale; only the number of door bays is reduced.
 //
-// The front is not the bus profile. Below the windscreen the face is
-// vertical; above it the face rakes back, then an arc turns into the roof.
-// The roof is crowned across v, so the arc is elliptical per v and the
-// crest of the front outline bows up in the middle. At this eye height the
-// roof surface itself is hidden behind the eave in every image column, so
-// nothing on it is drawn.
+// The body is not the bus body. The cross-section is a domed superellipse
+// above the eave, so the roof has no ridge; the nose is a superellipse in
+// plan, scaled down with the section so it closes smoothly over the roof,
+// and set back by a convex tip profile that leans in at the skirt, stands
+// up through the mask, rakes back through the windscreen and rolls over
+// into the roof. There is no corner post anywhere: the cab is one surface
+//
+//   u(v, w) = rake(w) + D * (hw(w) / (W/2)) * nose((v - W/2) / hw(w))
+//
+// over the section's interior, and the flank and roof are that section
+// swept back to the car end. Nothing on the cab is a straight edge, so
+// nothing on it is drawn as one: every region is a marching-squares
+// contour of a field sampled on a parameter grid, projected point by point
+// through the same camera as the wheels, and the silhouette is the zero
+// set of the visibility field, where the surface normal turns away from
+// the station point, not an outline drawn by hand.
 
 const STEEL = "#3a3b37";
 const STEEL_LIGHT = "#55564f";
 const RAIL = "#a3a49e";
 const METRO_LED = "#ffa11f";
 
-function crown(t, v) {
-  const { W, H, He } = t;
-  // A bell that is flat at both eaves, so the chamfers meet the flank level.
-  return (H - He) * Math.sin((Math.PI * v) / W) ** 2;
-}
-// The depth of the front face at height w: zero below the rake start.
-function faceU(t, w) {
-  const { wRake, rakeK, He, R } = t;
-  return w <= wRake ? 0 : (Math.min(w, He - R) - wRake) * rakeK;
-}
-function trainProfile(t, v, n = 8) {
-  const { g, He, R, wRake } = t;
-  const wArc = He - R;
-  const u0 = faceU(t, wArc);
-  const bump = crown(t, v);
-  const pts = [[0, g], [0, wRake], [u0, wArc]];
-  for (let i = 1; i <= n; i++) {
-    const a = Math.PI - (i / n) * (Math.PI / 2);
-    pts.push([u0 + R + R * Math.cos(a), wArc + (R + bump) * Math.sin(a)]);
+// Camera in world coordinates, for the visibility test.
+const CAM = [0, EYE, 0];
+const U_DIR = [SIN, 0, COS], V_DIR = [-COS, 0, SIN], W_DIR = [0, 1, 0];
+
+// Insert points along each edge of a parameter-space polyline so that a
+// straight edge in (v, w) becomes a curve once mapped through a surface.
+function densify(pts, step = 0.03, closed = true) {
+  const out = [];
+  const n = pts.length;
+  for (let i = 0; i < (closed ? n : n - 1); i++) {
+    const a = pts[i], b = pts[(i + 1) % n];
+    const k = Math.max(1, Math.ceil(Math.hypot(b[0] - a[0], b[1] - a[1]) / step));
+    for (let j = 0; j < k; j++) out.push([a[0] + ((b[0] - a[0]) * j) / k, a[1] + ((b[1] - a[1]) * j) / k]);
   }
+  if (!closed) out.push(pts[n - 1]);
+  return out;
+}
+// A rounded box with different radii at the bottom and the top.
+function rrect2(x0, y0, x1, y1, rb, rt, n = 8) {
+  const pts = [];
+  const corner = (cx, cy, r, a0) => {
+    for (let i = 0; i <= n; i++) {
+      const a = a0 + (i / n) * (Math.PI / 2);
+      pts.push([cx + r * Math.cos(a), cy + r * Math.sin(a)]);
+    }
+  };
+  rt = Math.min(rt, (x1 - x0) / 2, (y1 - y0) / 2);
+  rb = Math.min(rb, (x1 - x0) / 2, (y1 - y0) / 2);
+  corner(x1 - rt, y1 - rt, rt, 0);
+  corner(x0 + rt, y1 - rt, rt, Math.PI / 2);
+  corner(x0 + rb, y0 + rb, rb, Math.PI);
+  corner(x1 - rb, y0 + rb, rb, 1.5 * Math.PI);
   return pts;
 }
-// Mapper for the raked face: (v, w) on the face, du in front of it.
-const rakedFace = (t, du = -0.008) => ([v, w]) => P(faceU(t, w) + du, v, w);
-
-function trainBody(sh, t) {
-  const { L, W, He, g, R, c, base, sideK = 0.84, chamferK = 1.04, farK = 0.9, roofK = 0.8 } = t;
-  const ARC = 2; // index of the arc start in trainProfile
-  const uCrest = faceU(t, He - R) + R;
-  const crestLine = (v0, v1, n = 12) => {
-    const pts = [];
-    for (let i = 0; i <= n; i++) {
-      const v = v0 + ((v1 - v0) * i) / n;
-      pts.push(P(uCrest, v, He + crown(t, v)));
+// Douglas-Peucker on a closed loop, in image units: the loop is opened at
+// its first point and at the point farthest from it, and each arc is
+// simplified on its own.
+function simplify(loop, eps) {
+  if (loop.length < 4) return loop;
+  const pts = loop.concat([loop[0]]);
+  const keep = new Array(pts.length).fill(false);
+  const dp = (i0, i1) => {
+    const [ax, ay] = pts[i0], [bx, by] = pts[i1];
+    const dx = bx - ax, dy = by - ay, len = Math.hypot(dx, dy) || 1;
+    let best = -1, bi = -1;
+    for (let i = i0 + 1; i < i1; i++) {
+      const d = len === 1 && dx === 0 && dy === 0
+        ? Math.hypot(pts[i][0] - ax, pts[i][1] - ay)
+        : Math.abs((pts[i][0] - ax) * dy - (pts[i][1] - ay) * dx) / len;
+      if (d > best) { best = d; bi = i; }
     }
-    return pts;
+    if (best > eps) { keep[bi] = true; dp(i0, bi); dp(bi, i1); }
   };
-
-  // Far corner chamfer.
-  const farA = trainProfile(t, W - c).map(([pu, w]) => P(pu, W - c, w));
-  const farB = trainProfile(t, W).map(([pu, w]) => P(c + pu, W, w));
-  sh.poly(farA.concat(farB.slice().reverse()), shade(base, farK));
-
-  // Front face: near outline up, crest across, far outline down.
-  const near = trainProfile(t, c).map(([pu, w]) => P(pu, c, w));
-  const far = trainProfile(t, W - c).map(([pu, w]) => P(pu, W - c, w));
-  sh.poly(near.concat(crestLine(c, W - c).slice(1, -1), far.slice().reverse()), base);
-  // The arc into the roof, darker since it turns away.
-  sh.poly(near.slice(ARC).concat(crestLine(c, W - c).slice(1, -1), far.slice(ARC).reverse()), shade(base, roofK));
-
-  // Near corner chamfer.
-  const nearA = trainProfile(t, c).map(([pu, w]) => P(pu, c, w));
-  const nearB = trainProfile(t, 0).map(([pu, w]) => P(c + pu, 0, w));
-  sh.poly(nearA.concat(nearB.slice().reverse()), shade(base, chamferK));
-  sh.poly(nearA.slice(ARC).concat(nearB.slice(ARC).reverse()), shade(base, roofK * chamferK));
-
-  // Platform-side flank, squared off at the car end.
-  const prof0 = trainProfile(t, 0).map(([pu, w]) => [c + pu, w]);
-  const flank = prof0.concat([[L - 0.08, He], [L, He - 0.08], [L, g]]);
-  sh.poly(flank.map(side()), shade(base, sideK));
-  const eave = prof0.slice(ARC).concat([[L - 0.08, He], [L - 0.08, He - 0.06], [c + uCrest, He - 0.06]]);
-  sh.poly(eave.map(side()), shade(base, sideK * 0.93));
-  return { sideTone: shade(base, sideK) };
+  let far = 1, fd = -1;
+  for (let i = 1; i < loop.length; i++) {
+    const d = Math.hypot(loop[i][0] - loop[0][0], loop[i][1] - loop[0][1]);
+    if (d > fd) { fd = d; far = i; }
+  }
+  keep[0] = keep[far] = true;
+  dp(0, far);
+  dp(far, pts.length - 1);
+  return loop.filter((_, i) => keep[i]);
+}
+// Marching squares over an (nx + 1) x (ny + 1) vertex grid. `value(i, j)`
+// is positive inside the region and `point(i, j)` is the image of the
+// vertex. The grid is padded with an outside ring that reuses the boundary
+// vertices' positions, so a region that runs to the edge of the parameter
+// domain is closed exactly along that edge. Returns closed loops in image
+// coordinates.
+function contours(nx, ny, value, point) {
+  const val = new Float64Array((nx + 3) * (ny + 3));
+  const px = new Float64Array((nx + 3) * (ny + 3));
+  const py = new Float64Array((nx + 3) * (ny + 3));
+  const idx = (i, j) => (i + 1) * (ny + 3) + (j + 1);
+  for (let i = -1; i <= nx + 1; i++) {
+    for (let j = -1; j <= ny + 1; j++) {
+      const inside = i >= 0 && j >= 0 && i <= nx && j <= ny;
+      const ci = Math.max(0, Math.min(nx, i)), cj = Math.max(0, Math.min(ny, j));
+      const k = idx(i, j);
+      val[k] = inside ? value(i, j) : -1;
+      const p = point(ci, cj);
+      px[k] = p[0]; py[k] = p[1];
+    }
+  }
+  const cross = new Map();
+  const crossing = (key, a, b) => {
+    let c = cross.get(key);
+    if (c) return c;
+    const fa = val[a], fb = val[b];
+    const t = fa / (fa - fb);
+    c = { p: [px[a] + (px[b] - px[a]) * t, py[a] + (py[b] - py[a]) * t], segs: [] };
+    cross.set(key, c);
+    return c;
+  };
+  const segs = [];
+  for (let i = -1; i <= nx; i++) {
+    for (let j = -1; j <= ny; j++) {
+      const a = idx(i, j), b = idx(i + 1, j), c = idx(i + 1, j + 1), d = idx(i, j + 1);
+      const code = (val[a] >= 0 ? 1 : 0) | (val[b] >= 0 ? 2 : 0) | (val[c] >= 0 ? 4 : 0) | (val[d] >= 0 ? 8 : 0);
+      if (code === 0 || code === 15) continue;
+      const B = () => crossing(`h${i},${j}`, a, b);
+      const R = () => crossing(`v${i + 1},${j}`, b, c);
+      const T = () => crossing(`h${i},${j + 1}`, d, c);
+      const L = () => crossing(`v${i},${j}`, a, d);
+      const add = (e0, e1) => {
+        const s = [e0(), e1()];
+        s[0].segs.push(segs.length); s[1].segs.push(segs.length);
+        segs.push(s);
+      };
+      switch (code) {
+        case 1: case 14: add(L, B); break;
+        case 2: case 13: add(B, R); break;
+        case 3: case 12: add(L, R); break;
+        case 4: case 11: add(R, T); break;
+        case 6: case 9: add(B, T); break;
+        case 7: case 8: add(L, T); break;
+        case 5: {
+          const centre = (val[a] + val[b] + val[c] + val[d]) / 4;
+          if (centre >= 0) { add(L, T); add(B, R); } else { add(L, B); add(R, T); }
+          break;
+        }
+        case 10: {
+          const centre = (val[a] + val[b] + val[c] + val[d]) / 4;
+          if (centre >= 0) { add(L, B); add(R, T); } else { add(L, T); add(B, R); }
+          break;
+        }
+        default: break;
+      }
+    }
+  }
+  const used = new Array(segs.length).fill(false);
+  const loops = [];
+  for (let s0 = 0; s0 < segs.length; s0++) {
+    if (used[s0]) continue;
+    const loop = [];
+    let s = s0, node = segs[s0][0];
+    for (;;) {
+      used[s] = true;
+      const [p, q] = segs[s];
+      const next = p === node ? q : p;
+      loop.push(next.p);
+      const other = next.segs.find((k) => k !== s && !used[k]);
+      if (other === undefined) break;
+      s = other; node = next;
+    }
+    if (loop.length >= 3) loops.push(loop);
+  }
+  return loops;
+}
+function polyArea(pts) {
+  let a = 0;
+  for (let i = 0; i < pts.length; i++) {
+    const [x0, y0] = pts[i], [x1, y1] = pts[(i + 1) % pts.length];
+    a += x0 * y1 - x1 * y0;
+  }
+  return Math.abs(a) / 2;
+}
+// Draw the region where `value` is positive on a parameter grid, as one
+// even-odd path of simplified contour loops. Loops below `minArea` are
+// sampling noise and dropped.
+function region(sh, nx, ny, value, point, fill, extra = "", minArea = 4) {
+  const loops = contours(nx, ny, value, point)
+    .filter((l) => polyArea(l) >= minArea)
+    .map((l) => simplify(l, 0.12));
+  if (!loops.length) return;
+  for (const l of loops) sh.track(l);
+  const d = loops.map((l) => l.map(([x, y], i) => `${i ? "L" : "M"}${r1(x)},${r1(y)}`).join("") + "Z").join("");
+  sh.parts.push(`<path d="${d}" fill="${fill}" fill-rule="evenodd"${extra ? " " + extra : ""}/>`);
 }
 
-// Bogies, underframe and the two rails. Drawn before the body, which then
-// hides everything above the sheeting line g; what survives is the part a
-// standing person sees under a metro car from track level: the lower half
-// of each wheel on the rail, the bogie frame between them, the equipment
-// boxes hung between the bogies.
+const vsub = (a, b) => [a[0] - b[0], a[1] - b[1], a[2] - b[2]];
+const vdot = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+const vaxpy = (a, x, b, y, c, z) => [a[0] * x + b[0] * y + c[0] * z, a[1] * x + b[1] * y + c[1] * z, a[2] * x + b[2] * y + c[2] * z];
+
+// Signed distance to a rounded box, negative inside, with the corner
+// radius chosen by which half of the box the point is in.
+function sdBox(v, w, v0, w0, v1, w1, rb, rt) {
+  const cx = (v0 + v1) / 2, cy = (w0 + w1) / 2;
+  const r = w > cy ? rt : rb;
+  const qx = Math.abs(v - cx) - (v1 - v0) / 2 + r, qy = Math.abs(w - cy) - (w1 - w0) / 2 + r;
+  return Math.hypot(Math.max(qx, 0), Math.max(qy, 0)) + Math.min(Math.max(qx, qy), 0) - r;
+}
+const smax = (a, b, k) => {
+  const h = Math.max(0, Math.min(1, 0.5 + (0.5 * (a - b)) / k));
+  return b + (a - b) * h + k * h * (1 - h);
+};
+
+// The cab geometry, shared by the body regions and every detail mapped
+// onto the surface.
+function makeCab(t) {
+  const { W, H, g, wEave, D, p, q } = t;
+  // Tip profile in (u, w): skirt leaning in, the mask nearly upright and
+  // proudest at the band, the windscreen raked back, the roll over the roof
+  // ending level at the crest. Convex throughout, so the solid stays convex.
+  const prof = [].concat(
+    bezier([0.2, g], [0.1, 0.95], [0.0, 1.25], [0.0, 1.55], 12),
+    bezier([0.0, 1.55], [0.0, 1.8], [0.04, 1.95], [0.08, 2.08], 8).slice(1),
+    bezier([0.08, 2.08], [0.3, 2.5], [0.52, 2.95], [0.74, 3.36], 12).slice(1),
+    bezier([0.74, 3.36], [1.0, 3.68], [1.25, H], [1.5, H], 16).slice(1),
+  );
+  const rake = (w) => {
+    if (w <= prof[0][1]) return prof[0][0];
+    for (let i = 1; i < prof.length; i++) {
+      if (w <= prof[i][1]) {
+        const [u0, w0] = prof[i - 1], [u1, w1] = prof[i];
+        return u0 + ((u1 - u0) * (w - w0)) / (w1 - w0 || 1e-9);
+      }
+    }
+    return prof[prof.length - 1][0];
+  };
+  // Half-width of the section at height w: the flank up to the eave, then
+  // a superellipse dome to the crest.
+  const hw = (w) => {
+    if (w <= wEave) return W / 2;
+    if (w >= H) return 0;
+    const s = (w - wEave) / (H - wEave);
+    return (W / 2) * Math.pow(1 - Math.pow(s, q), 1 / q);
+  };
+  const nose = (n) => {
+    n = Math.min(1, Math.abs(n));
+    return 1 - Math.pow(1 - Math.pow(n, p), 1 / p);
+  };
+  const depth = (v, w) => {
+    const h = hw(w);
+    if (h < 1e-6) return rake(w);
+    return rake(w) + D * (h / (W / 2)) * nose((v - W / 2) / h);
+  };
+  // Where the flank begins at height w: the cab surface's near edge.
+  const uFlank = (w) => rake(w) + D * (hw(w) / (W / 2));
+  // The section as a polyline from the near skirt, up and over the dome,
+  // down the far flank, at roughly even spacing. The bottom face is left
+  // out: it is never visible from a standing eye.
+  const section = [];
+  const stepW = 0.03;
+  for (let w = g; w < wEave; w += stepW) section.push([0, w]);
+  const nDome = 130;
+  for (let i = 0; i <= nDome; i++) {
+    const a = Math.PI - (i / nDome) * Math.PI;
+    const cx = Math.cos(a), sy = Math.sin(a);
+    const x = (W / 2) * Math.sign(cx) * Math.pow(Math.abs(cx), 2 / q);
+    const y = (H - wEave) * Math.pow(Math.abs(sy), 2 / q);
+    section.push([W / 2 + x, wEave + y]);
+  }
+  for (let w = wEave - stepW; w >= g; w -= stepW) section.push([W, w]);
+  section.push([W, g]);
+  // Outward normal of the section at each vertex, in (v, w).
+  const secN = section.map((pt, i) => {
+    const a = section[Math.max(0, i - 1)], b = section[Math.min(section.length - 1, i + 1)];
+    const tv = b[0] - a[0], tw = b[1] - a[1];
+    const len = Math.hypot(tv, tw) || 1;
+    return [-tw / len, tv / len];
+  });
+  // Visibility of a surface point with body-frame normal (nu, nv, nw).
+  const visAt = (u, v, w, nu, nv, nw) => {
+    const N = vaxpy(U_DIR, nu, V_DIR, nv, W_DIR, nw);
+    return vdot(N, vsub(CAM, world(u, v, w)));
+  };
+  // The cab surface's outward normal is (-1, u_v, u_w) up to scale.
+  const capVis = (v, w) => {
+    const h = 0.002;
+    const uv = (depth(v + h, w) - depth(v - h, w)) / (2 * h);
+    const uw = (depth(v, w + h) - depth(v, w - h)) / (2 * h);
+    return visAt(depth(v, w), v, w, -1, uv, uw);
+  };
+  const sweepVis = (i, u) => visAt(u, section[i][0], section[i][1], 0, secN[i][0], secN[i][1]);
+  // A (v, w) -> image mapper for details on the cab surface, du proud.
+  const face = (du = 0.006) => ([v, w]) => P(depth(v, w) - du, v, w);
+  return { rake, hw, depth, uFlank, section, secN, capVis, sweepVis, face };
+}
+
+// The body, in two passes so the flank details can go between them: the
+// swept flank and roof first, then the cab over the join. Each region is a
+// contour of min(visibility, zone) on its parameter grid.
+function trainSweep(sh, t, cab, tones) {
+  const { L, W } = t;
+  const { section, uFlank, sweepVis } = cab;
+  const { upper, lower, valance, flankK, roofK, band, wBand, vBorder } = tones;
+  const wEave = t.wEave;
+
+  // Sweep grid: i along the section, j from just inside the cab edge
+  // (so the join is covered by the cab drawn later) to the car end.
+  const nI = section.length - 1, nJ = 90;
+  const sweepU = (i, j) => {
+    const [, w] = section[i];
+    const u0 = uFlank(w) - 0.02;
+    return u0 + ((L - u0) * j) / nJ;
+  };
+  const sweepPt = (i, j) => P(sweepU(i, j), section[i][0], section[i][1]);
+  const sweepField = (zone) => (i, j) => Math.min(sweepVis(i, sweepU(i, j)), zone(section[i][0], section[i][1], sweepU(i, j)));
+  region(sh, nI, nJ, sweepField(() => 1), sweepPt, shade(upper, flankK));
+  // Lower body and valance on the flank, below the band and below the floor.
+  region(sh, nI, nJ, sweepField((v, w) => wBand[0] - w), sweepPt, shade(lower, flankK));
+  region(sh, nI, nJ, sweepField((v, w) => Math.min(wBand[0] - w, 1.02 - w)), sweepPt, shade(valance, flankK));
+  // The shoulder, seen from below, turning away.
+  region(sh, nI, nJ, sweepField((v, w) => w - wEave), sweepPt, shade(upper, flankK * roofK));
+  // The line colour carried a little way onto the roof behind the cab.
+  region(sh, nI, nJ, sweepField((v, w, u) => Math.min(0.22 - (u - uFlank(w) + 0.02), (W / 2 - vBorder) - Math.abs(v - W / 2))), sweepPt, shade(band, roofK));
+}
+
+// The cab: base tone over the whole visible surface, then the tonal zones
+// on top. Returns the zone painter for the livery and the face.
+function trainCap(sh, t, cab, tones) {
+  const { W, H, g, wEave } = t;
+  const { depth, capVis } = cab;
+  const { upper, lower, valance, roofK, nearK, farK, wBand, vBorder } = tones;
+  // Cab grid over (v, w), the region inside the section.
+  const v0 = -0.03, v1 = W + 0.03, w0 = g - 0.03, w1 = H + 0.03;
+  const nV = Math.ceil((v1 - v0) / 0.02), nW = Math.ceil((w1 - w0) / 0.02);
+  const vAt = (i) => v0 + ((v1 - v0) * i) / nV, wAt = (j) => w0 + ((w1 - w0) * j) / nW;
+  const capPt = (i, j) => P(depth(vAt(i), wAt(j)), vAt(i), wAt(j));
+  const inside = (v, w) => Math.min(cab.hw(w) - Math.abs(v - W / 2), w - g, H - w);
+  const capField = (zone) => (i, j) => {
+    const v = vAt(i), w = wAt(j);
+    const ins = inside(v, w);
+    if (ins < -0.05) return ins;
+    return Math.min(capVis(v, w), ins, zone(v, w));
+  };
+  const cap = (zone, fill) => region(sh, nV, nW, capField(zone), capPt, fill);
+  cap(() => 1, upper);
+  cap((v, w) => wBand[0] - w, lower);
+  cap((v, w) => 1.02 - w, valance);
+  cap((v, w) => vBorder - v, shade(upper, nearK));
+  cap((v, w) => Math.min(vBorder - v, wBand[0] - w), shade(lower, nearK));
+  cap((v, w) => Math.min(vBorder - v, 1.02 - w), shade(valance, nearK));
+  cap((v, w) => v - (W - vBorder), shade(upper, farK));
+  cap((v, w) => Math.min(v - (W - vBorder), wBand[0] - w), shade(lower, farK));
+  cap((v, w) => w - (wEave + 0.12), shade(upper, roofK));
+  return cap;
+}
+
 function runningGear(sh, t, bogies) {
   const { L, W } = t;
   const gauge = 1.435, vRail = W / 2 - gauge / 2, railW = 0.07, wheelR = 0.43, tread = 0.13;
@@ -767,70 +1037,110 @@ function saloonWindow(sh, u0, u1, w0, w1) {
 }
 
 function nammaMetro(sh, line) {
-  const t = { L: 15, W: 2.88, H: 3.9, He: 3.62, g: 0.62, c: 0.2, R: 0.42, wRake: 1.2, rakeK: 0.14, base: "#e4e5e2" };
-  const { L, W, He, g, c } = t;
+  const t = { L: 15, W: 2.88, H: 3.9, g: 0.62, wEave: 3.3, D: 0.95, p: 2.2, q: 2.5 };
+  const { L, W, H, g, wEave } = t;
   const band = line.band;
-  const wFloor = 1.1, wSill = 2.05, wHead = 3.08, bandW = [1.72, 2.02];
+  const upper = "#d4d6d3", lower = "#c0c2bf", valance = "#9c9e9b";
+  const MASK = "#3a3c3b";
+  const wFloor = 1.1, wSill = 2.05, wHead = 3.08, wBand = [1.72, 2.02];
+  const vBorder = 0.3;
   const bogies = [2.6, L - 2.6];
+  const cab = makeCab(t);
+  const { uFlank, face } = cab;
 
   runningGear(sh, t, bogies);
-  const { sideTone } = trainBody(sh, t);
-  const FR = rakedFace(t);
-  const uBand = c + faceU(t, bandW[1]);
+  const tones = { upper, lower, valance, flankK: 0.86, roofK: 0.78, nearK: 1.03, farK: 0.9, band, wBand, vBorder };
+  const flankTone = shade(upper, 0.86);
+  trainSweep(sh, t, cab, tones);
 
-  // Flank: solebar band under the floor, the line band, the window band.
-  sh.poly([[c, g], [L, g], [L, wFloor - 0.08], [c, wFloor - 0.08]].map(side()), shade(t.base, 0.66));
-  sh.poly([[c, wFloor - 0.08], [L, wFloor - 0.08], [L, wFloor - 0.04], [c, wFloor - 0.04]].map(side()), shade(t.base, 0.56));
-  sh.poly([[uBand, bandW[0]], [L, bandW[0]], [L, bandW[1]], [uBand, bandW[1]]].map(side()), shade(band, 0.86));
-  sh.poly([[uBand, bandW[0] - 0.05], [L, bandW[0] - 0.05], [L, bandW[0]], [uBand, bandW[0]]].map(side()), shade(band, 0.6));
-  // Window band, with a raked front edge behind the cab pillar.
-  const uWin0 = c + faceU(t, wSill - 0.05) + 0.34, uWin1 = c + faceU(t, wHead + 0.05) + 0.34;
-  sh.poly([[uWin0, wSill - 0.05], [L - 0.2, wSill - 0.05], [L - 0.2, wHead + 0.05], [uWin1, wHead + 0.05]].map(side()), INK);
-  // Cab side window and the crew door.
-  sh.poly([[uWin0 + 0.04, wSill], [1.45, wSill], [1.45, wHead], [uWin1 + 0.04, wHead]].map(side()), GLASS);
-  sh.poly([[uWin0 + 0.06, wHead - 0.02], [1.43, wHead - 0.02], [1.43, wSill + (wHead - wSill) * 0.58], [uWin0 + 0.06, wSill + (wHead - wSill) * 0.58]].map(side()), "#ffffff", 'fill-opacity="0.07"');
-  sh.poly(rrect(1.58, wFloor, 2.3, wHead + 0.05, 0.03).map(side()), INK);
-  sh.poly(rrect(1.61, wFloor + 0.03, 2.27, wHead + 0.02, 0.03).map(side()), sideTone);
-  sh.poly([[1.61, bandW[0]], [2.27, bandW[0]], [2.27, bandW[1]], [1.61, bandW[1]]].map(side()), shade(band, 0.86));
-  sh.poly(rrect(1.68, wSill, 2.2, wHead - 0.05, 0.05).map(side()), GLASS);
-  // Three door bays at the real 4.6 m pitch, two saloon windows between.
+  // Flank details, on the v = 0 plane. Each runs from just inside the cab
+  // edge at its own height, so the cab drawn afterwards covers the join.
+  const fl = (w) => uFlank(w) - 0.03;
+  // Cantrail gutter and the sheeting line under the floor.
+  sh.poly([[fl(wEave - 0.04), wEave - 0.04], [L, wEave - 0.04], [L, wEave], [fl(wEave), wEave]].map(side()), shade(upper, 0.6));
+  sh.poly([[fl(wFloor - 0.06), wFloor - 0.06], [L, wFloor - 0.06], [L, wFloor - 0.02], [fl(wFloor - 0.02), wFloor - 0.02]].map(side()), shade(lower, 0.62));
+  // The line band, with a darker rule under it.
+  sh.poly([[fl(wBand[0]), wBand[0]], [L, wBand[0]], [L, wBand[1]], [fl(wBand[1]), wBand[1]]].map(side()), shade(band, 0.86));
+  sh.poly([[fl(wBand[0] - 0.04), wBand[0] - 0.04], [L, wBand[0] - 0.04], [L, wBand[0]], [fl(wBand[0]), wBand[0]]].map(side()), shade(band, 0.6));
+  // Cab side window, following the raked cab edge, and the crew door.
+  const cw0 = (w) => uFlank(w) + 0.1;
+  const cabWin = [[cw0(wSill), wSill], [1.9, wSill], [1.9, wHead - 0.02], [cw0(wHead - 0.02), wHead - 0.02]];
+  sh.poly(densify(cabWin, 0.05).map(side()), INK);
+  sh.poly(densify([[cw0(wSill) + 0.04, wSill + 0.04], [1.86, wSill + 0.04], [1.86, wHead - 0.06], [cw0(wHead - 0.06) + 0.04, wHead - 0.06]], 0.05).map(side()), GLASS);
+  sh.poly(rrect(2.0, wFloor, 2.62, wHead + 0.04, 0.04).map(side()), INK);
+  sh.poly(rrect(2.03, wFloor + 0.03, 2.59, wHead + 0.01, 0.03).map(side()), flankTone);
+  sh.poly([[2.03, wBand[0]], [2.59, wBand[0]], [2.59, wBand[1]], [2.03, wBand[1]]].map(side()), shade(band, 0.86));
+  sh.poly([[2.03, wFloor + 0.03], [2.59, wFloor + 0.03], [2.59, wBand[0] - 0.04], [2.03, wBand[0] - 0.04]].map(side()), shade(lower, 0.86));
+  sh.poly(rrect(2.1, wSill + 0.1, 2.52, wHead - 0.06, 0.06).map(side()), GLASS);
+  // Three door bays at the real 4.6 m pitch, saloon windows between.
   const doors = [[2.9, 4.3], [7.5, 8.9], [12.1, 13.5]];
   const windows = [[4.45, 5.85], [6.0, 7.35], [9.05, 10.45], [10.6, 11.95], [13.65, 14.75]];
   for (const [a, b] of windows) saloonWindow(sh, a, b, wSill, wHead);
-  for (const [a, b] of doors) slidingDoor(sh, a, b, wFloor, wSill, wHead - 0.1, wHead + 0.02, sideTone, bandW, shade(band, 0.86));
+  for (const [a, b] of doors) {
+    slidingDoor(sh, a, b, wFloor, wSill, wHead - 0.1, wHead + 0.02, flankTone, wBand, shade(band, 0.86));
+    sh.poly([[a + 0.03, wFloor + 0.03], [b - 0.03, wFloor + 0.03], [b - 0.03, wBand[0] - 0.04], [a + 0.03, wBand[0] - 0.04]].map(side()), shade(lower, 0.86));
+    sh.poly([[a + 0.03, wBand[0]], [b - 0.03, wBand[0]], [b - 0.03, wBand[1]], [a + 0.03, wBand[1]]].map(side()), shade(band, 0.86));
+    sh.poly([[(a + b) / 2 - 0.012, wFloor + 0.03], [(a + b) / 2 + 0.012, wFloor + 0.03], [(a + b) / 2 + 0.012, wHead], [(a + b) / 2 - 0.012, wHead]].map(side()), INK);
+  }
   // Car-end gangway rubber.
-  sh.poly([[L - 0.06, g], [L, g], [L, He - 0.12], [L - 0.06, He - 0.12]].map(side()), INK);
+  sh.poly([[L - 0.06, g], [L, g], [L, wEave - 0.1], [L - 0.06, wEave - 0.1]].map(side()), INK);
 
-  // Front: apron, coupler, the line band wrapping the corners, black mask
-  // with the windscreen and the destination board, lamp clusters.
-  sh.poly([[c + 0.04, g], [W - c - 0.04, g], [W - c - 0.04, 0.9], [c + 0.04, 0.9]].map(front(-0.004)), INK);
-  sh.poly([[c + 0.04, 0.9], [W - c - 0.04, 0.9], [W - c - 0.04, 0.96], [c + 0.04, 0.96]].map(front(-0.004)), shade(t.base, 0.6));
-  sh.poly([[-0.28, 1.32, 0.46], [0, 1.32, 0.46], [0, 1.32, 0.66], [-0.28, 1.32, 0.66]].map(([u, v, w]) => P(u, v, w)), "#2a2b28");
-  sh.poly(rrect(1.32, 0.46, 1.56, 0.66, 0.04).map(front(-0.28)), INK);
-  const wrap = (w0, w1, tone) => {
-    sh.poly([[c, w0], [W - c, w0], [W - c, w1], [c, w1]].map(FR), tone);
-    sh.poly([P(faceU(t, w0) - 0.006, c, w0), P(c + faceU(t, w0) - 0.006, 0, w0), P(c + faceU(t, w1) - 0.006, 0, w1), P(faceU(t, w1) - 0.006, c, w1)], shade(tone, 1.04));
-    sh.poly([P(faceU(t, w0) - 0.006, W - c, w0), P(c + faceU(t, w0) - 0.006, W, w0), P(c + faceU(t, w1) - 0.006, W, w1), P(faceU(t, w1) - 0.006, W - c, w1)], shade(tone, 0.9));
+  // The cab. The dark face is a rounded box of glass over mask; the line
+  // colour is a thick border round it, carried up over the roof edge to
+  // where the silver roof begins, and joined to the flank band at each
+  // side with a fillet.
+  const faceBox = [0.46, 1.36, W - 0.46, 3.22, 0.42, 0.5];
+  const outerBox = [vBorder, 1.2, W - vBorder, 3.74, 0.58, 0.5];
+  const greenField = (v, w) => {
+    const ring = Math.min(-sdBox(v, w, ...outerBox), sdBox(v, w, ...faceBox));
+    const bandIn = Math.min(w - wBand[0], wBand[1] - w, Math.min(v, W - v) < W / 2 ? 0.44 - Math.min(v, W - v) : -1);
+    return smax(ring, bandIn, 0.1);
   };
-  wrap(bandW[0], bandW[1], band);
-  wrap(bandW[0] - 0.05, bandW[0], shade(band, 0.6));
-  sh.poly(rrect(0.3, 2.08, W - 0.3, 3.16, 0.16).map(FR), INK);
-  sh.poly(rrect(0.4, 2.16, W - 0.4, 2.8, 0.1).map(rakedFace(t, -0.01)), GLASS_FRONT);
-  sh.poly([[0.45, 2.75], [W - 0.45, 2.75], [W - 0.45, 2.55], [0.45, 2.42]].map(rakedFace(t, -0.01)), "#ffffff", 'fill-opacity="0.08"');
-  sh.poly(rrect(0.5, 2.86, W - 0.5, 3.1, 0.03).map(rakedFace(t, 0.012)), "#2a2b28");
-  sh.poly(rrect(0.53, 2.88, W - 0.53, 3.08, 0.02).map(rakedFace(t, 0.012)), "#0b0c0b");
-  boardText(sh, line.destination, W / 2, 2.935, 12, 0.108, METRO_LED, rakedFace(t, 0.01));
-  for (const v0 of [0.62, W - 1.3]) {
-    sh.line([rakedFace(t, -0.012)([v0, 2.18]), rakedFace(t, -0.012)([v0 + 0.3, 2.7])], INK, 3);
+  const cap = trainCap(sh, t, cab, tones);
+  cap(greenField, band);
+  cap((v, w) => Math.min(greenField(v, w), vBorder + 0.12 - v), shade(band, 1.04));
+  cap((v, w) => Math.min(greenField(v, w), w - (wEave + 0.12)), shade(band, 0.78));
+  cap((v, w) => Math.min(greenField(v, w), v - (W - vBorder - 0.12)), shade(band, 0.9));
+
+  // Mask and glass.
+  const FR = face();
+  sh.poly(densify(rrect2(...faceBox), 0.03).map(FR), MASK);
+  sh.poly(densify(rrect2(0.55, 2.12, W - 0.55, 3.14, 0.14, 0.38), 0.03).map(face(0.009)), GLASS_FRONT);
+  sh.poly(densify([[0.62, 3.06], [W - 0.62, 3.06], [W - 0.62, 2.72], [0.62, 2.5]], 0.03).map(face(0.011)), "#ffffff", 'fill-opacity="0.08"');
+  // Destination strip, set into the bodywork above the glass.
+  sh.poly(densify(rrect(W / 2 - 0.7, 3.27, W / 2 + 0.7, 3.46, 0.03), 0.03).map(face(0.004)), "#2a2b28");
+  sh.poly(densify(rrect(W / 2 - 0.67, 3.29, W / 2 + 0.67, 3.44, 0.02), 0.03).map(face(0.006)), "#0b0c0b");
+  boardText(sh, line.destination, W / 2, 3.33, 10, 0.092, METRO_LED, face(0.008));
+  // Wipers at rest, arms lying along the bottom of the glass.
+  for (const v0 of [0.66, 1.52]) {
+    sh.line(densify([[v0, 2.14], [v0 + 0.72, 2.2]], 0.04, false).map(face(0.012)), INK, 3);
+    sh.line(densify([[v0 + 0.14, 2.24], [v0 + 0.72, 2.29]], 0.04, false).map(face(0.012)), INK, 2.2);
   }
-  // Wordmark bar under the band, in the line colour.
-  sh.poly(rrect(W / 2 - 0.36, 1.32, W / 2 + 0.36, 1.4, 0.03, 2).map(front(-0.005)), shade(band, 0.86));
-  sh.poly(circle(W / 2 - 0.48, 1.36, 0.06, 16).map(front(-0.005)), shade(band, 0.86));
-  for (const v of [0.34, W - 0.72]) {
-    sh.poly(rrect(v, 0.98, v + 0.38, 1.46, 0.06).map(front(-0.008)), INK);
-    roundLamp(sh, v + 0.19, 1.3, 0.1, "#8a8a84");
-    sh.poly(circle(v + 0.19, 1.08, 0.06, 16).map(front(-0.012)), "#d92c2c");
+  // Emblem: the BMRCL knot, in magenta on the mask.
+  const em = [W / 2, 1.86];
+  for (let i = 0; i < 4; i++) {
+    const a = Math.PI / 4 + (i * Math.PI) / 2;
+    sh.poly(densify(circle(em[0] + 0.075 * Math.cos(a), em[1] + 0.075 * Math.sin(a), 0.045, 16), 0.02).map(face(0.01)), "#b8288f");
   }
+  sh.poly(densify(circle(em[0], em[1], 0.05, 16), 0.02).map(face(0.011)), MASK);
+  sh.poly(densify(circle(em[0], em[1], 0.024, 12), 0.02).map(face(0.012)), "#b8288f");
+  // Lamps: round clusters low and outboard in pairs, a squarer lamp between.
+  const lamp = (v, w, r) => {
+    sh.poly(densify(circle(v, w, r, 24), 0.02).map(face(0.01)), "#8a8a84");
+    sh.poly(densify(circle(v, w, r * 0.72, 20), 0.02).map(face(0.012)), "#ffffff");
+    sh.poly(densify(circle(v - r * 0.2, w + r * 0.2, r * 0.3, 12), 0.02).map(face(0.014)), "#dfe7ee");
+  };
+  for (const v of [0.74, W - 0.74]) {
+    lamp(v, 1.6, 0.095);
+    lamp(v + (v < W / 2 ? 0.25 : -0.25), 1.6, 0.095);
+  }
+  sh.poly(densify(rrect(W / 2 - 0.1, 1.5, W / 2 + 0.1, 1.62, 0.02, 3), 0.02).map(face(0.01)), "#8a8a84");
+  sh.poly(densify(rrect(W / 2 - 0.08, 1.52, W / 2 + 0.08, 1.6, 0.015, 3), 0.02).map(face(0.012)), "#f4f1e6");
+  // Coupler under the nose.
+  const uTip = cab.rake(g);
+  sh.poly([[uTip - 0.34, W / 2 - 0.13, 0.44], [uTip + 0.3, W / 2 - 0.13, 0.44], [uTip + 0.3, W / 2 - 0.13, 0.62], [uTip - 0.34, W / 2 - 0.13, 0.62]].map((x) => P(...x)), "#2a2b28");
+  sh.poly([[uTip - 0.34, W / 2 - 0.13, 0.44], [uTip - 0.34, W / 2 + 0.13, 0.44], [uTip - 0.34, W / 2 + 0.13, 0.62], [uTip - 0.34, W / 2 - 0.13, 0.62]].map((x) => P(...x)), INK);
+  sh.poly(rrect(W / 2 - 0.16, 0.42, W / 2 + 0.16, 0.66, 0.05).map(front(uTip - 0.36)), "#1e1f1c");
   return t;
 }
 
@@ -845,7 +1155,7 @@ const metroLines = [
 const trains = metroLines.map((m) => ({
   id: m.id,
   title: `Namma Metro ${m.line} train, leading car, three-quarter view from the front and platform side`,
-  note: `Standard-gauge metro stock: light grey body with a ${m.line.split(" ")[0].toLowerCase()} band under a continuous black window band, raked windscreen in a black mask, three pairs of sliding doors, bogies under the sheeting, on rail. A 15 m leading car: the length is cut so the car end lands inside the frame the 12 m coaches fixed; height, width and door pitch are at true scale.`,
+  note: `Standard-gauge metro stock: a rounded, domed cab in light grey and silver, one raked windscreen over a dark mask with paired round lamps, the ${m.line.split(" ")[0].toLowerCase()} of the line as a thick border round the face that runs over the roof edge and joins the flank band, three pairs of sliding doors, bogies under the sheeting, on rail. A 15 m leading car: the length is cut so the car end lands inside the frame the 12 m coaches fixed; height, width and door pitch are at true scale.`,
   draw: (sh) => nammaMetro(sh, m),
 }));
 

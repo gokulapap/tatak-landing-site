@@ -21,9 +21,10 @@ And under `metro/`:
 | `namma-metro-purple.svg` | Purple | `CHALLAGHATTA` |
 | `namma-metro-yellow.svg` | Yellow | `BOMMASANDRA` |
 
-The trains are light grey with the line colour as a band under the window sill,
-wrapping around the corner chamfers onto the front. Green `#1fa04c`, purple
-`#7c3399`, yellow `#f3c317`.
+The trains are light grey and silver with the line colour as a band below the
+windows, which sweeps up at the cab into a thick border round the windscreen
+and mask and over the roof edge. Green `#1fa04c`, purple `#7c3399`, yellow
+`#f3c317`.
 
 ## They share one camera, and that is the point
 
@@ -109,6 +110,6 @@ The buses are drawn from Wikimedia Commons reference photographs, used to get
 liveries, proportions and the camera angle right. The trains carry estimates
 where the stock is not documented: roof height, windscreen rake, sheeting line
 and bogie centres are typical metro values rather than measured Namma Metro
-ones, and the front wordmark is a plain bar in the line colour rather than a
-fabricated BMRCL logo. No photograph is embedded and
-none ships, so nothing here carries an attribution requirement.
+ones, and the mark on the mask is a plain four-lobed rosette in magenta, a
+stand-in for the BMRCL emblem rather than a copy of it. No photograph is
+embedded and none ships, so nothing here carries an attribution requirement.
