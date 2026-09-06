@@ -3890,8 +3890,9 @@ img {
   gap: clamp(28px, 4vw, 70px);
   /* Zeroing the subhead's own top margin below pulled each heading up against
      whatever ended the previous section, so the row carries the separation
-     instead. */
-  margin: clamp(46px, 6vw, 82px) 0 34px;
+     instead. Kept modest: 84px of subhead margin was what made these gaps
+     read as holes in the first place. */
+  margin: clamp(30px, 3.4vw, 52px) 0 30px;
 }
 
 .fleet-row-copy .page-subhead {
@@ -3962,4 +3963,26 @@ img {
    line at desktop widths; the clamped font size still wraps it on a phone. */
 .fleet-page .section-intro.compact h1 {
   max-width: none;
+}
+
+/* Three lines the owner wants running the full measure rather than sitting in
+   the left column: the page's opening paragraph and the two notes under the
+   fare tables. They are asides about the table above them, so a long measure
+   reads fine here in a way it would not for body copy. */
+.fleet-page .section-intro.compact > p,
+.fleet-page .fleet-note.wide,
+.fleet-page .fleet-copy.wide,
+.fleet-page .note-list.wide {
+  max-width: none;
+}
+
+/* This page stacks a heading, a panel and a table in close succession, and the
+   site-wide 84px above a subhead plus 72px above a panel compound into a gap
+   that reads as a missing section rather than as breathing room. */
+.fleet-page .page-subhead {
+  margin-top: clamp(34px, 3.6vw, 56px);
+}
+
+.fleet-page .mcp-panel {
+  margin-top: 22px;
 }

@@ -314,7 +314,7 @@ export function FleetPage() {
             </tbody>
           </table>
         </div>
-        <p className="fleet-note" data-reveal>Bus fares are computed from distance rather than from stop count. On limited-stop routes consecutive stops can sit several kilometres apart, so counting stops would underprice a long express hop.</p>
+        <p className="fleet-note wide" data-reveal>Bus fares are computed from distance rather than from stop count. On limited-stop routes consecutive stops can sit several kilometres apart, so counting stops would underprice a long express hop.</p>
 
         <div className="fleet-row" data-reveal>
           <div className="fleet-row-copy">
@@ -371,18 +371,7 @@ export function FleetPage() {
             </tbody>
           </table>
         </div>
-        <p className="fleet-note" data-reveal>The fare column is still Tatak&apos;s own multiplier over the same corridor&apos;s ordinary-class fare, and for most rows it is still illustrative rather than published - the app&apos;s source file says so where it defines it. What changed is everything the multiplier used to stand in for: KSRTC&apos;s own booking pages now give a published rupee fare for every one of these sixteen classes, on real point pairs, across 490 services and 339 trip codes over five corridors and both directions. Six classes below - EV Power Plus, Flybus, Kalyana Ratha, Amoghavarsha, AC Seater Executive Chair and the plain AC Sleeper - have no multiplier in the codebase at all yet, so their fare cell says &ldquo;Not modelled&rdquo; rather than backing one out of a single observed fare. Ambaari Utsav is no longer one of them: its old &ldquo;not modelled&rdquo; reading is gone from the source file, replaced with 3.14, from 1508 rupees Bengaluru to Mangaluru over Karnataka Sarige&apos;s 480 on the same page.</p>
-
-        <h2 className="page-subhead" data-reveal>What the published fares settle</h2>
-        <p className="fleet-copy" data-reveal>One relationship in the corpus is exact rather than approximate. On four of the corridors where Ashwamedha and Karnataka Sarige both run - Bengaluru-Chikkamagaluru, Mysuru-Madikeri, Mysuru-Mangaluru and Bengaluru-Mangaluru - Ashwamedha&apos;s published fare equals Sarige&apos;s rupee for rupee: 343, 166, 338, 480. On the fifth, Bengaluru-Udupi, Ashwamedha&apos;s fares run 552 to 555 against Sarige&apos;s flat 555, close enough to read as the same rule with a few rupees of scatter. A &ldquo;point to point express&rdquo; priced the same as the ordinary bus is a fact about what Ashwamedha actually is, and it is why its own multiplier below is 1, the same as Sarige&apos;s.</p>
-        <p className="fleet-copy" data-reveal>The other finding is why Tatak prices by point pair rather than by distance. Trip code <code>2131BNGMNG</code> - one coach, one departure, sold on four different corridor pages - carries four different fares: 612 rupees Bengaluru to Mysuru, 569 Mysuru to Madikeri, 952 Mysuru to Mangaluru, and 1190 Bengaluru to Madikeri. Fourteen trip codes in this corpus do the same thing across four or more pairs. A single number keyed to distance cannot produce that; a table keyed to the pair can, which is the table Tatak already builds.</p>
-        <p className="fleet-note" data-reveal>The evidence behind these fares is not even, and the table above says so where it can rather than smoothing it out. Airavat Club Class is the best-attested class in the corpus - 120 of the 490 services, sold on every corridor but Dandeli. Kalyana Ratha and AC Seater Executive Chair sit at the other end: one service and two, both on Bengaluru-Hosapete, and nothing beyond those listings describes either coach further.</p>
-
-        <h2 className="page-subhead" data-reveal>Two rules riders find out at the counter</h2>
-        <ul className="note-list" data-reveal>
-          <li><strong>Shakti free travel reaches Karnataka Sarige and Ashwamedha, and nothing else.</strong> The scheme covers ordinary and express service, and Ashwamedha&apos;s own name carries the word &ldquo;express&rdquo; - a textual match, not an inference from its price. A woman boarding a Rajahamsa, an Airavat, a Pallakki, an Ambaari or any of the other fourteen classes pays the full fare. It is a rule about the class of coach, not about the corporation running it or the person boarding.</li>
-          <li><strong>The senior concession is 25 per cent, up to Rajahamsa.</strong> It applies on Karnataka Sarige, Rajahamsa Executive and Ashwamedha - priced at the ordinary floor, Ashwamedha sits squarely inside &ldquo;Rajahamsa and lower&rdquo; even though its own name says &ldquo;express&rdquo;. A source places Airavat, Airavat Club Class, Airavat Club Class 2.0, Ambaari Dream Class and Ambaari Utsav above the concession&apos;s stated ceiling. Pallakki and Non-AC Sleeper are the open case: nothing puts a non-AC sleeper inside that ceiling or outside it, so Tatak publishes no rate for either rather than picking one, and the newer classes with no independent source of their own - EV Power Plus, Flybus, Kalyana Ratha, Amoghavarsha, AC Seater Executive Chair, the plain AC Sleeper - inherit the same open case rather than a guess built off price alone. An unresolved cell and an ineligible cell are different facts, and the app keeps them apart.</li>
-        </ul>
+        <p className="fleet-note wide" data-reveal>The fare column is Tatak&apos;s own multiplier over each corridor&apos;s ordinary fare, not a published price. Six classes have no multiplier yet, so they read &ldquo;Not modelled&rdquo; rather than a number backed out of one observation.</p>
 
         <h2 className="page-subhead" data-reveal>Namma Metro</h2>
         <div className="mcp-panel" data-reveal>
@@ -407,6 +396,16 @@ export function FleetPage() {
           </div>
         </div>
 
+        <h2 className="page-subhead" data-reveal>What the published fares settle</h2>
+        <p className="fleet-copy wide" data-reveal>Ashwamedha costs the same as the ordinary bus. On four corridors the two fares match to the rupee: 343, 166, 338 and 480. That is why its multiplier is 1, like Karnataka Sarige&apos;s.</p>
+        <p className="fleet-copy wide" data-reveal>One coach can carry four different prices. Trip <code>2131BNGMNG</code> is sold on four corridor pages at 612, 569, 952 and 1190 rupees. Fourteen trip codes do this. So Tatak prices each pair of stops, not the distance between them.</p>
+        <p className="fleet-note wide" data-reveal>Some classes are better evidenced than others. Airavat Club Class appears in 120 of 490 services. Kalyana Ratha appears in one.</p>
+
+        <h2 className="page-subhead" data-reveal>Two rules riders find out at the counter</h2>
+        <ul className="note-list wide" data-reveal>
+          <li><strong>Shakti free travel works on Karnataka Sarige and Ashwamedha only.</strong> Every other class pays the full fare. It depends on the class of coach, not on who runs it.</li>
+          <li><strong>Seniors get 25 per cent off, up to Rajahamsa.</strong> The classes above that do not qualify. For Pallakki and the non-AC sleepers nobody publishes a rule either way, so Tatak shows nothing rather than guessing. Not knowing and not being eligible are different things.</li>
+        </ul>
         <a className="contact-back" href={publicAsset("/")}><span aria-hidden="true">←</span> Back to Tatak</a>
       </section>
 

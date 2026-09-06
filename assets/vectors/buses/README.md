@@ -1,0 +1,84 @@
+# Bus vectors
+
+Four Karnataka buses drawn as flat SVG, in a three-quarter view from the front
+and door side. They are the source of the drawings the fleet page serves from
+`public/fleet/`, and they are meant to be reused anywhere else that needs a
+recognisable vehicle rather than a photograph.
+
+| File | Vehicle | Livery |
+| --- | --- | --- |
+| `bmtc-bengaluru-sarige.svg` | BMTC Bengaluru Sarige, the ordinary city bus | blue, white rear panel, yellow rule |
+| `bmtc-vajra-volvo.svg` | BMTC Vajra, the air conditioned Volvo | deep red, twin white swooshes |
+| `ksrtc-karnataka-sarige.svg` | KSRTC Karnataka Sarige, the unreserved coach | red over a silver midband |
+| `nwkrtc-airavat-gold-class.svg` | NWKRTC Airavat Gold Class, reserved | yellow, blue wave, green curtains |
+
+## They share one camera, and that is the point
+
+All four are projected through the same pinhole camera onto the same
+`viewBox="0 0 626 629"`. Station point on the road, eye height 1.6 m, level
+line of sight, focal length 900 viewBox units. A world point `(x, y, z)` lands
+at `(900x/z, -900(y - 1.6)/z)`, which puts the horizon at `y = 336.6`.
+
+Every vehicle is parked in the same bay: front door corner 1.35 m right of the
+camera axis and 5.2 m ahead, yawed 32 degrees. So the two vanishing points are
+identical across all four files, the length direction at `x = 718.7` and the
+width direction at `x = -1284`.
+
+Two consequences worth knowing before you use them:
+
+- **Drop any of them beside another and they line up.** The horizon and the
+  near front corner sit in the same place in every file. Four bays, one tripod.
+- **The sizes are real, not styled.** Bengaluru Sarige 10.6 m long and 3.1 m
+  tall, Karnataka Sarige 11 m and 3.16 m, Vajra 12 m and 3.2 m on a low floor,
+  Airavat 12 m and 3.62 m on a high floor with luggage bays and a third axle.
+  Nothing is scaled per file, so the coach genuinely stands taller than the
+  city bus. Do not rescale one on its own or that breaks.
+
+The horizon sits below every window sill, so you see the underside of the roof
+curve and none of the roof deck, the way you would standing next to one. The
+off-side wheels and the Vajra's roof pod are absent because at this eye height
+they are genuinely hidden, not because they were skipped.
+
+## Destination boards
+
+The boards carry real `<text>`, the only text in these files. Everything else,
+wordmarks and emblems included, is shapes. Each glyph carries its own affine
+transform taken from the local derivative of the projection at its position on
+the board, so a string shears with the face and converges toward the same
+vanishing point as the vehicle rather than sitting flat on top of it.
+
+The font stack is `ui-monospace, Menlo, Consolas, 'Liberation Mono', monospace`.
+Monospace is deliberate: the per-glyph advance is fixed in the geometry, so the
+lettering lands correctly whatever face resolves, and it reads like the dot
+matrix and stencil boards the real vehicles use. No webfont will load, since
+these are usually consumed through `<img>`.
+
+Current boards are `500-CA BANASHANKARI`, `V-500CA ITPL`, `MANGALURU` and
+`HUBBALLI`. The two city routes are real and both run ITPL to Banashankari, so
+they show opposite directions of one working.
+
+## Regenerating
+
+`generate.mjs` emits all four. It is the source; the SVGs are output.
+
+```
+node assets/vectors/buses/generate.mjs assets/vectors/buses
+node assets/vectors/buses/generate.mjs public/fleet
+```
+
+An optional third argument writes review PNGs, which needs `sharp`:
+
+```
+node assets/vectors/buses/generate.mjs assets/vectors/buses /tmp/bus-png
+```
+
+Change a livery, a board or a dimension in the generator rather than editing an
+SVG by hand. Editing the output means the next regeneration silently discards
+your change, and hand-editing a projected point almost certainly breaks the
+shared camera the set depends on.
+
+## Where they came from
+
+Drawn from Wikimedia Commons reference photographs of each vehicle, used to get
+liveries, proportions and the camera angle right. No photograph is embedded and
+none ships, so nothing here carries an attribution requirement.
