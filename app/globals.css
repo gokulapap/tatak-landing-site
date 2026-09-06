@@ -3880,16 +3880,16 @@ img {
   }
 }
 
-/* Fleet page intro: the heading and its paragraph on the left, a stack of
-   fleet photographs on the right. `.section-intro.compact` sets `display:
-   block`, which is what left this row's right-hand side empty; the grid is
-   restored here rather than by dropping `compact`, because compact is also
-   what keeps the heading and paragraph tight against each other. */
+/* Fleet page intro: heading and paragraph on the left, the vehicles on the
+   right. `.section-intro.compact` sets `display: block`, which is what left
+   this row's right half empty; the grid is restored here rather than by
+   dropping `compact`, since compact is also what keeps the heading and its
+   paragraph tight together. */
 .section-intro.compact.fleet-intro {
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.72fr);
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 0.9fr);
   align-items: center;
-  gap: clamp(32px, 5vw, 76px);
+  gap: clamp(28px, 4vw, 64px);
 }
 
 .section-intro.compact.fleet-intro .section-label {
@@ -3897,41 +3897,53 @@ img {
 }
 
 /* The 13ch cap belongs to the stacked display heading this page no longer
-   uses. A plain name wants the room to sit on one line. */
+   uses. */
 .section-intro.compact.fleet-intro h1 {
-  max-width: 20ch;
+  max-width: 12ch;
 }
 
 .fleet-intro-copy > p {
-  max-width: 48ch;
+  max-width: 44ch;
   margin: 24px 0 0;
   color: var(--ink-soft);
   font-size: 14px;
   line-height: 1.75;
 }
 
+/* A bento: the network this page leads with gets the wide cell, the three
+   coach classes share the row beneath it. No borders and no drop shadow -
+   the photographs are the block, and a frame around each one only makes the
+   column look like a pile of prints. */
 .fleet-photos {
   display: grid;
-  gap: 10px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
   margin: 0;
 }
 
-/* Every photograph is scaled but never cropped on disk, so the frame does the
-   cropping. Two of the four are CC BY-SA, where a crop would be an adaptation
-   carrying share-alike onto it; a CSS frame leaves the file itself untouched. */
 .fleet-photos img {
-  display: block;
+  /* The width and height attributes are presentational hints that set a real
+     CSS height, and `aspect-ratio` only fills in a dimension that is missing,
+     so without this every cell renders at the photograph's own height. */
+  height: auto;
   width: 100%;
-  aspect-ratio: 16 / 7;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
-  border-radius: 10px;
+  border-radius: 14px;
   background: var(--surface);
 }
 
+.fleet-photos img:first-of-type {
+  grid-column: 1 / -1;
+  aspect-ratio: 16 / 9;
+  border-radius: 18px;
+}
+
 .fleet-photos figcaption {
-  margin-top: 4px;
+  grid-column: 1 / -1;
+  margin-top: 2px;
   color: var(--muted);
-  font-size: 11px;
+  font-size: 10px;
   line-height: 1.6;
 }
 
@@ -3941,11 +3953,14 @@ img {
   }
 
   .fleet-photos {
-    margin-top: 34px;
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 32px;
   }
 
-  .fleet-photos figcaption {
+  /* On two columns the wide cell would leave a hole in the row, so every
+     photograph takes the same square cell. */
+  .fleet-photos img:first-of-type {
     grid-column: 1 / -1;
+    aspect-ratio: 16 / 10;
   }
 }
