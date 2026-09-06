@@ -3888,7 +3888,10 @@ img {
   grid-template-columns: minmax(0, 1fr) minmax(320px, 0.92fr);
   align-items: center;
   gap: clamp(28px, 4vw, 70px);
-  margin: 0 0 34px;
+  /* Zeroing the subhead's own top margin below pulled each heading up against
+     whatever ended the previous section, so the row carries the separation
+     instead. */
+  margin: clamp(46px, 6vw, 82px) 0 34px;
 }
 
 .fleet-row-copy .page-subhead {
@@ -3951,4 +3954,12 @@ img {
   .fleet-pair {
     margin-top: 26px;
   }
+}
+
+/* The compact intro caps its heading at 13ch, which is right for the stacked
+   display headings elsewhere but breaks this one across two lines and leaves
+   a band of empty page beside it. This title is short enough to sit on one
+   line at desktop widths; the clamped font size still wraps it on a phone. */
+.fleet-page .section-intro.compact h1 {
+  max-width: none;
 }
