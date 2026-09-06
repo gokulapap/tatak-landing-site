@@ -228,7 +228,7 @@ export function FleetPage() {
       <section className="fleet-page route-section" id="main-content" aria-labelledby="fleet-title">
         <header className="section-intro compact" data-reveal>
           <div className="section-label"><span>01</span> Fleet</div>
-          <h1 id="fleet-title">Twenty kinds of vehicle, <em>two ways to board one.</em></h1>
+          <h1 id="fleet-title">Fleet types we support</h1>
           <p>Tatak plans over sixteen intercity coach classes, three tiers of BMTC city bus and three metro lines. The division that decides what you can actually do at a stop is not the operator on the livery. It is whether the vehicle is sold by the seat.</p>
         </header>
 
