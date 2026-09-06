@@ -3910,17 +3910,20 @@ img {
   line-height: 1.75;
 }
 
-/* The four buses as a lineup: one column, fronts flush left, every
-   illustration sharing the same viewBox and scale, so the city bus visibly
-   stops short of the coaches and the coaches visibly stand taller. No
-   frames, no cards, no shadows: the drawings sit straight on the page. */
+/* The four buses as four bays: a two-by-two grid, every drawing projected
+   through the same camera onto the same viewBox, so the horizon, the
+   vanishing points and the near front corner land in the same place in each
+   cell. Set side by side the drawings read as one photograph of four parked
+   vehicles: the city bus visibly stops short, the coach visibly stands
+   taller. No frames, no cards, no shadows: the drawings sit straight on the
+   page. */
 .fleet-lineup {
   display: grid;
   /* `minmax(0, 1fr)` rather than a bare `1fr`: an auto minimum would take
-     the SVG's intrinsic 1300px width as the column's floor and push the whole
-     page wider than a phone. */
-  grid-template-columns: minmax(0, 1fr);
-  gap: 18px;
+     the SVG's intrinsic width as the column's floor and push the whole page
+     wider than a phone. */
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px 18px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -3929,14 +3932,14 @@ img {
 .fleet-lineup li {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: 4px;
+  gap: 6px;
 }
 
 .fleet-lineup img {
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 1300 / 400;
+  aspect-ratio: 626 / 629;
 }
 
 .fleet-lineup p {
@@ -3948,10 +3951,15 @@ img {
   text-transform: uppercase;
 }
 
+/* The qualifier sits on its own line rather than trailing the name. Inline,
+   two of the four wrapped mid-phrase at this column width ("WALK-" then "UP"),
+   which reads as a layout fault rather than as a second line. */
 .fleet-lineup p span {
-  margin-left: 8px;
+  display: block;
+  margin-top: 3px;
   color: var(--muted);
   font-weight: 600;
+  letter-spacing: 0.06em;
 }
 
 @media (max-width: 900px) {
@@ -3960,7 +3968,7 @@ img {
   }
 
   .fleet-lineup {
-    gap: 14px;
+    gap: 16px 12px;
     margin-top: 32px;
   }
 }

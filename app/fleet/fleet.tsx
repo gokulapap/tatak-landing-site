@@ -196,25 +196,25 @@ const fleetLineup = [
     id: "bmtc-bengaluru-sarige",
     name: "Bengaluru Sarige",
     detail: "BMTC ordinary, walk-up",
-    alt: "A blue BMTC Bengaluru Sarige city bus in side profile",
+    alt: "A blue BMTC Bengaluru Sarige city bus seen from the front and door side",
   },
   {
     id: "ksrtc-karnataka-sarige",
     name: "Karnataka Sarige",
     detail: "KSRTC intercity, walk-up",
-    alt: "A red and silver KSRTC Karnataka Sarige intercity bus in side profile",
+    alt: "A red and silver KSRTC Karnataka Sarige intercity bus seen from the front and door side",
   },
   {
     id: "bmtc-vajra-volvo",
     name: "Vajra",
     detail: "BMTC air conditioned Volvo",
-    alt: "A deep red BMTC Vajra Volvo air conditioned city bus in side profile",
+    alt: "A deep red BMTC Vajra Volvo air conditioned city bus seen from the front and door side",
   },
   {
     id: "nwkrtc-airavat-gold-class",
     name: "Airavat Gold Class",
     detail: "NWKRTC air conditioned coach, reserved",
-    alt: "A yellow NWKRTC Airavat Gold Class coach with a blue wave along its flank, in side profile",
+    alt: "A yellow NWKRTC Airavat Gold Class coach with a blue wave along its flank, seen from the front and door side",
   },
 ];
 
@@ -261,15 +261,19 @@ export function FleetPage() {
             <h1 id="fleet-title">Fleet types we support</h1>
             <p>Tatak plans over three tiers of BMTC city bus, three Namma Metro lines and sixteen intercity coach classes. Whether you can simply get on and pay is decided by the service class, not by the operator on the livery: only some of these are sold by the seat.</p>
           </div>
-          {/* Side-profile illustrations at one scale, 100 units to the
-              metre, drawn from Wikimedia Commons reference photographs of
-              each bus. Fronts align on the left, so the lengths and floor
-              heights read as a fleet lineup rather than four separate
-              pictures. */}
+          {/* Three-quarter illustrations from the front and door side, as if
+              standing in a bus station looking at each vehicle in the same
+              bay. All four are projected through one pinhole camera (eye
+              height 1.6 m, level, one pair of vanishing points) onto one
+              viewBox, so the horizon and the near front corner sit in the
+              same place in every drawing and the lengths and floor heights
+              read as a fleet lineup rather than four separate pictures.
+              Drawn from Wikimedia Commons reference photographs of each
+              bus. */}
           <ul className="fleet-lineup">
             {fleetLineup.map((bus) => (
               <li key={bus.id}>
-                <img src={publicAsset(`/fleet/${bus.id}.svg`)} alt={bus.alt} width="1300" height="400" loading="lazy" />
+                <img src={publicAsset(`/fleet/${bus.id}.svg`)} alt={bus.alt} width="626" height="629" loading="lazy" />
                 <p>{bus.name} <span>{bus.detail}</span></p>
               </li>
             ))}
