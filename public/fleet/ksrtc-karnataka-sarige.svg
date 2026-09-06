@@ -99,7 +99,18 @@
 <path d="M420.4,91.8L420.4,90.8L420.2,90.2L420.1,90.3L420,91L419.9,92.2L420,93.2L420.1,93.8L420.2,93.7L420.4,92.9Z" fill="#3f3e39"/>
 <path d="M-79.7,-154.7L-79.2,-159.2L-77.6,-163.3L-75,-166.7L-71.9,-169.1L-68.3,-170.2L177.6,-200.7L182.5,-200.5L187,-198.7L190.6,-195.4L192.9,-191L193.7,-185.8L193.7,0L192.9,5.2L190.6,9.9L187,13.6L182.5,16L177.6,16.7L-68.3,14.2L-71.9,13.5L-75,11.4L-77.6,8.3L-79.2,4.3L-79.7,0Z" fill="#26323d"/>
 <path d="M185.6,-193.3L-74,-162.5L-74,-99.7L185.6,-70.6Z" fill="#ffffff" fill-opacity="0.08"/>
-<path d="M-44.3,-154.6L-43.2,-157.8L-40.7,-159.3L139.9,-179.9L143.1,-178.8L144.5,-175.5L144.5,-165.7L143.1,-162L139.9,-160.3L-40.7,-142L-43.2,-143L-44.3,-145.9Z" fill="#f7f5f0" fill-opacity="0.9"/>
+<path d="M-59.5,-161.5L-59.4,-162.8L-58.9,-164.1L-58.1,-165.1L-57.1,-165.8L-56,-166.2L159.9,-192.1L161.4,-192L162.7,-191.5L163.7,-190.5L164.4,-189.2L164.6,-187.7L164.6,-154.5L164.4,-152.9L163.7,-151.5L162.7,-150.3L161.4,-149.4L159.9,-149.1L-56,-128.9L-57.1,-129L-58.1,-129.6L-58.9,-130.4L-59.4,-131.6L-59.5,-132.9Z" fill="#f7f5f0"/>
+<g font-family="ui-monospace, Menlo, Consolas, 'Liberation Mono', monospace" font-weight="700" fill="#151614">
+<text transform="matrix(1.209 -0.12 0 1.458 -32.692 -139.99)" font-size="18" text-anchor="middle">M</text>
+<text transform="matrix(1.241 -0.123 0 1.477 -14.327 -141.816)" font-size="18" text-anchor="middle">A</text>
+<text transform="matrix(1.274 -0.127 0 1.497 4.524 -143.691)" font-size="18" text-anchor="middle">N</text>
+<text transform="matrix(1.308 -0.13 0 1.517 23.88 -145.616)" font-size="18" text-anchor="middle">G</text>
+<text transform="matrix(1.344 -0.134 0 1.537 43.762 -147.593)" font-size="18" text-anchor="middle">A</text>
+<text transform="matrix(1.381 -0.137 0 1.559 64.19 -149.625)" font-size="18" text-anchor="middle">L</text>
+<text transform="matrix(1.42 -0.141 0 1.58 85.19 -151.714)" font-size="18" text-anchor="middle">U</text>
+<text transform="matrix(1.46 -0.145 0 1.603 106.783 -153.861)" font-size="18" text-anchor="middle">R</text>
+<text transform="matrix(1.502 -0.149 0 1.626 128.997 -156.07)" font-size="18" text-anchor="middle">U</text>
+</g>
 <path d="M100.8,12.7L137.8,-76.7" fill="none" stroke="#151614" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M-12.8,11.8L18.9,-70.9" fill="none" stroke="#151614" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M209.9,68.3L-91.2,55.8L-91.2,14L209.9,17.1Z" fill="#151614"/>

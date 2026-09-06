@@ -3880,69 +3880,51 @@ img {
   }
 }
 
-/* Fleet page intro: heading and paragraph on the left, the vehicles on the
-   right. `.section-intro.compact` sets `display: block`, which is what left
-   this row's right half empty; the grid is restored here rather than by
-   dropping `compact`, since compact is also what keeps the heading and its
-   paragraph tight together. */
-.section-intro.compact.fleet-intro {
+/* A section and the vehicles it describes, on one row: copy left, drawings
+   right, which is the rhythm the rest of this site already uses. Stacking
+   them left-aligned instead left the whole right half of the page empty. */
+.fleet-row {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(320px, 0.9fr);
-  align-items: start;
-  gap: clamp(28px, 4vw, 64px);
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 0.92fr);
+  align-items: center;
+  gap: clamp(28px, 4vw, 70px);
+  margin: 0 0 34px;
 }
 
-.section-intro.compact.fleet-intro .section-label {
-  grid-column: 1 / -1;
+.fleet-row-copy .page-subhead {
+  margin-top: 0;
 }
 
-/* The 13ch cap belongs to the stacked display heading this page no longer
-   uses. */
-.section-intro.compact.fleet-intro h1 {
-  max-width: 12ch;
+.fleet-row-copy .fleet-copy {
+  max-width: 52ch;
 }
 
-.fleet-intro-copy > p {
-  max-width: 44ch;
-  margin: 24px 0 0;
-  color: var(--ink-soft);
-  font-size: 14px;
-  line-height: 1.75;
+.fleet-row-copy .fleet-copy:last-child {
+  margin-bottom: 0;
 }
 
-/* The four buses as four bays: a two-by-two grid, every drawing projected
-   through the same camera onto the same viewBox, so the horizon, the
-   vanishing points and the near front corner land in the same place in each
-   cell. Set side by side the drawings read as one photograph of four parked
-   vehicles: the city bus visibly stops short, the coach visibly stands
-   taller. No frames, no cards, no shadows: the drawings sit straight on the
-   page. */
-.fleet-lineup {
+/* The BMTC pair and the coach pair. Two abreast, so a city bus is never shown
+   beside a coach in a page whose whole argument is that they are different
+   products. */
+.fleet-pair {
+  list-style: none;
   display: grid;
-  /* `minmax(0, 1fr)` rather than a bare `1fr`: an auto minimum would take
-     the SVG's intrinsic width as the column's floor and push the whole page
-     wider than a phone. */
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 22px 18px;
+  gap: clamp(12px, 2vw, 22px);
   margin: 0;
   padding: 0;
-  list-style: none;
 }
 
-.fleet-lineup li {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 6px;
-}
-
-.fleet-lineup img {
+.fleet-pair img {
   display: block;
   width: 100%;
+  /* The drawings share one viewBox, so one ratio keeps the shared horizon and
+     the near front corner in the same place in every cell. */
   height: auto;
   aspect-ratio: 626 / 629;
 }
 
-.fleet-lineup p {
+.fleet-pair p {
   margin: 0;
   color: var(--ink);
   font-size: 10px;
@@ -3951,10 +3933,9 @@ img {
   text-transform: uppercase;
 }
 
-/* The qualifier sits on its own line rather than trailing the name. Inline,
-   two of the four wrapped mid-phrase at this column width ("WALK-" then "UP"),
-   which reads as a layout fault rather than as a second line. */
-.fleet-lineup p span {
+/* The qualifier takes its own line. Inline, the longer labels wrapped
+   mid-phrase at this width, which reads as a fault rather than a second line. */
+.fleet-pair p span {
   display: block;
   margin-top: 3px;
   color: var(--muted);
@@ -3963,12 +3944,11 @@ img {
 }
 
 @media (max-width: 900px) {
-  .section-intro.compact.fleet-intro {
+  .fleet-row {
     display: block;
   }
 
-  .fleet-lineup {
-    gap: 16px 12px;
-    margin-top: 32px;
+  .fleet-pair {
+    margin-top: 26px;
   }
 }

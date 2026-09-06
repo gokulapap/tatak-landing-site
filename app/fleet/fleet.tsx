@@ -191,24 +191,29 @@ const coachClasses = [
 
 // The four buses drawn in the intro, in the order the page discusses them:
 // the two walk-up services first, then the two air conditioned ones.
-const fleetLineup = [
+/* Split by network, because each pair now sits with the section that
+   describes it rather than in one lineup at the top. */
+const cityFleet = [
   {
     id: "bmtc-bengaluru-sarige",
     name: "Bengaluru Sarige",
-    detail: "BMTC ordinary, walk-up",
+    detail: "BMTC ordinary",
     alt: "A blue BMTC Bengaluru Sarige city bus seen from the front and door side",
-  },
-  {
-    id: "ksrtc-karnataka-sarige",
-    name: "Karnataka Sarige",
-    detail: "KSRTC intercity, walk-up",
-    alt: "A red and silver KSRTC Karnataka Sarige intercity bus seen from the front and door side",
   },
   {
     id: "bmtc-vajra-volvo",
     name: "Vajra",
     detail: "BMTC air conditioned Volvo",
     alt: "A deep red BMTC Vajra Volvo air conditioned city bus seen from the front and door side",
+  },
+];
+
+const intercityFleet = [
+  {
+    id: "ksrtc-karnataka-sarige",
+    name: "Karnataka Sarige",
+    detail: "KSRTC inter-city, unreserved",
+    alt: "A red and silver KSRTC Karnataka Sarige intercity bus seen from the front and door side",
   },
   {
     id: "nwkrtc-airavat-gold-class",
@@ -255,33 +260,34 @@ export function FleetPage() {
       <SiteHeader />
 
       <section className="fleet-page route-section" id="main-content" aria-labelledby="fleet-title">
-        <header className="section-intro compact fleet-intro" data-reveal>
+        <header className="section-intro compact" data-reveal>
           <div className="section-label"><span>01</span> Fleet</div>
-          <div className="fleet-intro-copy">
-            <h1 id="fleet-title">Fleet types we support</h1>
-            <p>Tatak plans over three tiers of BMTC city bus, three Namma Metro lines and sixteen intercity coach classes. Whether you can simply get on and pay is decided by the service class, not by the operator on the livery: only some of these are sold by the seat.</p>
+          <h1 id="fleet-title">Fleet types we support</h1>
+          <p>Tatak plans over three tiers of BMTC city bus, three Namma Metro lines and sixteen intercity coach classes. Whether you can simply get on and pay is decided by the service class, not by the operator on the livery: only some of these are sold by the seat.</p>
+        </header>
+
+        <div className="fleet-row" data-reveal>
+          <div className="fleet-row-copy">
+            <h2 className="page-subhead">BMTC city buses</h2>
+            <p className="fleet-copy">BMTC tiers are read off the route short name in the feed, which is where the network already encodes them. Ordinary and Vajra share one fare shape and differ by a factor of two. The airport coach does not: it is priced by distance rather than by stage, because a run to Kempegowda International is a different product from a ride across town. Majestic to the airport is about 35 km of road and lands around ₹300 to ₹350.</p>
           </div>
-          {/* Three-quarter illustrations from the front and door side, as if
-              standing in a bus station looking at each vehicle in the same
-              bay. All four are projected through one pinhole camera (eye
-              height 1.6 m, level, one pair of vanishing points) onto one
-              viewBox, so the horizon and the near front corner sit in the
-              same place in every drawing and the lengths and floor heights
-              read as a fleet lineup rather than four separate pictures.
-              Drawn from Wikimedia Commons reference photographs of each
-              bus. */}
-          <ul className="fleet-lineup">
-            {fleetLineup.map((bus) => (
+        {/* Three-quarter illustrations from the front and door side, as if
+            standing in a bus station looking at each vehicle in the same bay.
+            Every drawing is projected through one pinhole camera (eye height
+            1.6 m, level, one shared pair of vanishing points) onto one
+            viewBox, so the horizon and the near front corner sit in the same
+            place in all four and the lengths and floor heights compare
+            honestly. Drawn from Wikimedia Commons reference photographs.
+            Each pair sits with the section that describes it. */}
+          <ul className="fleet-pair" data-reveal>
+            {cityFleet.map((bus) => (
               <li key={bus.id}>
                 <img src={publicAsset(`/fleet/${bus.id}.svg`)} alt={bus.alt} width="626" height="629" loading="lazy" />
                 <p>{bus.name} <span>{bus.detail}</span></p>
               </li>
             ))}
           </ul>
-        </header>
-
-        <h2 className="page-subhead" data-reveal>BMTC city buses</h2>
-        <p className="fleet-copy" data-reveal>BMTC tiers are read off the route short name in the feed, which is where the network already encodes them. Ordinary and Vajra share one fare shape and differ by a factor of two. The airport coach does not: it is priced by distance rather than by stage, because a run to Kempegowda International is a different product from a ride across town. Majestic to the airport is about 35 km of road and lands around ₹300 to ₹350.</p>
+        </div>
 
         <div className="fleet-table-wrap" data-reveal>
           <table className="fleet-table">
@@ -310,9 +316,29 @@ export function FleetPage() {
         </div>
         <p className="fleet-note" data-reveal>Bus fares are computed from distance rather than from stop count. On limited-stop routes consecutive stops can sit several kilometres apart, so counting stops would underprice a long express hop.</p>
 
-        <h2 className="page-subhead" data-reveal>Reserved or walk-up</h2>
-        <p className="fleet-copy" data-reveal>Karnataka Sarige is run by KSRTC, NWKRTC and KKRTC, the same three corporations that run Airavat and Pallakki, and it is boarded exactly like a BMTC bus: you get on, you pay, there is no seat with your name against it. The other fifteen coach classes are numbered-seat products that cannot be boarded without a prior transaction - Ashwamedha included, even though its own fare says it is priced like the walk-up class next to it. The split therefore cuts across the operators rather than along them, and Tatak keys the boarding gate to the service class and never to the corporation. The app&apos;s own spec says why in as many words: gating by operator &ldquo;would block a plain mofussil bus from ever appearing as a walk-up option&rdquo;.</p>
-        <p className="fleet-copy" data-reveal>One row below is walk-up. Read the table down that column first, and the rest of it makes sense.</p>
+        <div className="fleet-row" data-reveal>
+          <div className="fleet-row-copy">
+            <h2 className="page-subhead">Inter-city buses</h2>
+            <p className="fleet-copy">Karnataka Sarige is run by KSRTC, NWKRTC and KKRTC, the same three corporations that run Airavat and Pallakki, and it is boarded exactly like a BMTC bus: you get on, you pay, there is no seat with your name against it. The other fifteen coach classes are numbered-seat products that cannot be boarded without a prior transaction - Ashwamedha included, even though its own fare says it is priced like the walk-up class next to it. The split therefore cuts across the operators rather than along them, and Tatak keys the boarding gate to the service class and never to the corporation. The app&apos;s own spec says why in as many words: gating by operator &ldquo;would block a plain mofussil bus from ever appearing as a walk-up option&rdquo;.</p>
+            <p className="fleet-copy">One row below is walk-up. Read the table down that column first, and the rest of it makes sense.</p>
+          </div>
+        {/* Three-quarter illustrations from the front and door side, as if
+            standing in a bus station looking at each vehicle in the same bay.
+            Every drawing is projected through one pinhole camera (eye height
+            1.6 m, level, one shared pair of vanishing points) onto one
+            viewBox, so the horizon and the near front corner sit in the same
+            place in all four and the lengths and floor heights compare
+            honestly. Drawn from Wikimedia Commons reference photographs.
+            Each pair sits with the section that describes it. */}
+          <ul className="fleet-pair">
+            {intercityFleet.map((bus) => (
+              <li key={bus.id}>
+                <img src={publicAsset(`/fleet/${bus.id}.svg`)} alt={bus.alt} width="626" height="629" loading="lazy" />
+                <p>{bus.name} <span>{bus.detail}</span></p>
+              </li>
+            ))}
+          </ul>
+        </div>
 
         <div className="fleet-table-wrap" data-reveal>
           <table className="fleet-table">
