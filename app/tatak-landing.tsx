@@ -269,7 +269,7 @@ export function TatakLanding() {
           <p>Plan from door to destination across BMTC, Namma Metro and walking. Compare complete routes by time, fare and changes, with every live, published and estimated signal clearly labeled. The same search reaches Karnataka&apos;s intercity network too, with a reserved seat and a real PNR when you need one, or a walk-up fare on Karnataka Sarige when you don&apos;t.</p>
           <div className="hero-actions">
             <AppLink className="button button-primary" label="Plan a journey" />
-            <a className="button button-secondary" href="#journey"><span>See a real route</span><span aria-hidden="true">↓</span></a>
+            <a className="button button-secondary" href={publicAsset("/judges/")}><span>Instructions for judges</span><span aria-hidden="true">→</span></a>
           </div>
           <div className="hero-note">
             <span><i className="live-pulse" /> Live prototype</span>

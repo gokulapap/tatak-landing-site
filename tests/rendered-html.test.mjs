@@ -53,6 +53,12 @@ test("server-renders the complete Tatak landing page", async () => {
   assert.match(html, /href="\/emission\/"/);
   assert.match(html, /href="\/stickers\/"/);
   assert.doesNotMatch(html, /app\.tatak\.tech\/stickers\.html/);
+
+  // The hero's second call to action points at the judges walkthrough now,
+  // not at the in-page #journey anchor it used to scroll to.
+  assert.match(html, /href="\/judges\/"/);
+  assert.match(html, /Instructions for judges/);
+  assert.doesNotMatch(html, /href="#journey"/);
 });
 
 test("ships the product stage and accessible interaction structure", async () => {
@@ -173,6 +179,36 @@ test("server-renders the stickers route with every category and a working payloa
     assert.match(html, new RegExp(`https://app\\.tatak\\.tech/board\\?code=${bin}`));
   }
   assert.match(html, /class="[^"]*sticker-qr[^"]*"/);
+
+  assert.equal((html.match(/<h1\b/g) ?? []).length, 1);
+});
+
+test("server-renders the judges route with verified walkthroughs and no stale credential", async () => {
+  const response = await render("/judges");
+  assert.equal(response.status, 200);
+
+  const html = await response.text();
+  assert.match(html, /<title>Instructions for judges - Tatak<\/title>/i);
+
+  // Leads with one sample-users account rather than a second, driftable
+  // copy of the list.
+  assert.match(html, /judges@tatak\.tech/);
+  assert.match(html, /tatak-demo-2026/);
+  assert.match(html, /href="\/sample-users\/"/);
+
+  // The seven sticker-sheet codes, the 45-minute reservation cutoff and the
+  // "parked between workings" caveat, and the one verified PNR run.
+  for (const bin of ["BLR-05465", "BLR-08484", "BLR-07408", "HUB-01181", "MYS-01010", "KBS-01032", "MDK-01010"]) {
+    assert.match(html, new RegExp(bin));
+  }
+  assert.match(html, /45.minute/);
+  assert.match(html, /1830BNGDVG/);
+  assert.match(html, /SPECIMEN-KSRTC-C5D85B31/);
+  assert.match(html, /href="\/fleet-roster\/"/);
+  assert.match(html, /href="\/mcp\/"/);
+
+  // Nothing on this repo should still point at the retired demo address.
+  assert.doesNotMatch(html, /tatak\.invalid/);
 
   assert.equal((html.match(/<h1\b/g) ?? []).length, 1);
 });
