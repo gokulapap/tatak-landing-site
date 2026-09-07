@@ -202,8 +202,14 @@ test("server-renders the judges route with verified walkthroughs and no stale cr
     assert.match(html, new RegExp(bin));
   }
   assert.match(html, /45.minute/);
-  assert.match(html, /1830BNGDVG/);
+  // The route pair, not a service id. A named departure falls inside the
+  // operator's reservation cutoff a few hours after it is written down and
+  // then reads as a broken instruction; the pair stays bookable because its
+  // departures run from early morning to late at night.
+  assert.match(html, /Kundalahalli Gate/);
+  assert.match(html, /Hubballi/);
   assert.match(html, /SPECIMEN-KSRTC-C5D85B31/);
+  assert.match(html, /SPECIMEN-KSRTC-C63A2847/);
   assert.match(html, /href="\/fleet-roster\/"/);
   assert.match(html, /href="\/mcp\/"/);
 
