@@ -4503,3 +4503,170 @@ img {
 .statewide-fleet {
   margin-top: 70px;
 }
+
+/* Fleet roster page */
+.fleet-roster-page {
+  background: var(--canvas-deep);
+}
+
+.roster-search {
+  margin-top: 34px;
+  max-width: 460px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 6px 6px 18px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: var(--surface);
+}
+
+.roster-search-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.roster-search input {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 12px 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font-size: 13px;
+}
+
+.roster-search input:focus {
+  outline: none;
+}
+
+.roster-search input::placeholder {
+  color: var(--muted);
+}
+
+.roster-search-count {
+  flex: 0 0 auto;
+  padding: 7px 11px;
+  border-radius: 999px;
+  background: var(--canvas);
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
+/* Route/corridor disclosures. A native <details> rather than a hand-built
+   accordion - 81 groups need a working "find in page" and a working back
+   button more than they need a custom open/close animation. */
+.roster-group {
+  margin-top: 10px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.roster-group summary {
+  padding: 15px 22px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.roster-group summary::-webkit-details-marker {
+  display: none;
+}
+
+.roster-group summary::after {
+  content: "+";
+  margin-left: auto;
+  color: var(--muted);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.roster-group[open] summary::after {
+  content: "\2212";
+}
+
+.roster-group summary strong {
+  font-size: 13px;
+  letter-spacing: -0.01em;
+}
+
+.roster-group summary small {
+  color: var(--muted);
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.roster-group .fleet-table-wrap {
+  margin-top: 0;
+  border: 0;
+  border-top: 1px solid var(--line);
+  border-radius: 0;
+}
+
+.roster-demo-star {
+  color: var(--red);
+  font-size: 13px;
+}
+
+/* Duty-status pills for the seven demo picks only - see the doc comment on
+   useDemoLiveStatus in fleet-roster.tsx for why the other 806 rows never
+   fetch one of these. */
+.live-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.live-pill i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.live-pill.is-live {
+  border-color: var(--green);
+  color: var(--green);
+}
+
+.live-pill.is-stale {
+  border-color: var(--orange);
+  color: var(--orange);
+}
+
+.live-pill.is-muted {
+  color: var(--muted);
+}
+
+@media (max-width: 680px) {
+  .roster-search {
+    max-width: none;
+  }
+
+  .roster-group summary {
+    flex-wrap: wrap;
+    gap: 8px 12px;
+  }
+}

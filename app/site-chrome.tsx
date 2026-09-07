@@ -31,6 +31,7 @@ export const navigation: NavItem[] = [
   { href: "/stickers/", label: "QR stickers", route: true },
   { href: "/mcp/", label: "MCP server", route: true },
   { href: "/fleet/", label: "Fleet", route: true },
+  { href: "/fleet-roster/", label: "Fleet roster", route: true },
   { href: "/emission/", label: "Emission method", route: true },
   { href: "/sample-users/", label: "Sample users", route: true },
   { href: "/contact/", label: "Contact", route: true },
