@@ -78,17 +78,60 @@ const bmtcStickers: Sticker[] = [
 // class here is a numbered seat bought before boarding, and a rider showing
 // up at the door with no ticket cannot use one the way a Sarige rider can.
 const intercityStickers: Sticker[] = [
+  // Four Sarige coaches rather than one. A single sticker is only scannable
+  // while that one vehicle happens to be on a working, and a rider or a judge
+  // holding the sheet at four in the afternoon would get "between duties" and
+  // nothing to buy. These four are chained onto real rostered workings so that
+  // at any point between six in the morning and eleven at night at least three
+  // of them are carrying passengers and will sell a ticket. Plates, hubs and
+  // corporations are read off the fleet server, not invented here.
   {
-    id: "karnataka-sarige",
+    id: "karnataka-sarige-hub",
+    corporation: "NWKRTC",
+    corporationName: "North Western Karnataka Road Transport Corporation",
+    hub: "HUB",
+    serial: "0118",
+    className: "Karnataka Sarige",
+    boarding: "Walk-up",
+    layout: "Non-AC, 3+2 seater, non-reclining.",
+    route: "Badami to Bengaluru, then Bengaluru to Mangaluru",
+    plate: "KA-25-ZZ-6108",
+  },
+  {
+    id: "karnataka-sarige-mys",
     corporation: "KSRTC",
     corporationName: "Karnataka State Road Transport Corporation",
-    hub: "KBS",
+    hub: "MYS",
     serial: "0101",
     className: "Karnataka Sarige",
     boarding: "Walk-up",
     layout: "Non-AC, 3+2 seater, non-reclining.",
-    route: "Bengaluru to Mysuru",
-    plate: "KA-01-ZZ-3312",
+    route: "Mangaluru to Bengaluru, then Mysuru and Chikkamagaluru",
+    plate: "KA-01-ZZ-7749",
+  },
+  {
+    id: "karnataka-sarige-kbs",
+    corporation: "KSRTC",
+    corporationName: "Karnataka State Road Transport Corporation",
+    hub: "KBS",
+    serial: "0103",
+    className: "Karnataka Sarige",
+    boarding: "Walk-up",
+    layout: "Non-AC, 3+2 seater, non-reclining.",
+    route: "Mangaluru to Bengaluru, then Bengaluru to Hosapete",
+    plate: "KA-01-ZZ-9883",
+  },
+  {
+    id: "karnataka-sarige-mdk",
+    corporation: "KSRTC",
+    corporationName: "Karnataka State Road Transport Corporation",
+    hub: "MDK",
+    serial: "0101",
+    className: "Karnataka Sarige",
+    boarding: "Walk-up",
+    layout: "Non-AC, 3+2 seater, non-reclining.",
+    route: "Bengaluru to Mysuru and back, then on to Mangaluru",
+    plate: "KA-01-ZZ-9089",
   },
   {
     id: "rajahamsa-executive",
@@ -487,6 +530,7 @@ export function StickersPage() {
 
         <h2 className="page-subhead" data-reveal>Intercity</h2>
         <p className="fleet-copy" data-reveal>Karnataka Sarige is the one unreserved intercity class, so it is the only one with a sticker: board it and pay like a city bus. Every other coach is sold by numbered seat before boarding and has no ticket to buy on board. Fares, layouts and the full class list are on the <a href={publicAsset("/fleet/")}>Fleet</a> page.</p>
+        <p className="fleet-copy" data-reveal>Four coaches are printed rather than one, because a coach can only sell a ticket while it is actually running a working. Between roughly 6am and 11pm at least three of the four are carrying passengers at any moment; the odd one out is standing at a bus station between workings and will say so when scanned. Try the next sticker on the sheet.</p>
 
         {/* Only the unreserved class. A sticker exists so somebody standing at
             a bus can buy the ride they are about to take, and a reserved coach
