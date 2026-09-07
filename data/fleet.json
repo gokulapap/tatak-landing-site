@@ -1,0 +1,5497 @@
+{
+  "generatedAt": "2026-09-07T15:11:15.194Z",
+  "source": {
+    "simulator": "transit-fleet-sim",
+    "simulatorCommit": "7910041ea6b9251123d4a300d69f2f093de7b6a6",
+    "generatedFrom": "scripts/generate-fleet-data.mts",
+    "config": {
+      "SIM_SEED": 1,
+      "BUSES_PER_ROUTE": 6,
+      "BUS_ROUTES": [
+        "335-E",
+        "401-K",
+        "500-A",
+        "500-AD",
+        "500-BA",
+        "500-BC",
+        "500-C",
+        "500-CA",
+        "500-CD",
+        "500-CF",
+        "500-CH",
+        "500-CK",
+        "500-CS",
+        "500-D",
+        "500-DG",
+        "500-DJ",
+        "500-EB",
+        "500-F",
+        "500-FB",
+        "500-HC",
+        "500-HG",
+        "500-HK",
+        "500-J",
+        "500-L",
+        "500-LA",
+        "500-Q",
+        "500-QA",
+        "500-QB",
+        "500-QD",
+        "500-QG",
+        "500-QK",
+        "500-QN",
+        "500-QP",
+        "500-TA",
+        "G-4",
+        "KIA-10",
+        "KIA-15",
+        "KIA-15A",
+        "KIA-4",
+        "KIA-4A",
+        "KIA-7",
+        "KIA-7A",
+        "KIA-8",
+        "KIA-8A",
+        "KIA-8C",
+        "KIA-8D",
+        "KIA-8E",
+        "KIA-8EW",
+        "KIA-8H",
+        "KIA-9",
+        "V-331A",
+        "V-333E",
+        "V-335E",
+        "V-342F",
+        "V-500A",
+        "V-500BC",
+        "V-500CA",
+        "V-500CK",
+        "V-500D",
+        "V-500DP",
+        "V-500E",
+        "V-500F",
+        "V-500FA",
+        "V-500HS",
+        "V-500L",
+        "V-MF1C",
+        "V-MF1D",
+        "V-MF6",
+        "VW-226HSR"
+      ],
+      "INTERCITY_CORRIDORS": [
+        "BNG-HSP",
+        "BNG-MYS",
+        "BNG-MNG",
+        "BNG-CKM",
+        "MYS-MDK",
+        "MYS-MNG",
+        "MNG-KWR",
+        "DND-ANK",
+        "BNG-BJP",
+        "BNG-BDM",
+        "BNG-BGK",
+        "BNG-HBL"
+      ],
+      "METRO_LINES": [
+        "purple",
+        "green",
+        "yellow"
+      ]
+    }
+  },
+  "counts": {
+    "buses": 644,
+    "coaches": 169,
+    "routes": 69,
+    "corridors": 12
+  },
+  "buses": [
+    {
+      "bin": "BLR-04126",
+      "plate": "KA-01-ZZ-2232",
+      "route": "335-E",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04139",
+      "plate": "KA-01-ZZ-1090",
+      "route": "335-E",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04147",
+      "plate": "KA-50-ZZ-3378",
+      "route": "401-K",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04152",
+      "plate": "KA-50-ZZ-2815",
+      "route": "401-K",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04160",
+      "plate": "KA-41-ZZ-2554",
+      "route": "401-K",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04171",
+      "plate": "KA-01-ZZ-0886",
+      "route": "401-K",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04183",
+      "plate": "KA-41-ZZ-3889",
+      "route": "401-K",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04194",
+      "plate": "KA-41-ZZ-3039",
+      "route": "401-K",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04208",
+      "plate": "KA-41-ZZ-7403",
+      "route": "401-K",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04219",
+      "plate": "KA-01-ZZ-2879",
+      "route": "401-K",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04224",
+      "plate": "KA-41-ZZ-6945",
+      "route": "401-K",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04235",
+      "plate": "KA-01-ZZ-3843",
+      "route": "401-K",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04243",
+      "plate": "KA-01-ZZ-4825",
+      "route": "401-K",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04256",
+      "plate": "KA-01-ZZ-0923",
+      "route": "401-K",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04262",
+      "plate": "KA-41-ZZ-5475",
+      "route": "401-K",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04270",
+      "plate": "KA-01-ZZ-1829",
+      "route": "401-K",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04281",
+      "plate": "KA-50-ZZ-3583",
+      "route": "401-K",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04297",
+      "plate": "KA-50-ZZ-5251",
+      "route": "401-K",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04306",
+      "plate": "KA-50-ZZ-3407",
+      "route": "401-K",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04311",
+      "plate": "KA-50-ZZ-9721",
+      "route": "401-K",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04322",
+      "plate": "KA-50-ZZ-9495",
+      "route": "401-K",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04333",
+      "plate": "KA-50-ZZ-4761",
+      "route": "401-K",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04340",
+      "plate": "KA-41-ZZ-3011",
+      "route": "401-K",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04354",
+      "plate": "KA-41-ZZ-6448",
+      "route": "401-K",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04365",
+      "plate": "KA-01-ZZ-4723",
+      "route": "401-K",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04379",
+      "plate": "KA-01-ZZ-3557",
+      "route": "401-K",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04387",
+      "plate": "KA-41-ZZ-1859",
+      "route": "401-K",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04398",
+      "plate": "KA-01-ZZ-4244",
+      "route": "401-K",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04404",
+      "plate": "KA-50-ZZ-0111",
+      "route": "401-K",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04412",
+      "plate": "KA-50-ZZ-4150",
+      "route": "401-K",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04420",
+      "plate": "KA-41-ZZ-3391",
+      "route": "401-K",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04436",
+      "plate": "KA-50-ZZ-6575",
+      "route": "401-K",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04448",
+      "plate": "KA-41-ZZ-6326",
+      "route": "401-K",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04457",
+      "plate": "KA-50-ZZ-0498",
+      "route": "401-K",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04461",
+      "plate": "KA-41-ZZ-4608",
+      "route": "401-K",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04473",
+      "plate": "KA-01-ZZ-4721",
+      "route": "401-K",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04485",
+      "plate": "KA-50-ZZ-4615",
+      "route": "401-K",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04499",
+      "plate": "KA-01-ZZ-2401",
+      "route": "401-K",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04500",
+      "plate": "KA-50-ZZ-0488",
+      "route": "401-K",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04513",
+      "plate": "KA-41-ZZ-1472",
+      "route": "401-K",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04521",
+      "plate": "KA-50-ZZ-7651",
+      "route": "401-K",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04537",
+      "plate": "KA-50-ZZ-3569",
+      "route": "401-K",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04545",
+      "plate": "KA-01-ZZ-4730",
+      "route": "401-K",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04559",
+      "plate": "KA-41-ZZ-9685",
+      "route": "401-K",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04568",
+      "plate": "KA-01-ZZ-0846",
+      "route": "401-K",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04576",
+      "plate": "KA-41-ZZ-8076",
+      "route": "401-K",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04584",
+      "plate": "KA-41-ZZ-9819",
+      "route": "500-A",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04592",
+      "plate": "KA-01-ZZ-4460",
+      "route": "500-A",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04602",
+      "plate": "KA-41-ZZ-6218",
+      "route": "500-A",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04615",
+      "plate": "KA-50-ZZ-6189",
+      "route": "500-A",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04628",
+      "plate": "KA-41-ZZ-6893",
+      "route": "500-A",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04631",
+      "plate": "KA-41-ZZ-3118",
+      "route": "500-A",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04644",
+      "plate": "KA-01-ZZ-3147",
+      "route": "500-A",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04653",
+      "plate": "KA-41-ZZ-5603",
+      "route": "500-A",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04666",
+      "plate": "KA-50-ZZ-5731",
+      "route": "500-A",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04677",
+      "plate": "KA-01-ZZ-0074",
+      "route": "500-A",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04689",
+      "plate": "KA-01-ZZ-4516",
+      "route": "500-A",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04690",
+      "plate": "KA-41-ZZ-0365",
+      "route": "500-A",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04703",
+      "plate": "KA-41-ZZ-5411",
+      "route": "500-A",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04716",
+      "plate": "KA-01-ZZ-1792",
+      "route": "500-A",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04727",
+      "plate": "KA-50-ZZ-8395",
+      "route": "500-A",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04734",
+      "plate": "KA-41-ZZ-6028",
+      "route": "500-A",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04742",
+      "plate": "KA-01-ZZ-4265",
+      "route": "500-A",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04750",
+      "plate": "KA-41-ZZ-5453",
+      "route": "500-A",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04769",
+      "plate": "KA-01-ZZ-0400",
+      "route": "500-A",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04775",
+      "plate": "KA-50-ZZ-0489",
+      "route": "500-A",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04788",
+      "plate": "KA-41-ZZ-4256",
+      "route": "500-A",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04791",
+      "plate": "KA-41-ZZ-7700",
+      "route": "500-A",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04809",
+      "plate": "KA-41-ZZ-6111",
+      "route": "500-A",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04814",
+      "plate": "KA-01-ZZ-1110",
+      "route": "500-A",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04823",
+      "plate": "KA-41-ZZ-8194",
+      "route": "500-A",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04838",
+      "plate": "KA-01-ZZ-3062",
+      "route": "500-A",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04846",
+      "plate": "KA-01-ZZ-1118",
+      "route": "500-AD",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04851",
+      "plate": "KA-01-ZZ-1052",
+      "route": "500-AD",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04867",
+      "plate": "KA-01-ZZ-1427",
+      "route": "500-BA",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04872",
+      "plate": "KA-01-ZZ-4203",
+      "route": "500-BA",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04880",
+      "plate": "KA-01-ZZ-2122",
+      "route": "500-BA",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04895",
+      "plate": "KA-01-ZZ-0278",
+      "route": "500-BA",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04907",
+      "plate": "KA-41-ZZ-1736",
+      "route": "500-BA",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04910",
+      "plate": "KA-41-ZZ-7288",
+      "route": "500-BA",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04929",
+      "plate": "KA-01-ZZ-3940",
+      "route": "500-BA",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04932",
+      "plate": "KA-41-ZZ-8796",
+      "route": "500-BA",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04941",
+      "plate": "KA-01-ZZ-1361",
+      "route": "500-BA",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04955",
+      "plate": "KA-41-ZZ-9725",
+      "route": "500-BC",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04964",
+      "plate": "KA-41-ZZ-7621",
+      "route": "500-BC",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04978",
+      "plate": "KA-01-ZZ-3495",
+      "route": "500-C",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04986",
+      "plate": "KA-50-ZZ-1410",
+      "route": "500-C",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-04993",
+      "plate": "KA-01-ZZ-0767",
+      "route": "500-C",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05004",
+      "plate": "KA-50-ZZ-4796",
+      "route": "500-C",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05012",
+      "plate": "KA-01-ZZ-1433",
+      "route": "500-C",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05020",
+      "plate": "KA-01-ZZ-0035",
+      "route": "500-C",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05036",
+      "plate": "KA-01-ZZ-3785",
+      "route": "500-C",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05048",
+      "plate": "KA-01-ZZ-2878",
+      "route": "500-C",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05057",
+      "plate": "KA-41-ZZ-1699",
+      "route": "500-C",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05061",
+      "plate": "KA-50-ZZ-1297",
+      "route": "500-C",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05073",
+      "plate": "KA-01-ZZ-2192",
+      "route": "500-CA",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05085",
+      "plate": "KA-41-ZZ-5250",
+      "route": "500-CA",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05099",
+      "plate": "KA-01-ZZ-0627",
+      "route": "500-CA",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05103",
+      "plate": "KA-50-ZZ-0580",
+      "route": "500-CA",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05116",
+      "plate": "KA-50-ZZ-4874",
+      "route": "500-CA",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05127",
+      "plate": "KA-50-ZZ-5014",
+      "route": "500-CA",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05134",
+      "plate": "KA-50-ZZ-3971",
+      "route": "500-CA",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05142",
+      "plate": "KA-50-ZZ-0532",
+      "route": "500-CA",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05150",
+      "plate": "KA-01-ZZ-4416",
+      "route": "500-CA",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05169",
+      "plate": "KA-01-ZZ-3692",
+      "route": "500-CD",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05175",
+      "plate": "KA-50-ZZ-7218",
+      "route": "500-CD",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05188",
+      "plate": "KA-01-ZZ-0507",
+      "route": "500-CD",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05191",
+      "plate": "KA-50-ZZ-8655",
+      "route": "500-CD",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05209",
+      "plate": "KA-01-ZZ-2775",
+      "route": "500-CF",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05214",
+      "plate": "KA-01-ZZ-3607",
+      "route": "500-CH",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05223",
+      "plate": "KA-50-ZZ-7770",
+      "route": "500-CH",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05238",
+      "plate": "KA-50-ZZ-0047",
+      "route": "500-CH",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05246",
+      "plate": "KA-01-ZZ-0492",
+      "route": "500-CH",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05251",
+      "plate": "KA-41-ZZ-9322",
+      "route": "500-CH",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05267",
+      "plate": "KA-01-ZZ-1144",
+      "route": "500-CH",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05272",
+      "plate": "KA-01-ZZ-2373",
+      "route": "500-CH",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05280",
+      "plate": "KA-41-ZZ-0510",
+      "route": "500-CH",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05295",
+      "plate": "KA-41-ZZ-2918",
+      "route": "500-CH",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05307",
+      "plate": "KA-50-ZZ-1609",
+      "route": "500-CH",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05310",
+      "plate": "KA-50-ZZ-6153",
+      "route": "500-CH",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05329",
+      "plate": "KA-50-ZZ-8620",
+      "route": "500-CH",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05332",
+      "plate": "KA-01-ZZ-0635",
+      "route": "500-CH",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05341",
+      "plate": "KA-50-ZZ-9335",
+      "route": "500-CH",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05355",
+      "plate": "KA-50-ZZ-0794",
+      "route": "500-CH",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05364",
+      "plate": "KA-41-ZZ-4171",
+      "route": "500-CH",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05378",
+      "plate": "KA-01-ZZ-0514",
+      "route": "500-CK",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05386",
+      "plate": "KA-50-ZZ-1306",
+      "route": "500-CK",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05393",
+      "plate": "KA-41-ZZ-4905",
+      "route": "500-CK",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05406",
+      "plate": "KA-50-ZZ-5669",
+      "route": "500-CK",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05411",
+      "plate": "KA-41-ZZ-0031",
+      "route": "500-CS",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05422",
+      "plate": "KA-41-ZZ-3533",
+      "route": "500-CS",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05433",
+      "plate": "KA-01-ZZ-1986",
+      "route": "500-D",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05440",
+      "plate": "KA-50-ZZ-9861",
+      "route": "500-D",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05454",
+      "plate": "KA-50-ZZ-2848",
+      "route": "500-D",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05465",
+      "plate": "KA-01-ZZ-3448",
+      "route": "500-D",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05479",
+      "plate": "KA-50-ZZ-0130",
+      "route": "500-D",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05487",
+      "plate": "KA-41-ZZ-6819",
+      "route": "500-D",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05498",
+      "plate": "KA-01-ZZ-4784",
+      "route": "500-D",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05501",
+      "plate": "KA-50-ZZ-8278",
+      "route": "500-D",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05517",
+      "plate": "KA-50-ZZ-9541",
+      "route": "500-D",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05525",
+      "plate": "KA-41-ZZ-8809",
+      "route": "500-D",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05530",
+      "plate": "KA-01-ZZ-2469",
+      "route": "500-D",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05549",
+      "plate": "KA-01-ZZ-1960",
+      "route": "500-D",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05558",
+      "plate": "KA-50-ZZ-0494",
+      "route": "500-D",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05563",
+      "plate": "KA-01-ZZ-0102",
+      "route": "500-D",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05574",
+      "plate": "KA-41-ZZ-0309",
+      "route": "500-D",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05582",
+      "plate": "KA-41-ZZ-8790",
+      "route": "500-D",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05596",
+      "plate": "KA-50-ZZ-1127",
+      "route": "500-D",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05605",
+      "plate": "KA-41-ZZ-1278",
+      "route": "500-D",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05618",
+      "plate": "KA-41-ZZ-1946",
+      "route": "500-D",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05626",
+      "plate": "KA-01-ZZ-0660",
+      "route": "500-D",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05639",
+      "plate": "KA-01-ZZ-1508",
+      "route": "500-D",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05647",
+      "plate": "KA-50-ZZ-5030",
+      "route": "500-D",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05652",
+      "plate": "KA-50-ZZ-0630",
+      "route": "500-D",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05660",
+      "plate": "KA-50-ZZ-0777",
+      "route": "500-D",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05671",
+      "plate": "KA-50-ZZ-0795",
+      "route": "500-D",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05683",
+      "plate": "KA-50-ZZ-4064",
+      "route": "500-D",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05694",
+      "plate": "KA-50-ZZ-2518",
+      "route": "500-D",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05708",
+      "plate": "KA-01-ZZ-0394",
+      "route": "500-D",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05719",
+      "plate": "KA-41-ZZ-9299",
+      "route": "500-D",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05724",
+      "plate": "KA-50-ZZ-2786",
+      "route": "500-D",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05735",
+      "plate": "KA-41-ZZ-4573",
+      "route": "500-D",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05743",
+      "plate": "KA-41-ZZ-3493",
+      "route": "500-D",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05756",
+      "plate": "KA-01-ZZ-1429",
+      "route": "500-D",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05762",
+      "plate": "KA-50-ZZ-5634",
+      "route": "500-D",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05770",
+      "plate": "KA-41-ZZ-4658",
+      "route": "500-D",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05781",
+      "plate": "KA-01-ZZ-3973",
+      "route": "500-D",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05797",
+      "plate": "KA-41-ZZ-7256",
+      "route": "500-D",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05802",
+      "plate": "KA-50-ZZ-1291",
+      "route": "500-D",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05815",
+      "plate": "KA-50-ZZ-8563",
+      "route": "500-D",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05828",
+      "plate": "KA-50-ZZ-7964",
+      "route": "500-D",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05831",
+      "plate": "KA-41-ZZ-3713",
+      "route": "500-D",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05844",
+      "plate": "KA-41-ZZ-2381",
+      "route": "500-D",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05853",
+      "plate": "KA-01-ZZ-3353",
+      "route": "500-D",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05866",
+      "plate": "KA-41-ZZ-2694",
+      "route": "500-D",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05877",
+      "plate": "KA-41-ZZ-6444",
+      "route": "500-DG",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05889",
+      "plate": "KA-50-ZZ-0262",
+      "route": "500-DG",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05890",
+      "plate": "KA-50-ZZ-1899",
+      "route": "500-DG",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05900",
+      "plate": "KA-01-ZZ-4757",
+      "route": "500-DG",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05913",
+      "plate": "KA-41-ZZ-9572",
+      "route": "500-DG",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05921",
+      "plate": "KA-50-ZZ-7263",
+      "route": "500-DG",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05937",
+      "plate": "KA-41-ZZ-0420",
+      "route": "500-DG",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05945",
+      "plate": "KA-41-ZZ-1374",
+      "route": "500-DG",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05959",
+      "plate": "KA-41-ZZ-0358",
+      "route": "500-DG",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05968",
+      "plate": "KA-50-ZZ-9742",
+      "route": "500-DJ",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05976",
+      "plate": "KA-50-ZZ-6528",
+      "route": "500-DJ",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05984",
+      "plate": "KA-41-ZZ-1053",
+      "route": "500-DJ",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-05992",
+      "plate": "KA-01-ZZ-4230",
+      "route": "500-DJ",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06002",
+      "plate": "KA-41-ZZ-7089",
+      "route": "500-DJ",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06015",
+      "plate": "KA-50-ZZ-1649",
+      "route": "500-DJ",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06028",
+      "plate": "KA-01-ZZ-1016",
+      "route": "500-DJ",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06031",
+      "plate": "KA-01-ZZ-2076",
+      "route": "500-DJ",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06044",
+      "plate": "KA-01-ZZ-1226",
+      "route": "500-DJ",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06053",
+      "plate": "KA-01-ZZ-2956",
+      "route": "500-DJ",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06066",
+      "plate": "KA-50-ZZ-0260",
+      "route": "500-DJ",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06077",
+      "plate": "KA-41-ZZ-5632",
+      "route": "500-DJ",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06089",
+      "plate": "KA-01-ZZ-4857",
+      "route": "500-DJ",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06090",
+      "plate": "KA-50-ZZ-8218",
+      "route": "500-EB",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06106",
+      "plate": "KA-41-ZZ-0159",
+      "route": "500-EB",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06111",
+      "plate": "KA-01-ZZ-2438",
+      "route": "500-EB",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06122",
+      "plate": "KA-50-ZZ-4182",
+      "route": "500-EB",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06133",
+      "plate": "KA-41-ZZ-0662",
+      "route": "500-EB",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06140",
+      "plate": "KA-41-ZZ-1646",
+      "route": "500-EB",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06154",
+      "plate": "KA-01-ZZ-4151",
+      "route": "500-EB",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06165",
+      "plate": "KA-01-ZZ-1434",
+      "route": "500-EB",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06179",
+      "plate": "KA-41-ZZ-7974",
+      "route": "500-EB",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06187",
+      "plate": "KA-50-ZZ-2588",
+      "route": "500-EB",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06198",
+      "plate": "KA-01-ZZ-1730",
+      "route": "500-EB",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06201",
+      "plate": "KA-50-ZZ-0683",
+      "route": "500-EB",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06217",
+      "plate": "KA-50-ZZ-5541",
+      "route": "500-F",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06225",
+      "plate": "KA-50-ZZ-9817",
+      "route": "500-F",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06230",
+      "plate": "KA-41-ZZ-0728",
+      "route": "500-F",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06249",
+      "plate": "KA-01-ZZ-4592",
+      "route": "500-F",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06258",
+      "plate": "KA-41-ZZ-4080",
+      "route": "500-F",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06263",
+      "plate": "KA-01-ZZ-3463",
+      "route": "500-F",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06274",
+      "plate": "KA-41-ZZ-7504",
+      "route": "500-F",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06282",
+      "plate": "KA-41-ZZ-4411",
+      "route": "500-F",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06296",
+      "plate": "KA-50-ZZ-3171",
+      "route": "500-F",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06309",
+      "plate": "KA-41-ZZ-2517",
+      "route": "500-F",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06314",
+      "plate": "KA-01-ZZ-1286",
+      "route": "500-F",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06323",
+      "plate": "KA-41-ZZ-2051",
+      "route": "500-F",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06338",
+      "plate": "KA-41-ZZ-0626",
+      "route": "500-F",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06346",
+      "plate": "KA-01-ZZ-1658",
+      "route": "500-F",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06351",
+      "plate": "KA-41-ZZ-8038",
+      "route": "500-F",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06367",
+      "plate": "KA-01-ZZ-0329",
+      "route": "500-F",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06372",
+      "plate": "KA-41-ZZ-6755",
+      "route": "500-F",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06380",
+      "plate": "KA-41-ZZ-5768",
+      "route": "500-F",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06395",
+      "plate": "KA-01-ZZ-2574",
+      "route": "500-FB",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06405",
+      "plate": "KA-50-ZZ-1361",
+      "route": "500-FB",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06418",
+      "plate": "KA-50-ZZ-0359",
+      "route": "500-FB",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06426",
+      "plate": "KA-41-ZZ-1001",
+      "route": "500-FB",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06439",
+      "plate": "KA-41-ZZ-4690",
+      "route": "500-HC",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06447",
+      "plate": "KA-50-ZZ-2134",
+      "route": "500-HC",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06452",
+      "plate": "KA-50-ZZ-3100",
+      "route": "500-HC",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06460",
+      "plate": "KA-41-ZZ-8721",
+      "route": "500-HC",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06471",
+      "plate": "KA-01-ZZ-0442",
+      "route": "500-HC",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06483",
+      "plate": "KA-41-ZZ-1418",
+      "route": "500-HG",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06494",
+      "plate": "KA-01-ZZ-0032",
+      "route": "500-HG",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06507",
+      "plate": "KA-41-ZZ-5671",
+      "route": "500-HK",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06510",
+      "plate": "KA-50-ZZ-5045",
+      "route": "500-HK",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06529",
+      "plate": "KA-41-ZZ-4684",
+      "route": "500-HK",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06532",
+      "plate": "KA-01-ZZ-1635",
+      "route": "500-HK",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06541",
+      "plate": "KA-50-ZZ-6628",
+      "route": "500-HK",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06555",
+      "plate": "KA-01-ZZ-4953",
+      "route": "500-HK",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06564",
+      "plate": "KA-50-ZZ-7501",
+      "route": "500-HK",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06578",
+      "plate": "KA-41-ZZ-0615",
+      "route": "500-HK",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06586",
+      "plate": "KA-41-ZZ-8889",
+      "route": "500-HK",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06593",
+      "plate": "KA-41-ZZ-3225",
+      "route": "500-HK",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06608",
+      "plate": "KA-50-ZZ-0090",
+      "route": "500-J",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06619",
+      "plate": "KA-41-ZZ-9818",
+      "route": "500-J",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06624",
+      "plate": "KA-41-ZZ-1614",
+      "route": "500-L",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06635",
+      "plate": "KA-01-ZZ-3168",
+      "route": "500-L",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06643",
+      "plate": "KA-41-ZZ-3684",
+      "route": "500-L",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06656",
+      "plate": "KA-01-ZZ-1934",
+      "route": "500-L",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06662",
+      "plate": "KA-41-ZZ-9892",
+      "route": "500-L",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06670",
+      "plate": "KA-50-ZZ-2402",
+      "route": "500-L",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06681",
+      "plate": "KA-41-ZZ-6905",
+      "route": "500-L",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06697",
+      "plate": "KA-01-ZZ-0786",
+      "route": "500-L",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06704",
+      "plate": "KA-50-ZZ-9965",
+      "route": "500-L",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06712",
+      "plate": "KA-41-ZZ-5227",
+      "route": "500-L",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06720",
+      "plate": "KA-41-ZZ-0986",
+      "route": "500-L",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06736",
+      "plate": "KA-50-ZZ-4221",
+      "route": "500-L",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06748",
+      "plate": "KA-50-ZZ-7573",
+      "route": "500-L",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06757",
+      "plate": "KA-01-ZZ-0483",
+      "route": "500-L",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06761",
+      "plate": "KA-50-ZZ-6069",
+      "route": "500-L",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06773",
+      "plate": "KA-01-ZZ-3733",
+      "route": "500-L",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06785",
+      "plate": "KA-50-ZZ-1390",
+      "route": "500-L",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06799",
+      "plate": "KA-41-ZZ-4237",
+      "route": "500-L",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06800",
+      "plate": "KA-41-ZZ-5524",
+      "route": "500-L",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06813",
+      "plate": "KA-41-ZZ-7937",
+      "route": "500-LA",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06821",
+      "plate": "KA-50-ZZ-6889",
+      "route": "500-LA",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06837",
+      "plate": "KA-01-ZZ-3678",
+      "route": "500-Q",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06845",
+      "plate": "KA-50-ZZ-2956",
+      "route": "500-Q",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06859",
+      "plate": "KA-01-ZZ-2256",
+      "route": "500-Q",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06868",
+      "plate": "KA-41-ZZ-5080",
+      "route": "500-Q",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06876",
+      "plate": "KA-01-ZZ-4334",
+      "route": "500-Q",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06884",
+      "plate": "KA-01-ZZ-0283",
+      "route": "500-Q",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06892",
+      "plate": "KA-01-ZZ-3697",
+      "route": "500-Q",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06903",
+      "plate": "KA-01-ZZ-2017",
+      "route": "500-Q",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06916",
+      "plate": "KA-41-ZZ-7492",
+      "route": "500-Q",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06927",
+      "plate": "KA-50-ZZ-1271",
+      "route": "500-QA",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06934",
+      "plate": "KA-01-ZZ-0591",
+      "route": "500-QA",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06942",
+      "plate": "KA-41-ZZ-0812",
+      "route": "500-QA",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06950",
+      "plate": "KA-50-ZZ-9429",
+      "route": "500-QA",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06969",
+      "plate": "KA-01-ZZ-3492",
+      "route": "500-QB",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06975",
+      "plate": "KA-41-ZZ-2984",
+      "route": "500-QB",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06988",
+      "plate": "KA-01-ZZ-2653",
+      "route": "500-QB",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-06991",
+      "plate": "KA-01-ZZ-1714",
+      "route": "500-QD",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-07003",
+      "plate": "KA-01-ZZ-0277",
+      "route": "500-QD",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-07016",
+      "plate": "KA-41-ZZ-6308",
+      "route": "500-QD",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-07027",
+      "plate": "KA-50-ZZ-2744",
+      "route": "500-QD",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-07034",
+      "plate": "KA-41-ZZ-8103",
+      "route": "500-QD",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-07042",
+      "plate": "KA-50-ZZ-1449",
+      "route": "500-QG",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-07050",
+      "plate": "KA-41-ZZ-7565",
+      "route": "500-QG",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-07069",
+      "plate": "KA-41-ZZ-5228",
+      "route": "500-QG",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-07075",
+      "plate": "KA-01-ZZ-4621",
+      "route": "500-QK",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-07088",
+      "plate": "KA-50-ZZ-9187",
+      "route": "500-QK",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-07091",
+      "plate": "KA-41-ZZ-5668",
+      "route": "500-QK",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-07109",
+      "plate": "KA-01-ZZ-1883",
+      "route": "500-QN",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-07114",
+      "plate": "KA-41-ZZ-8122",
+      "route": "500-QP",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-07123",
+      "plate": "KA-41-ZZ-3163",
+      "route": "500-QP",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-07138",
+      "plate": "KA-01-ZZ-0949",
+      "route": "500-QP",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-07146",
+      "plate": "KA-41-ZZ-5388",
+      "route": "500-TA",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-07151",
+      "plate": "KA-01-ZZ-1453",
+      "route": "G-4",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-07167",
+      "plate": "KA-01-ZZ-4034",
+      "route": "G-4",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-07172",
+      "plate": "KA-50-ZZ-4005",
+      "route": "G-4",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-07180",
+      "plate": "KA-41-ZZ-5888",
+      "route": "G-4",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-07195",
+      "plate": "KA-01-ZZ-4932",
+      "route": "G-4",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-07205",
+      "plate": "KA-41-ZZ-8066",
+      "route": "G-4",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-07218",
+      "plate": "KA-01-ZZ-0878",
+      "route": "G-4",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-07226",
+      "plate": "KA-01-ZZ-3826",
+      "route": "G-4",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-07239",
+      "plate": "KA-50-ZZ-4207",
+      "route": "G-4",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-07247",
+      "plate": "KA-01-ZZ-4904",
+      "route": "G-4",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-07252",
+      "plate": "KA-41-ZZ-0729",
+      "route": "G-4",
+      "tier": "Ordinary"
+    },
+    {
+      "bin": "BLR-07260",
+      "plate": "KA-50-ZZ-0999",
+      "route": "KIA-10",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07271",
+      "plate": "KA-41-ZZ-1242",
+      "route": "KIA-10",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07283",
+      "plate": "KA-41-ZZ-3583",
+      "route": "KIA-10",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07294",
+      "plate": "KA-41-ZZ-3363",
+      "route": "KIA-10",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07302",
+      "plate": "KA-50-ZZ-2460",
+      "route": "KIA-10",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07315",
+      "plate": "KA-01-ZZ-4450",
+      "route": "KIA-10",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07328",
+      "plate": "KA-01-ZZ-1958",
+      "route": "KIA-10",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07331",
+      "plate": "KA-50-ZZ-4216",
+      "route": "KIA-10",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07344",
+      "plate": "KA-41-ZZ-4954",
+      "route": "KIA-10",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07353",
+      "plate": "KA-50-ZZ-3524",
+      "route": "KIA-10",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07366",
+      "plate": "KA-41-ZZ-5993",
+      "route": "KIA-15",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07377",
+      "plate": "KA-01-ZZ-1660",
+      "route": "KIA-15",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07389",
+      "plate": "KA-41-ZZ-2223",
+      "route": "KIA-15",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07390",
+      "plate": "KA-50-ZZ-6470",
+      "route": "KIA-15",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07408",
+      "plate": "KA-01-ZZ-1931",
+      "route": "KIA-15",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07419",
+      "plate": "KA-01-ZZ-0253",
+      "route": "KIA-15",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07424",
+      "plate": "KA-41-ZZ-0976",
+      "route": "KIA-15",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07435",
+      "plate": "KA-50-ZZ-3162",
+      "route": "KIA-15A",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07443",
+      "plate": "KA-01-ZZ-4598",
+      "route": "KIA-15A",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07456",
+      "plate": "KA-01-ZZ-2421",
+      "route": "KIA-15A",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07462",
+      "plate": "KA-41-ZZ-8434",
+      "route": "KIA-4",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07470",
+      "plate": "KA-41-ZZ-3384",
+      "route": "KIA-4",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07481",
+      "plate": "KA-01-ZZ-2418",
+      "route": "KIA-4",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07497",
+      "plate": "KA-41-ZZ-3922",
+      "route": "KIA-4",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07504",
+      "plate": "KA-01-ZZ-4196",
+      "route": "KIA-4",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07512",
+      "plate": "KA-50-ZZ-1134",
+      "route": "KIA-4A",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07520",
+      "plate": "KA-41-ZZ-4881",
+      "route": "KIA-4A",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07536",
+      "plate": "KA-41-ZZ-2713",
+      "route": "KIA-4A",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07548",
+      "plate": "KA-50-ZZ-3954",
+      "route": "KIA-4A",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07557",
+      "plate": "KA-41-ZZ-6613",
+      "route": "KIA-4A",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07561",
+      "plate": "KA-01-ZZ-4760",
+      "route": "KIA-7",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07573",
+      "plate": "KA-41-ZZ-3230",
+      "route": "KIA-7",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07585",
+      "plate": "KA-01-ZZ-3304",
+      "route": "KIA-7A",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07599",
+      "plate": "KA-50-ZZ-1342",
+      "route": "KIA-7A",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07600",
+      "plate": "KA-01-ZZ-2603",
+      "route": "KIA-7A",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07613",
+      "plate": "KA-41-ZZ-3974",
+      "route": "KIA-7A",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07621",
+      "plate": "KA-01-ZZ-4145",
+      "route": "KIA-7A",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07637",
+      "plate": "KA-41-ZZ-5127",
+      "route": "KIA-7A",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07645",
+      "plate": "KA-50-ZZ-7129",
+      "route": "KIA-7A",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07659",
+      "plate": "KA-41-ZZ-5019",
+      "route": "KIA-7A",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07668",
+      "plate": "KA-41-ZZ-1901",
+      "route": "KIA-7A",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07676",
+      "plate": "KA-41-ZZ-6253",
+      "route": "KIA-7A",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07684",
+      "plate": "KA-41-ZZ-9284",
+      "route": "KIA-8",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07692",
+      "plate": "KA-41-ZZ-2478",
+      "route": "KIA-8",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07707",
+      "plate": "KA-41-ZZ-4175",
+      "route": "KIA-8",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07710",
+      "plate": "KA-50-ZZ-5185",
+      "route": "KIA-8",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07729",
+      "plate": "KA-01-ZZ-0528",
+      "route": "KIA-8",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07732",
+      "plate": "KA-41-ZZ-7544",
+      "route": "KIA-8",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07741",
+      "plate": "KA-01-ZZ-2489",
+      "route": "KIA-8",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07755",
+      "plate": "KA-01-ZZ-3094",
+      "route": "KIA-8",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07764",
+      "plate": "KA-50-ZZ-3920",
+      "route": "KIA-8",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07778",
+      "plate": "KA-41-ZZ-3297",
+      "route": "KIA-8",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07786",
+      "plate": "KA-50-ZZ-8130",
+      "route": "KIA-8",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07793",
+      "plate": "KA-50-ZZ-8096",
+      "route": "KIA-8",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07801",
+      "plate": "KA-41-ZZ-3357",
+      "route": "KIA-8",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07817",
+      "plate": "KA-50-ZZ-4076",
+      "route": "KIA-8",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07825",
+      "plate": "KA-41-ZZ-0313",
+      "route": "KIA-8",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07830",
+      "plate": "KA-41-ZZ-7615",
+      "route": "KIA-8",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07849",
+      "plate": "KA-01-ZZ-2364",
+      "route": "KIA-8",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07858",
+      "plate": "KA-50-ZZ-7699",
+      "route": "KIA-8",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07863",
+      "plate": "KA-41-ZZ-7579",
+      "route": "KIA-8",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07874",
+      "plate": "KA-01-ZZ-1513",
+      "route": "KIA-8A",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07882",
+      "plate": "KA-01-ZZ-1749",
+      "route": "KIA-8A",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07896",
+      "plate": "KA-01-ZZ-3567",
+      "route": "KIA-8A",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07906",
+      "plate": "KA-50-ZZ-5969",
+      "route": "KIA-8A",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07911",
+      "plate": "KA-41-ZZ-2409",
+      "route": "KIA-8A",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07922",
+      "plate": "KA-01-ZZ-0681",
+      "route": "KIA-8A",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07933",
+      "plate": "KA-41-ZZ-5958",
+      "route": "KIA-8C",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07940",
+      "plate": "KA-01-ZZ-0412",
+      "route": "KIA-8C",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07954",
+      "plate": "KA-01-ZZ-1080",
+      "route": "KIA-8C",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07965",
+      "plate": "KA-50-ZZ-8766",
+      "route": "KIA-8C",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07979",
+      "plate": "KA-41-ZZ-2945",
+      "route": "KIA-8C",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07987",
+      "plate": "KA-01-ZZ-4111",
+      "route": "KIA-8C",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-07998",
+      "plate": "KA-50-ZZ-7320",
+      "route": "KIA-8D",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-08005",
+      "plate": "KA-01-ZZ-4109",
+      "route": "KIA-8D",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-08018",
+      "plate": "KA-41-ZZ-5592",
+      "route": "KIA-8D",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-08026",
+      "plate": "KA-41-ZZ-5178",
+      "route": "KIA-8D",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-08039",
+      "plate": "KA-41-ZZ-9581",
+      "route": "KIA-8E",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-08047",
+      "plate": "KA-01-ZZ-2471",
+      "route": "KIA-8E",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-08052",
+      "plate": "KA-41-ZZ-2806",
+      "route": "KIA-8E",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-08060",
+      "plate": "KA-01-ZZ-0992",
+      "route": "KIA-8E",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-08071",
+      "plate": "KA-01-ZZ-2630",
+      "route": "KIA-8E",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-08083",
+      "plate": "KA-41-ZZ-2552",
+      "route": "KIA-8E",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-08094",
+      "plate": "KA-41-ZZ-4527",
+      "route": "KIA-8EW",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-08107",
+      "plate": "KA-50-ZZ-4552",
+      "route": "KIA-8EW",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-08110",
+      "plate": "KA-41-ZZ-5636",
+      "route": "KIA-8EW",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-08129",
+      "plate": "KA-50-ZZ-7387",
+      "route": "KIA-8EW",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-08132",
+      "plate": "KA-50-ZZ-7507",
+      "route": "KIA-8H",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-08141",
+      "plate": "KA-41-ZZ-3029",
+      "route": "KIA-8H",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-08155",
+      "plate": "KA-01-ZZ-0672",
+      "route": "KIA-8H",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-08164",
+      "plate": "KA-41-ZZ-3108",
+      "route": "KIA-8H",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-08178",
+      "plate": "KA-41-ZZ-8283",
+      "route": "KIA-8H",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-08186",
+      "plate": "KA-50-ZZ-1636",
+      "route": "KIA-8H",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-08193",
+      "plate": "KA-41-ZZ-8189",
+      "route": "KIA-9",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-08204",
+      "plate": "KA-01-ZZ-1617",
+      "route": "KIA-9",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-08212",
+      "plate": "KA-41-ZZ-8195",
+      "route": "KIA-9",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-08220",
+      "plate": "KA-50-ZZ-9795",
+      "route": "KIA-9",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-08236",
+      "plate": "KA-01-ZZ-3261",
+      "route": "KIA-9",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-08248",
+      "plate": "KA-50-ZZ-5122",
+      "route": "KIA-9",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-08257",
+      "plate": "KA-01-ZZ-3060",
+      "route": "KIA-9",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-08261",
+      "plate": "KA-01-ZZ-4654",
+      "route": "KIA-9",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-08273",
+      "plate": "KA-01-ZZ-0536",
+      "route": "KIA-9",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-08285",
+      "plate": "KA-01-ZZ-3430",
+      "route": "KIA-9",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-08299",
+      "plate": "KA-50-ZZ-9498",
+      "route": "KIA-9",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-08301",
+      "plate": "KA-01-ZZ-1449",
+      "route": "KIA-9",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-08317",
+      "plate": "KA-41-ZZ-6417",
+      "route": "KIA-9",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-08325",
+      "plate": "KA-01-ZZ-0560",
+      "route": "KIA-9",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-08330",
+      "plate": "KA-41-ZZ-5138",
+      "route": "KIA-9",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-08349",
+      "plate": "KA-01-ZZ-2461",
+      "route": "KIA-9",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-08358",
+      "plate": "KA-01-ZZ-0245",
+      "route": "KIA-9",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-08363",
+      "plate": "KA-50-ZZ-1265",
+      "route": "KIA-9",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-08374",
+      "plate": "KA-41-ZZ-8683",
+      "route": "KIA-9",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-08382",
+      "plate": "KA-01-ZZ-3457",
+      "route": "KIA-9",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-08396",
+      "plate": "KA-50-ZZ-5110",
+      "route": "KIA-9",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-08400",
+      "plate": "KA-41-ZZ-8380",
+      "route": "KIA-9",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-08413",
+      "plate": "KA-01-ZZ-3299",
+      "route": "KIA-9",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-08421",
+      "plate": "KA-41-ZZ-3622",
+      "route": "KIA-9",
+      "tier": "Airport (Vayu Vajra)"
+    },
+    {
+      "bin": "BLR-08437",
+      "plate": "KA-41-ZZ-1307",
+      "route": "V-331A",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08445",
+      "plate": "KA-01-ZZ-2525",
+      "route": "V-331A",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08459",
+      "plate": "KA-50-ZZ-9754",
+      "route": "V-331A",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08468",
+      "plate": "KA-41-ZZ-9160",
+      "route": "V-333E",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08476",
+      "plate": "KA-50-ZZ-2280",
+      "route": "V-333E",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08484",
+      "plate": "KA-01-ZZ-0553",
+      "route": "V-335E",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08492",
+      "plate": "KA-50-ZZ-3077",
+      "route": "V-335E",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08506",
+      "plate": "KA-01-ZZ-0209",
+      "route": "V-335E",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08511",
+      "plate": "KA-50-ZZ-2645",
+      "route": "V-335E",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08522",
+      "plate": "KA-41-ZZ-4810",
+      "route": "V-335E",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08533",
+      "plate": "KA-41-ZZ-2277",
+      "route": "V-335E",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08540",
+      "plate": "KA-41-ZZ-6804",
+      "route": "V-335E",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08554",
+      "plate": "KA-41-ZZ-3909",
+      "route": "V-335E",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08565",
+      "plate": "KA-50-ZZ-6883",
+      "route": "V-335E",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08579",
+      "plate": "KA-41-ZZ-6530",
+      "route": "V-335E",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08587",
+      "plate": "KA-50-ZZ-7745",
+      "route": "V-335E",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08598",
+      "plate": "KA-50-ZZ-7522",
+      "route": "V-335E",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08603",
+      "plate": "KA-50-ZZ-0325",
+      "route": "V-335E",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08616",
+      "plate": "KA-50-ZZ-0600",
+      "route": "V-335E",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08627",
+      "plate": "KA-41-ZZ-1848",
+      "route": "V-335E",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08634",
+      "plate": "KA-50-ZZ-7888",
+      "route": "V-335E",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08642",
+      "plate": "KA-50-ZZ-1454",
+      "route": "V-335E",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08650",
+      "plate": "KA-50-ZZ-2244",
+      "route": "V-335E",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08669",
+      "plate": "KA-41-ZZ-3403",
+      "route": "V-335E",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08675",
+      "plate": "KA-01-ZZ-1421",
+      "route": "V-335E",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08688",
+      "plate": "KA-01-ZZ-0155",
+      "route": "V-335E",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08691",
+      "plate": "KA-50-ZZ-3895",
+      "route": "V-335E",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08702",
+      "plate": "KA-01-ZZ-2999",
+      "route": "V-342F",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08715",
+      "plate": "KA-41-ZZ-3231",
+      "route": "V-342F",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08728",
+      "plate": "KA-01-ZZ-1577",
+      "route": "V-342F",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08731",
+      "plate": "KA-01-ZZ-0133",
+      "route": "V-342F",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08744",
+      "plate": "KA-41-ZZ-2227",
+      "route": "V-342F",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08753",
+      "plate": "KA-01-ZZ-0369",
+      "route": "V-342F",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08766",
+      "plate": "KA-41-ZZ-6021",
+      "route": "V-342F",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08777",
+      "plate": "KA-50-ZZ-4894",
+      "route": "V-342F",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08789",
+      "plate": "KA-50-ZZ-0007",
+      "route": "V-342F",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08790",
+      "plate": "KA-50-ZZ-8488",
+      "route": "V-342F",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08808",
+      "plate": "KA-50-ZZ-9601",
+      "route": "V-342F",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08819",
+      "plate": "KA-41-ZZ-2860",
+      "route": "V-500A",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08824",
+      "plate": "KA-01-ZZ-0304",
+      "route": "V-500A",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08835",
+      "plate": "KA-41-ZZ-2337",
+      "route": "V-500A",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08843",
+      "plate": "KA-41-ZZ-7488",
+      "route": "V-500A",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08856",
+      "plate": "KA-41-ZZ-0203",
+      "route": "V-500A",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08862",
+      "plate": "KA-41-ZZ-8888",
+      "route": "V-500A",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08870",
+      "plate": "KA-41-ZZ-0769",
+      "route": "V-500A",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08881",
+      "plate": "KA-50-ZZ-0172",
+      "route": "V-500A",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08897",
+      "plate": "KA-50-ZZ-4339",
+      "route": "V-500A",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08909",
+      "plate": "KA-41-ZZ-4624",
+      "route": "V-500A",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08914",
+      "plate": "KA-50-ZZ-7019",
+      "route": "V-500A",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08923",
+      "plate": "KA-50-ZZ-4021",
+      "route": "V-500A",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08938",
+      "plate": "KA-41-ZZ-8397",
+      "route": "V-500BC",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08946",
+      "plate": "KA-01-ZZ-0854",
+      "route": "V-500BC",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08951",
+      "plate": "KA-41-ZZ-5052",
+      "route": "V-500BC",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08967",
+      "plate": "KA-50-ZZ-5618",
+      "route": "V-500BC",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08972",
+      "plate": "KA-41-ZZ-8215",
+      "route": "V-500BC",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08980",
+      "plate": "KA-50-ZZ-9177",
+      "route": "V-500CA",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-08995",
+      "plate": "KA-41-ZZ-7300",
+      "route": "V-500CA",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09006",
+      "plate": "KA-50-ZZ-2071",
+      "route": "V-500CA",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09011",
+      "plate": "KA-50-ZZ-1872",
+      "route": "V-500CA",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09022",
+      "plate": "KA-41-ZZ-5851",
+      "route": "V-500CA",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09033",
+      "plate": "KA-41-ZZ-7414",
+      "route": "V-500CA",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09040",
+      "plate": "KA-41-ZZ-1696",
+      "route": "V-500CA",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09054",
+      "plate": "KA-41-ZZ-8179",
+      "route": "V-500CA",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09065",
+      "plate": "KA-50-ZZ-6122",
+      "route": "V-500CA",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09079",
+      "plate": "KA-41-ZZ-6447",
+      "route": "V-500CA",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09087",
+      "plate": "KA-41-ZZ-6067",
+      "route": "V-500CA",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09098",
+      "plate": "KA-50-ZZ-1817",
+      "route": "V-500CA",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09104",
+      "plate": "KA-41-ZZ-2256",
+      "route": "V-500CA",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09112",
+      "plate": "KA-41-ZZ-3529",
+      "route": "V-500CA",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09120",
+      "plate": "KA-01-ZZ-2123",
+      "route": "V-500CA",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09136",
+      "plate": "KA-01-ZZ-2213",
+      "route": "V-500CA",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09148",
+      "plate": "KA-50-ZZ-5666",
+      "route": "V-500CA",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09157",
+      "plate": "KA-01-ZZ-2845",
+      "route": "V-500CA",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09161",
+      "plate": "KA-01-ZZ-0328",
+      "route": "V-500CA",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09173",
+      "plate": "KA-01-ZZ-4813",
+      "route": "V-500CA",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09185",
+      "plate": "KA-41-ZZ-4176",
+      "route": "V-500CA",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09199",
+      "plate": "KA-50-ZZ-7128",
+      "route": "V-500CA",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09200",
+      "plate": "KA-41-ZZ-8516",
+      "route": "V-500CA",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09213",
+      "plate": "KA-50-ZZ-6422",
+      "route": "V-500CA",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09221",
+      "plate": "KA-01-ZZ-0519",
+      "route": "V-500CA",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09237",
+      "plate": "KA-41-ZZ-2952",
+      "route": "V-500CA",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09245",
+      "plate": "KA-50-ZZ-0991",
+      "route": "V-500CA",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09259",
+      "plate": "KA-50-ZZ-4263",
+      "route": "V-500CA",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09268",
+      "plate": "KA-50-ZZ-5132",
+      "route": "V-500CA",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09276",
+      "plate": "KA-41-ZZ-8133",
+      "route": "V-500CA",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09284",
+      "plate": "KA-01-ZZ-4152",
+      "route": "V-500CA",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09292",
+      "plate": "KA-01-ZZ-1273",
+      "route": "V-500CA",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09305",
+      "plate": "KA-41-ZZ-5111",
+      "route": "V-500CA",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09318",
+      "plate": "KA-41-ZZ-2484",
+      "route": "V-500CA",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09326",
+      "plate": "KA-41-ZZ-9471",
+      "route": "V-500CA",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09339",
+      "plate": "KA-50-ZZ-5706",
+      "route": "V-500CK",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09347",
+      "plate": "KA-01-ZZ-4575",
+      "route": "V-500CK",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09352",
+      "plate": "KA-50-ZZ-3393",
+      "route": "V-500CK",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09360",
+      "plate": "KA-41-ZZ-7336",
+      "route": "V-500CK",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09371",
+      "plate": "KA-01-ZZ-0869",
+      "route": "V-500CK",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09383",
+      "plate": "KA-41-ZZ-4740",
+      "route": "V-500CK",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09394",
+      "plate": "KA-41-ZZ-2085",
+      "route": "V-500CK",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09409",
+      "plate": "KA-41-ZZ-9593",
+      "route": "V-500CK",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09414",
+      "plate": "KA-50-ZZ-8084",
+      "route": "V-500CK",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09423",
+      "plate": "KA-01-ZZ-2941",
+      "route": "V-500CK",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09438",
+      "plate": "KA-41-ZZ-7369",
+      "route": "V-500CK",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09446",
+      "plate": "KA-41-ZZ-7485",
+      "route": "V-500CK",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09451",
+      "plate": "KA-01-ZZ-0493",
+      "route": "V-500CK",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09467",
+      "plate": "KA-50-ZZ-9566",
+      "route": "V-500CK",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09472",
+      "plate": "KA-41-ZZ-6430",
+      "route": "V-500CK",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09480",
+      "plate": "KA-41-ZZ-1232",
+      "route": "V-500CK",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09495",
+      "plate": "KA-41-ZZ-0467",
+      "route": "V-500CK",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09508",
+      "plate": "KA-41-ZZ-9199",
+      "route": "V-500CK",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09519",
+      "plate": "KA-50-ZZ-0841",
+      "route": "V-500CK",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09524",
+      "plate": "KA-41-ZZ-6900",
+      "route": "V-500D",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09535",
+      "plate": "KA-41-ZZ-1467",
+      "route": "V-500D",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09543",
+      "plate": "KA-50-ZZ-8359",
+      "route": "V-500D",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09556",
+      "plate": "KA-41-ZZ-7340",
+      "route": "V-500D",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09562",
+      "plate": "KA-01-ZZ-1486",
+      "route": "V-500D",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09570",
+      "plate": "KA-50-ZZ-4843",
+      "route": "V-500D",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09581",
+      "plate": "KA-01-ZZ-2416",
+      "route": "V-500D",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09597",
+      "plate": "KA-01-ZZ-2981",
+      "route": "V-500D",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09607",
+      "plate": "KA-50-ZZ-2765",
+      "route": "V-500D",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09610",
+      "plate": "KA-50-ZZ-4295",
+      "route": "V-500D",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09629",
+      "plate": "KA-50-ZZ-9059",
+      "route": "V-500D",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09632",
+      "plate": "KA-01-ZZ-0929",
+      "route": "V-500D",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09641",
+      "plate": "KA-41-ZZ-0944",
+      "route": "V-500D",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09655",
+      "plate": "KA-50-ZZ-9815",
+      "route": "V-500D",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09664",
+      "plate": "KA-50-ZZ-5516",
+      "route": "V-500D",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09678",
+      "plate": "KA-50-ZZ-4541",
+      "route": "V-500D",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09686",
+      "plate": "KA-41-ZZ-9940",
+      "route": "V-500D",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09693",
+      "plate": "KA-01-ZZ-0017",
+      "route": "V-500D",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09701",
+      "plate": "KA-41-ZZ-1994",
+      "route": "V-500D",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09717",
+      "plate": "KA-41-ZZ-3662",
+      "route": "V-500D",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09725",
+      "plate": "KA-50-ZZ-4303",
+      "route": "V-500D",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09730",
+      "plate": "KA-01-ZZ-2581",
+      "route": "V-500D",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09749",
+      "plate": "KA-50-ZZ-1991",
+      "route": "V-500D",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09758",
+      "plate": "KA-01-ZZ-3851",
+      "route": "V-500D",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09763",
+      "plate": "KA-01-ZZ-4451",
+      "route": "V-500D",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09774",
+      "plate": "KA-41-ZZ-5407",
+      "route": "V-500D",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09782",
+      "plate": "KA-41-ZZ-6538",
+      "route": "V-500D",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09796",
+      "plate": "KA-01-ZZ-2880",
+      "route": "V-500D",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09803",
+      "plate": "KA-50-ZZ-2085",
+      "route": "V-500D",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09816",
+      "plate": "KA-41-ZZ-2867",
+      "route": "V-500D",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09827",
+      "plate": "KA-50-ZZ-5517",
+      "route": "V-500D",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09834",
+      "plate": "KA-01-ZZ-1138",
+      "route": "V-500D",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09842",
+      "plate": "KA-50-ZZ-9640",
+      "route": "V-500DP",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09850",
+      "plate": "KA-41-ZZ-1455",
+      "route": "V-500DP",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09869",
+      "plate": "KA-01-ZZ-2178",
+      "route": "V-500DP",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09875",
+      "plate": "KA-50-ZZ-3040",
+      "route": "V-500E",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09888",
+      "plate": "KA-41-ZZ-2562",
+      "route": "V-500E",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09891",
+      "plate": "KA-01-ZZ-2822",
+      "route": "V-500E",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09902",
+      "plate": "KA-50-ZZ-1557",
+      "route": "V-500F",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09915",
+      "plate": "KA-41-ZZ-9820",
+      "route": "V-500F",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09928",
+      "plate": "KA-01-ZZ-4039",
+      "route": "V-500F",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09931",
+      "plate": "KA-41-ZZ-5604",
+      "route": "V-500F",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09944",
+      "plate": "KA-50-ZZ-4177",
+      "route": "V-500F",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09953",
+      "plate": "KA-50-ZZ-0661",
+      "route": "V-500F",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09966",
+      "plate": "KA-50-ZZ-4517",
+      "route": "V-500F",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09977",
+      "plate": "KA-41-ZZ-0339",
+      "route": "V-500F",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09989",
+      "plate": "KA-50-ZZ-3674",
+      "route": "V-500F",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-09990",
+      "plate": "KA-50-ZZ-9428",
+      "route": "V-500F",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10008",
+      "plate": "KA-01-ZZ-1500",
+      "route": "V-500F",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10019",
+      "plate": "KA-41-ZZ-6947",
+      "route": "V-500F",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10024",
+      "plate": "KA-01-ZZ-2349",
+      "route": "V-500F",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10035",
+      "plate": "KA-01-ZZ-3734",
+      "route": "V-500F",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10043",
+      "plate": "KA-50-ZZ-1718",
+      "route": "V-500F",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10056",
+      "plate": "KA-01-ZZ-2781",
+      "route": "V-500F",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10062",
+      "plate": "KA-41-ZZ-5289",
+      "route": "V-500F",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10070",
+      "plate": "KA-41-ZZ-4587",
+      "route": "V-500F",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10081",
+      "plate": "KA-50-ZZ-8688",
+      "route": "V-500F",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10097",
+      "plate": "KA-01-ZZ-3805",
+      "route": "V-500F",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10100",
+      "plate": "KA-01-ZZ-2103",
+      "route": "V-500F",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10113",
+      "plate": "KA-50-ZZ-4918",
+      "route": "V-500F",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10121",
+      "plate": "KA-01-ZZ-1064",
+      "route": "V-500F",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10137",
+      "plate": "KA-50-ZZ-2961",
+      "route": "V-500F",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10145",
+      "plate": "KA-41-ZZ-6924",
+      "route": "V-500FA",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10159",
+      "plate": "KA-50-ZZ-7861",
+      "route": "V-500FA",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10168",
+      "plate": "KA-50-ZZ-8901",
+      "route": "V-500HS",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10176",
+      "plate": "KA-41-ZZ-8124",
+      "route": "V-500HS",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10184",
+      "plate": "KA-41-ZZ-2520",
+      "route": "V-500HS",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10192",
+      "plate": "KA-01-ZZ-2226",
+      "route": "V-500HS",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10202",
+      "plate": "KA-01-ZZ-4546",
+      "route": "V-500HS",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10215",
+      "plate": "KA-50-ZZ-5080",
+      "route": "V-500HS",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10228",
+      "plate": "KA-01-ZZ-4585",
+      "route": "V-500L",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10231",
+      "plate": "KA-50-ZZ-0377",
+      "route": "V-500L",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10244",
+      "plate": "KA-41-ZZ-8017",
+      "route": "V-500L",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10253",
+      "plate": "KA-41-ZZ-2193",
+      "route": "V-500L",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10266",
+      "plate": "KA-41-ZZ-8682",
+      "route": "V-500L",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10277",
+      "plate": "KA-41-ZZ-5166",
+      "route": "V-MF1C",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10289",
+      "plate": "KA-01-ZZ-2780",
+      "route": "V-MF1C",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10290",
+      "plate": "KA-50-ZZ-0274",
+      "route": "V-MF1C",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10304",
+      "plate": "KA-01-ZZ-3212",
+      "route": "V-MF1C",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10312",
+      "plate": "KA-50-ZZ-5605",
+      "route": "V-MF1C",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10320",
+      "plate": "KA-41-ZZ-1567",
+      "route": "V-MF1C",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10336",
+      "plate": "KA-41-ZZ-2756",
+      "route": "V-MF1C",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10348",
+      "plate": "KA-50-ZZ-2676",
+      "route": "V-MF1C",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10357",
+      "plate": "KA-41-ZZ-1975",
+      "route": "V-MF1C",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10361",
+      "plate": "KA-50-ZZ-3376",
+      "route": "V-MF1C",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10373",
+      "plate": "KA-50-ZZ-6356",
+      "route": "V-MF1C",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10385",
+      "plate": "KA-01-ZZ-2869",
+      "route": "V-MF1C",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10399",
+      "plate": "KA-01-ZZ-4831",
+      "route": "V-MF1C",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10407",
+      "plate": "KA-50-ZZ-9508",
+      "route": "V-MF1C",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10410",
+      "plate": "KA-01-ZZ-4948",
+      "route": "V-MF1C",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10429",
+      "plate": "KA-41-ZZ-3323",
+      "route": "V-MF1C",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10432",
+      "plate": "KA-41-ZZ-2285",
+      "route": "V-MF1C",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10441",
+      "plate": "KA-41-ZZ-2076",
+      "route": "V-MF1C",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10455",
+      "plate": "KA-41-ZZ-1927",
+      "route": "V-MF1C",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10464",
+      "plate": "KA-41-ZZ-4692",
+      "route": "V-MF1D",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10478",
+      "plate": "KA-41-ZZ-5878",
+      "route": "V-MF1D",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10486",
+      "plate": "KA-01-ZZ-1053",
+      "route": "V-MF1D",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10493",
+      "plate": "KA-01-ZZ-2446",
+      "route": "V-MF1D",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10503",
+      "plate": "KA-50-ZZ-2813",
+      "route": "V-MF6",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10516",
+      "plate": "KA-50-ZZ-3196",
+      "route": "V-MF6",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10527",
+      "plate": "KA-01-ZZ-2281",
+      "route": "V-MF6",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10534",
+      "plate": "KA-41-ZZ-6053",
+      "route": "V-MF6",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10542",
+      "plate": "KA-41-ZZ-6623",
+      "route": "V-MF6",
+      "tier": "AC (Vajra)"
+    },
+    {
+      "bin": "BLR-10550",
+      "plate": "KA-01-ZZ-0568",
+      "route": "VW-226HSR",
+      "tier": "AC (Vajra)"
+    }
+  ],
+  "coaches": [
+    {
+      "bin": "BDM-01010",
+      "plate": "KA-25-ZZ-0212",
+      "corridor": "BNG-BDM",
+      "corporation": "NWKRTC",
+      "corporationName": "North Western Karnataka Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "BDM-01029",
+      "plate": "KA-25-ZZ-0667",
+      "corridor": "BNG-BDM",
+      "corporation": "NWKRTC",
+      "corporationName": "North Western Karnataka Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "BDM-01032",
+      "plate": "KA-25-ZZ-0921",
+      "corridor": "BNG-BDM",
+      "corporation": "NWKRTC",
+      "corporationName": "North Western Karnataka Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "BDM-01041",
+      "plate": "KA-25-ZZ-2833",
+      "corridor": "BNG-BDM",
+      "corporation": "NWKRTC",
+      "corporationName": "North Western Karnataka Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "KBS-01630",
+      "plate": "KA-01-ZZ-9735",
+      "corridor": "BNG-BDM",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "KBS-01649",
+      "plate": "KA-01-ZZ-5813",
+      "corridor": "BNG-BDM",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "BGK-01010",
+      "plate": "KA-25-ZZ-0489",
+      "corridor": "BNG-BGK",
+      "corporation": "NWKRTC",
+      "corporationName": "North Western Karnataka Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "BGK-01029",
+      "plate": "KA-25-ZZ-3896",
+      "corridor": "BNG-BGK",
+      "corporation": "NWKRTC",
+      "corporationName": "North Western Karnataka Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "BGK-01032",
+      "plate": "KA-25-ZZ-4422",
+      "corridor": "BNG-BGK",
+      "corporation": "NWKRTC",
+      "corporationName": "North Western Karnataka Road Transport Corporation",
+      "serviceClass": "pallakki",
+      "serviceClassName": "Pallakki"
+    },
+    {
+      "bin": "BGK-01041",
+      "plate": "KA-25-ZZ-7409",
+      "corridor": "BNG-BGK",
+      "corporation": "NWKRTC",
+      "corporationName": "North Western Karnataka Road Transport Corporation",
+      "serviceClass": "pallakki",
+      "serviceClassName": "Pallakki"
+    },
+    {
+      "bin": "KBS-01658",
+      "plate": "KA-01-ZZ-8452",
+      "corridor": "BNG-BGK",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "KBS-01663",
+      "plate": "KA-01-ZZ-9585",
+      "corridor": "BNG-BGK",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "KBS-01674",
+      "plate": "KA-01-ZZ-8613",
+      "corridor": "BNG-BGK",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "pallakki",
+      "serviceClassName": "Pallakki"
+    },
+    {
+      "bin": "KBS-01682",
+      "plate": "KA-01-ZZ-5599",
+      "corridor": "BNG-BGK",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "pallakki",
+      "serviceClassName": "Pallakki"
+    },
+    {
+      "bin": "BJP-01010",
+      "plate": "KA-25-ZZ-9818",
+      "corridor": "BNG-BJP",
+      "corporation": "NWKRTC",
+      "corporationName": "North Western Karnataka Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "BJP-01029",
+      "plate": "KA-25-ZZ-2095",
+      "corridor": "BNG-BJP",
+      "corporation": "NWKRTC",
+      "corporationName": "North Western Karnataka Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "BJP-01032",
+      "plate": "KA-25-ZZ-2370",
+      "corridor": "BNG-BJP",
+      "corporation": "NWKRTC",
+      "corporationName": "North Western Karnataka Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "KBS-01617",
+      "plate": "KA-01-ZZ-6479",
+      "corridor": "BNG-BJP",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "KBS-01625",
+      "plate": "KA-01-ZZ-7492",
+      "corridor": "BNG-BJP",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "CKM-01010",
+      "plate": "KA-01-ZZ-6292",
+      "corridor": "BNG-CKM",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "airavat_club_class",
+      "serviceClassName": "Airavat Club Class"
+    },
+    {
+      "bin": "CKM-01029",
+      "plate": "KA-01-ZZ-6102",
+      "corridor": "BNG-CKM",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "airavat_club_class",
+      "serviceClassName": "Airavat Club Class"
+    },
+    {
+      "bin": "CKM-01032",
+      "plate": "KA-01-ZZ-6157",
+      "corridor": "BNG-CKM",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "airavat_club_class",
+      "serviceClassName": "Airavat Club Class"
+    },
+    {
+      "bin": "CKM-01041",
+      "plate": "KA-01-ZZ-8208",
+      "corridor": "BNG-CKM",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "CKM-01055",
+      "plate": "KA-01-ZZ-8498",
+      "corridor": "BNG-CKM",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "CKM-01064",
+      "plate": "KA-01-ZZ-6913",
+      "corridor": "BNG-CKM",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "CKM-01078",
+      "plate": "KA-01-ZZ-9307",
+      "corridor": "BNG-CKM",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "CKM-01086",
+      "plate": "KA-01-ZZ-7188",
+      "corridor": "BNG-CKM",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "rajahamsa_executive",
+      "serviceClassName": "Rajahamsa Executive"
+    },
+    {
+      "bin": "CKM-01093",
+      "plate": "KA-01-ZZ-5603",
+      "corridor": "BNG-CKM",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "rajahamsa_executive",
+      "serviceClassName": "Rajahamsa Executive"
+    },
+    {
+      "bin": "CKM-01108",
+      "plate": "KA-01-ZZ-7845",
+      "corridor": "BNG-CKM",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "rajahamsa_executive",
+      "serviceClassName": "Rajahamsa Executive"
+    },
+    {
+      "bin": "CKM-01119",
+      "plate": "KA-01-ZZ-8632",
+      "corridor": "BNG-CKM",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "rajahamsa_executive",
+      "serviceClassName": "Rajahamsa Executive"
+    },
+    {
+      "bin": "KBS-01490",
+      "plate": "KA-01-ZZ-5446",
+      "corridor": "BNG-CKM",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "airavat_club_class",
+      "serviceClassName": "Airavat Club Class"
+    },
+    {
+      "bin": "KBS-01509",
+      "plate": "KA-01-ZZ-9820",
+      "corridor": "BNG-CKM",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "airavat_club_class",
+      "serviceClassName": "Airavat Club Class"
+    },
+    {
+      "bin": "KBS-01514",
+      "plate": "KA-01-ZZ-8216",
+      "corridor": "BNG-CKM",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "airavat_club_class",
+      "serviceClassName": "Airavat Club Class"
+    },
+    {
+      "bin": "KBS-01523",
+      "plate": "KA-01-ZZ-7477",
+      "corridor": "BNG-CKM",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "airavat_club_class",
+      "serviceClassName": "Airavat Club Class"
+    },
+    {
+      "bin": "KBS-01538",
+      "plate": "KA-01-ZZ-8606",
+      "corridor": "BNG-CKM",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "KBS-01546",
+      "plate": "KA-01-ZZ-8252",
+      "corridor": "BNG-CKM",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "KBS-01551",
+      "plate": "KA-01-ZZ-8574",
+      "corridor": "BNG-CKM",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "KBS-01567",
+      "plate": "KA-01-ZZ-6527",
+      "corridor": "BNG-CKM",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "KBS-01572",
+      "plate": "KA-01-ZZ-9935",
+      "corridor": "BNG-CKM",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "rajahamsa_executive",
+      "serviceClassName": "Rajahamsa Executive"
+    },
+    {
+      "bin": "KBS-01580",
+      "plate": "KA-01-ZZ-7644",
+      "corridor": "BNG-CKM",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "rajahamsa_executive",
+      "serviceClassName": "Rajahamsa Executive"
+    },
+    {
+      "bin": "KBS-01595",
+      "plate": "KA-01-ZZ-9590",
+      "corridor": "BNG-CKM",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "rajahamsa_executive",
+      "serviceClassName": "Rajahamsa Executive"
+    },
+    {
+      "bin": "KBS-01601",
+      "plate": "KA-01-ZZ-8719",
+      "corridor": "BNG-CKM",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "rajahamsa_executive",
+      "serviceClassName": "Rajahamsa Executive"
+    },
+    {
+      "bin": "HUB-01010",
+      "plate": "KA-25-ZZ-6387",
+      "corridor": "BNG-HBL",
+      "corporation": "NWKRTC",
+      "corporationName": "North Western Karnataka Road Transport Corporation",
+      "serviceClass": "airavat_club_class",
+      "serviceClassName": "Airavat Club Class"
+    },
+    {
+      "bin": "HUB-01029",
+      "plate": "KA-25-ZZ-7549",
+      "corridor": "BNG-HBL",
+      "corporation": "NWKRTC",
+      "corporationName": "North Western Karnataka Road Transport Corporation",
+      "serviceClass": "airavat_club_class",
+      "serviceClassName": "Airavat Club Class"
+    },
+    {
+      "bin": "HUB-01032",
+      "plate": "KA-25-ZZ-2532",
+      "corridor": "BNG-HBL",
+      "corporation": "NWKRTC",
+      "corporationName": "North Western Karnataka Road Transport Corporation",
+      "serviceClass": "airavat_club_class",
+      "serviceClassName": "Airavat Club Class"
+    },
+    {
+      "bin": "HUB-01041",
+      "plate": "KA-25-ZZ-9286",
+      "corridor": "BNG-HBL",
+      "corporation": "NWKRTC",
+      "corporationName": "North Western Karnataka Road Transport Corporation",
+      "serviceClass": "airavat_club_class",
+      "serviceClassName": "Airavat Club Class"
+    },
+    {
+      "bin": "HUB-01055",
+      "plate": "KA-25-ZZ-5143",
+      "corridor": "BNG-HBL",
+      "corporation": "NWKRTC",
+      "corporationName": "North Western Karnataka Road Transport Corporation",
+      "serviceClass": "airavat_club_class",
+      "serviceClassName": "Airavat Club Class"
+    },
+    {
+      "bin": "HUB-01064",
+      "plate": "KA-25-ZZ-2382",
+      "corridor": "BNG-HBL",
+      "corporation": "NWKRTC",
+      "corporationName": "North Western Karnataka Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "HUB-01078",
+      "plate": "KA-25-ZZ-6998",
+      "corridor": "BNG-HBL",
+      "corporation": "NWKRTC",
+      "corporationName": "North Western Karnataka Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "HUB-01086",
+      "plate": "KA-25-ZZ-3856",
+      "corridor": "BNG-HBL",
+      "corporation": "NWKRTC",
+      "corporationName": "North Western Karnataka Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "HUB-01093",
+      "plate": "KA-25-ZZ-7061",
+      "corridor": "BNG-HBL",
+      "corporation": "NWKRTC",
+      "corporationName": "North Western Karnataka Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "HUB-01108",
+      "plate": "KA-25-ZZ-6316",
+      "corridor": "BNG-HBL",
+      "corporation": "NWKRTC",
+      "corporationName": "North Western Karnataka Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "HUB-01119",
+      "plate": "KA-25-ZZ-4568",
+      "corridor": "BNG-HBL",
+      "corporation": "NWKRTC",
+      "corporationName": "North Western Karnataka Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "HUB-01124",
+      "plate": "KA-25-ZZ-5372",
+      "corridor": "BNG-HBL",
+      "corporation": "NWKRTC",
+      "corporationName": "North Western Karnataka Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "HUB-01135",
+      "plate": "KA-25-ZZ-6346",
+      "corridor": "BNG-HBL",
+      "corporation": "NWKRTC",
+      "corporationName": "North Western Karnataka Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "HUB-01143",
+      "plate": "KA-25-ZZ-2872",
+      "corridor": "BNG-HBL",
+      "corporation": "NWKRTC",
+      "corporationName": "North Western Karnataka Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "HUB-01156",
+      "plate": "KA-25-ZZ-1532",
+      "corridor": "BNG-HBL",
+      "corporation": "NWKRTC",
+      "corporationName": "North Western Karnataka Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "HUB-01162",
+      "plate": "KA-25-ZZ-8715",
+      "corridor": "BNG-HBL",
+      "corporation": "NWKRTC",
+      "corporationName": "North Western Karnataka Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "HUB-01170",
+      "plate": "KA-25-ZZ-3546",
+      "corridor": "BNG-HBL",
+      "corporation": "NWKRTC",
+      "corporationName": "North Western Karnataka Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "HUB-01181",
+      "plate": "KA-25-ZZ-6108",
+      "corridor": "BNG-HBL",
+      "corporation": "NWKRTC",
+      "corporationName": "North Western Karnataka Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "HUB-01197",
+      "plate": "KA-25-ZZ-1045",
+      "corridor": "BNG-HBL",
+      "corporation": "NWKRTC",
+      "corporationName": "North Western Karnataka Road Transport Corporation",
+      "serviceClass": "pallakki",
+      "serviceClassName": "Pallakki"
+    },
+    {
+      "bin": "HUB-01203",
+      "plate": "KA-25-ZZ-5122",
+      "corridor": "BNG-HBL",
+      "corporation": "NWKRTC",
+      "corporationName": "North Western Karnataka Road Transport Corporation",
+      "serviceClass": "pallakki",
+      "serviceClassName": "Pallakki"
+    },
+    {
+      "bin": "KBS-01696",
+      "plate": "KA-01-ZZ-7040",
+      "corridor": "BNG-HBL",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "airavat_club_class",
+      "serviceClassName": "Airavat Club Class"
+    },
+    {
+      "bin": "KBS-01706",
+      "plate": "KA-01-ZZ-6911",
+      "corridor": "BNG-HBL",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "airavat_club_class",
+      "serviceClassName": "Airavat Club Class"
+    },
+    {
+      "bin": "KBS-01711",
+      "plate": "KA-01-ZZ-7264",
+      "corridor": "BNG-HBL",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "airavat_club_class",
+      "serviceClassName": "Airavat Club Class"
+    },
+    {
+      "bin": "KBS-01722",
+      "plate": "KA-01-ZZ-9306",
+      "corridor": "BNG-HBL",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "airavat_club_class",
+      "serviceClassName": "Airavat Club Class"
+    },
+    {
+      "bin": "KBS-01733",
+      "plate": "KA-01-ZZ-7630",
+      "corridor": "BNG-HBL",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "pallakki",
+      "serviceClassName": "Pallakki"
+    },
+    {
+      "bin": "KBS-01740",
+      "plate": "KA-01-ZZ-8476",
+      "corridor": "BNG-HBL",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "pallakki",
+      "serviceClassName": "Pallakki"
+    },
+    {
+      "bin": "KBS-01754",
+      "plate": "KA-01-ZZ-7655",
+      "corridor": "BNG-HBL",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "rajahamsa_executive",
+      "serviceClassName": "Rajahamsa Executive"
+    },
+    {
+      "bin": "KBS-01765",
+      "plate": "KA-01-ZZ-8772",
+      "corridor": "BNG-HBL",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "rajahamsa_executive",
+      "serviceClassName": "Rajahamsa Executive"
+    },
+    {
+      "bin": "HSP-01010",
+      "plate": "KA-32-ZZ-9081",
+      "corridor": "BNG-HSP",
+      "corporation": "KKRTC",
+      "corporationName": "Kalyana Karnataka Road Transport Corporation",
+      "serviceClass": "pallakki",
+      "serviceClassName": "Pallakki"
+    },
+    {
+      "bin": "HSP-01029",
+      "plate": "KA-32-ZZ-3447",
+      "corridor": "BNG-HSP",
+      "corporation": "KKRTC",
+      "corporationName": "Kalyana Karnataka Road Transport Corporation",
+      "serviceClass": "pallakki",
+      "serviceClassName": "Pallakki"
+    },
+    {
+      "bin": "KBS-01010",
+      "plate": "KA-01-ZZ-9845",
+      "corridor": "BNG-HSP",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "airavat",
+      "serviceClassName": "Airavat"
+    },
+    {
+      "bin": "KBS-01029",
+      "plate": "KA-01-ZZ-5952",
+      "corridor": "BNG-HSP",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "airavat",
+      "serviceClassName": "Airavat"
+    },
+    {
+      "bin": "KBS-01032",
+      "plate": "KA-01-ZZ-9883",
+      "corridor": "BNG-HSP",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "KBS-01041",
+      "plate": "KA-01-ZZ-6537",
+      "corridor": "BNG-HSP",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "KBS-01055",
+      "plate": "KA-01-ZZ-9888",
+      "corridor": "BNG-HSP",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "KBS-01064",
+      "plate": "KA-01-ZZ-5334",
+      "corridor": "BNG-HSP",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "KBS-01078",
+      "plate": "KA-01-ZZ-5259",
+      "corridor": "BNG-HSP",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "pallakki",
+      "serviceClassName": "Pallakki"
+    },
+    {
+      "bin": "KBS-01086",
+      "plate": "KA-01-ZZ-8482",
+      "corridor": "BNG-HSP",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "pallakki",
+      "serviceClassName": "Pallakki"
+    },
+    {
+      "bin": "KBS-01170",
+      "plate": "KA-01-ZZ-6755",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "airavat_club_class",
+      "serviceClassName": "Airavat Club Class"
+    },
+    {
+      "bin": "KBS-01181",
+      "plate": "KA-01-ZZ-6675",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "airavat_club_class",
+      "serviceClassName": "Airavat Club Class"
+    },
+    {
+      "bin": "KBS-01197",
+      "plate": "KA-01-ZZ-7206",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "airavat_club_class",
+      "serviceClassName": "Airavat Club Class"
+    },
+    {
+      "bin": "KBS-01203",
+      "plate": "KA-01-ZZ-6059",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "airavat_club_class",
+      "serviceClassName": "Airavat Club Class"
+    },
+    {
+      "bin": "KBS-01216",
+      "plate": "KA-01-ZZ-6072",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "airavat_club_class",
+      "serviceClassName": "Airavat Club Class"
+    },
+    {
+      "bin": "KBS-01227",
+      "plate": "KA-01-ZZ-7888",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "airavat_club_class",
+      "serviceClassName": "Airavat Club Class"
+    },
+    {
+      "bin": "KBS-01234",
+      "plate": "KA-01-ZZ-8550",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "airavat_club_class",
+      "serviceClassName": "Airavat Club Class"
+    },
+    {
+      "bin": "KBS-01242",
+      "plate": "KA-01-ZZ-8695",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "airavat_club_class",
+      "serviceClassName": "Airavat Club Class"
+    },
+    {
+      "bin": "KBS-01250",
+      "plate": "KA-01-ZZ-8580",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "airavat_club_class",
+      "serviceClassName": "Airavat Club Class"
+    },
+    {
+      "bin": "KBS-01269",
+      "plate": "KA-01-ZZ-6278",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "airavat_club_class",
+      "serviceClassName": "Airavat Club Class"
+    },
+    {
+      "bin": "KBS-01275",
+      "plate": "KA-01-ZZ-8363",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "airavat_club_class",
+      "serviceClassName": "Airavat Club Class"
+    },
+    {
+      "bin": "KBS-01288",
+      "plate": "KA-01-ZZ-5183",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "airavat_club_class",
+      "serviceClassName": "Airavat Club Class"
+    },
+    {
+      "bin": "KBS-01291",
+      "plate": "KA-01-ZZ-5172",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "airavat_club_class",
+      "serviceClassName": "Airavat Club Class"
+    },
+    {
+      "bin": "KBS-01300",
+      "plate": "KA-01-ZZ-9673",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "airavat_club_class",
+      "serviceClassName": "Airavat Club Class"
+    },
+    {
+      "bin": "KBS-01313",
+      "plate": "KA-01-ZZ-9702",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "airavat",
+      "serviceClassName": "Airavat"
+    },
+    {
+      "bin": "KBS-01321",
+      "plate": "KA-01-ZZ-5522",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "airavat",
+      "serviceClassName": "Airavat"
+    },
+    {
+      "bin": "KBS-01337",
+      "plate": "KA-01-ZZ-6640",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "ambaari_utsav",
+      "serviceClassName": "Ambaari Utsav"
+    },
+    {
+      "bin": "KBS-01345",
+      "plate": "KA-01-ZZ-7084",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "ambaari_utsav",
+      "serviceClassName": "Ambaari Utsav"
+    },
+    {
+      "bin": "KBS-01359",
+      "plate": "KA-01-ZZ-5651",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "ambaari_utsav",
+      "serviceClassName": "Ambaari Utsav"
+    },
+    {
+      "bin": "KBS-01368",
+      "plate": "KA-01-ZZ-9419",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "ambaari_utsav",
+      "serviceClassName": "Ambaari Utsav"
+    },
+    {
+      "bin": "KBS-01376",
+      "plate": "KA-01-ZZ-8119",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "KBS-01384",
+      "plate": "KA-01-ZZ-5964",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "KBS-01392",
+      "plate": "KA-01-ZZ-5060",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "KBS-01402",
+      "plate": "KA-01-ZZ-9420",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "KBS-01415",
+      "plate": "KA-01-ZZ-6569",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "KBS-01428",
+      "plate": "KA-01-ZZ-8401",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "pallakki",
+      "serviceClassName": "Pallakki"
+    },
+    {
+      "bin": "KBS-01431",
+      "plate": "KA-01-ZZ-5903",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "pallakki",
+      "serviceClassName": "Pallakki"
+    },
+    {
+      "bin": "KBS-01444",
+      "plate": "KA-01-ZZ-5706",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "pallakki",
+      "serviceClassName": "Pallakki"
+    },
+    {
+      "bin": "KBS-01453",
+      "plate": "KA-01-ZZ-9589",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "pallakki",
+      "serviceClassName": "Pallakki"
+    },
+    {
+      "bin": "KBS-01466",
+      "plate": "KA-01-ZZ-5458",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "rajahamsa_executive",
+      "serviceClassName": "Rajahamsa Executive"
+    },
+    {
+      "bin": "KBS-01477",
+      "plate": "KA-01-ZZ-5601",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "rajahamsa_executive",
+      "serviceClassName": "Rajahamsa Executive"
+    },
+    {
+      "bin": "KBS-01489",
+      "plate": "KA-01-ZZ-5376",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "rajahamsa_executive",
+      "serviceClassName": "Rajahamsa Executive"
+    },
+    {
+      "bin": "MNG-01010",
+      "plate": "KA-01-ZZ-5967",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "airavat_club_class",
+      "serviceClassName": "Airavat Club Class"
+    },
+    {
+      "bin": "MNG-01029",
+      "plate": "KA-01-ZZ-5156",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "airavat_club_class",
+      "serviceClassName": "Airavat Club Class"
+    },
+    {
+      "bin": "MNG-01032",
+      "plate": "KA-01-ZZ-7510",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "airavat_club_class",
+      "serviceClassName": "Airavat Club Class"
+    },
+    {
+      "bin": "MNG-01041",
+      "plate": "KA-01-ZZ-9917",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "airavat_club_class",
+      "serviceClassName": "Airavat Club Class"
+    },
+    {
+      "bin": "MNG-01055",
+      "plate": "KA-01-ZZ-5558",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "airavat_club_class",
+      "serviceClassName": "Airavat Club Class"
+    },
+    {
+      "bin": "MNG-01064",
+      "plate": "KA-01-ZZ-7954",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "airavat_club_class",
+      "serviceClassName": "Airavat Club Class"
+    },
+    {
+      "bin": "MNG-01078",
+      "plate": "KA-01-ZZ-5279",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "airavat_club_class",
+      "serviceClassName": "Airavat Club Class"
+    },
+    {
+      "bin": "MNG-01086",
+      "plate": "KA-01-ZZ-7557",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "airavat_club_class",
+      "serviceClassName": "Airavat Club Class"
+    },
+    {
+      "bin": "MNG-01093",
+      "plate": "KA-01-ZZ-9942",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "airavat_club_class",
+      "serviceClassName": "Airavat Club Class"
+    },
+    {
+      "bin": "MNG-01108",
+      "plate": "KA-01-ZZ-8884",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "airavat_club_class",
+      "serviceClassName": "Airavat Club Class"
+    },
+    {
+      "bin": "MNG-01119",
+      "plate": "KA-01-ZZ-9564",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "airavat_club_class",
+      "serviceClassName": "Airavat Club Class"
+    },
+    {
+      "bin": "MNG-01124",
+      "plate": "KA-01-ZZ-9635",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "airavat_club_class",
+      "serviceClassName": "Airavat Club Class"
+    },
+    {
+      "bin": "MNG-01135",
+      "plate": "KA-01-ZZ-6236",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "airavat",
+      "serviceClassName": "Airavat"
+    },
+    {
+      "bin": "MNG-01143",
+      "plate": "KA-01-ZZ-5503",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "airavat",
+      "serviceClassName": "Airavat"
+    },
+    {
+      "bin": "MNG-01156",
+      "plate": "KA-01-ZZ-7664",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "ambaari_utsav",
+      "serviceClassName": "Ambaari Utsav"
+    },
+    {
+      "bin": "MNG-01162",
+      "plate": "KA-01-ZZ-8687",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "ambaari_utsav",
+      "serviceClassName": "Ambaari Utsav"
+    },
+    {
+      "bin": "MNG-01170",
+      "plate": "KA-01-ZZ-8854",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "ambaari_utsav",
+      "serviceClassName": "Ambaari Utsav"
+    },
+    {
+      "bin": "MNG-01181",
+      "plate": "KA-01-ZZ-6912",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "ambaari_utsav",
+      "serviceClassName": "Ambaari Utsav"
+    },
+    {
+      "bin": "MNG-01197",
+      "plate": "KA-01-ZZ-9075",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "MNG-01203",
+      "plate": "KA-01-ZZ-7857",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "MNG-01216",
+      "plate": "KA-01-ZZ-8186",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "MNG-01227",
+      "plate": "KA-01-ZZ-8634",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "pallakki",
+      "serviceClassName": "Pallakki"
+    },
+    {
+      "bin": "MNG-01234",
+      "plate": "KA-01-ZZ-8202",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "pallakki",
+      "serviceClassName": "Pallakki"
+    },
+    {
+      "bin": "MNG-01242",
+      "plate": "KA-01-ZZ-7030",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "pallakki",
+      "serviceClassName": "Pallakki"
+    },
+    {
+      "bin": "MNG-01250",
+      "plate": "KA-01-ZZ-7106",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "pallakki",
+      "serviceClassName": "Pallakki"
+    },
+    {
+      "bin": "MNG-01269",
+      "plate": "KA-01-ZZ-5507",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "rajahamsa_executive",
+      "serviceClassName": "Rajahamsa Executive"
+    },
+    {
+      "bin": "MNG-01275",
+      "plate": "KA-01-ZZ-6483",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "rajahamsa_executive",
+      "serviceClassName": "Rajahamsa Executive"
+    },
+    {
+      "bin": "MNG-01288",
+      "plate": "KA-01-ZZ-9496",
+      "corridor": "BNG-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "rajahamsa_executive",
+      "serviceClassName": "Rajahamsa Executive"
+    },
+    {
+      "bin": "KBS-01093",
+      "plate": "KA-01-ZZ-7379",
+      "corridor": "BNG-MYS",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "KBS-01108",
+      "plate": "KA-01-ZZ-7602",
+      "corridor": "BNG-MYS",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "KBS-01119",
+      "plate": "KA-01-ZZ-6357",
+      "corridor": "BNG-MYS",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "KBS-01124",
+      "plate": "KA-01-ZZ-8987",
+      "corridor": "BNG-MYS",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "KBS-01135",
+      "plate": "KA-01-ZZ-6623",
+      "corridor": "BNG-MYS",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "KBS-01143",
+      "plate": "KA-01-ZZ-5274",
+      "corridor": "BNG-MYS",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "KBS-01156",
+      "plate": "KA-01-ZZ-6512",
+      "corridor": "BNG-MYS",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "rajahamsa_executive",
+      "serviceClassName": "Rajahamsa Executive"
+    },
+    {
+      "bin": "KBS-01162",
+      "plate": "KA-01-ZZ-7095",
+      "corridor": "BNG-MYS",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "rajahamsa_executive",
+      "serviceClassName": "Rajahamsa Executive"
+    },
+    {
+      "bin": "MYS-01010",
+      "plate": "KA-01-ZZ-7749",
+      "corridor": "BNG-MYS",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "MYS-01029",
+      "plate": "KA-01-ZZ-7194",
+      "corridor": "BNG-MYS",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "MYS-01032",
+      "plate": "KA-01-ZZ-8967",
+      "corridor": "BNG-MYS",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "MYS-01041",
+      "plate": "KA-01-ZZ-5951",
+      "corridor": "BNG-MYS",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "DND-01010",
+      "plate": "KA-25-ZZ-7094",
+      "corridor": "DND-ANK",
+      "corporation": "NWKRTC",
+      "corporationName": "North Western Karnataka Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "DND-01029",
+      "plate": "KA-25-ZZ-1978",
+      "corridor": "DND-ANK",
+      "corporation": "NWKRTC",
+      "corporationName": "North Western Karnataka Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "DND-01032",
+      "plate": "KA-25-ZZ-6190",
+      "corridor": "DND-ANK",
+      "corporation": "NWKRTC",
+      "corporationName": "North Western Karnataka Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "KWR-01010",
+      "plate": "KA-25-ZZ-2940",
+      "corridor": "MNG-KWR",
+      "corporation": "NWKRTC",
+      "corporationName": "North Western Karnataka Road Transport Corporation",
+      "serviceClass": "rajahamsa_executive",
+      "serviceClassName": "Rajahamsa Executive"
+    },
+    {
+      "bin": "KWR-01029",
+      "plate": "KA-25-ZZ-7375",
+      "corridor": "MNG-KWR",
+      "corporation": "NWKRTC",
+      "corporationName": "North Western Karnataka Road Transport Corporation",
+      "serviceClass": "rajahamsa_executive",
+      "serviceClassName": "Rajahamsa Executive"
+    },
+    {
+      "bin": "MNG-01337",
+      "plate": "KA-01-ZZ-7799",
+      "corridor": "MNG-KWR",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "MNG-01345",
+      "plate": "KA-01-ZZ-6704",
+      "corridor": "MNG-KWR",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "MNG-01359",
+      "plate": "KA-01-ZZ-8257",
+      "corridor": "MNG-KWR",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "rajahamsa_executive",
+      "serviceClassName": "Rajahamsa Executive"
+    },
+    {
+      "bin": "MNG-01368",
+      "plate": "KA-01-ZZ-6695",
+      "corridor": "MNG-KWR",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "rajahamsa_executive",
+      "serviceClassName": "Rajahamsa Executive"
+    },
+    {
+      "bin": "MDK-01010",
+      "plate": "KA-01-ZZ-9089",
+      "corridor": "MYS-MDK",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "MDK-01029",
+      "plate": "KA-01-ZZ-8577",
+      "corridor": "MYS-MDK",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "MDK-01032",
+      "plate": "KA-01-ZZ-7371",
+      "corridor": "MYS-MDK",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "rajahamsa_executive",
+      "serviceClassName": "Rajahamsa Executive"
+    },
+    {
+      "bin": "MDK-01041",
+      "plate": "KA-01-ZZ-9899",
+      "corridor": "MYS-MDK",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "rajahamsa_executive",
+      "serviceClassName": "Rajahamsa Executive"
+    },
+    {
+      "bin": "MNG-01291",
+      "plate": "KA-01-ZZ-5193",
+      "corridor": "MYS-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "airavat",
+      "serviceClassName": "Airavat"
+    },
+    {
+      "bin": "MNG-01300",
+      "plate": "KA-01-ZZ-9988",
+      "corridor": "MYS-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "airavat",
+      "serviceClassName": "Airavat"
+    },
+    {
+      "bin": "MNG-01313",
+      "plate": "KA-01-ZZ-8337",
+      "corridor": "MYS-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    },
+    {
+      "bin": "MNG-01321",
+      "plate": "KA-01-ZZ-6813",
+      "corridor": "MYS-MNG",
+      "corporation": "KSRTC",
+      "corporationName": "Karnataka State Road Transport Corporation",
+      "serviceClass": "karnataka_sarige",
+      "serviceClassName": "Karnataka Sarige"
+    }
+  ]
+}
