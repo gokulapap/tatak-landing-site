@@ -108,19 +108,32 @@ export function JudgesPage() {
         </p>
 
         <h2 className="page-subhead" data-reveal>4. Book a reserved seat to a real PNR</h2>
-        <p className="fleet-copy" data-reveal>This exact path was run end to end and produced a booking:</p>
+        <p className="fleet-copy" data-reveal>
+          Search <strong>Kundalahalli Gate</strong> to <strong>Hubballi</strong>. That pair is the
+          one to use because it is bookable at any hour: reserved departures run early morning,
+          through the day and late at night, so at least one is always outside the cutoff below.
+          Both ends of a journey are searched by name, so a judge can type them straight in.
+        </p>
         <ol className="mcp-steps" data-reveal>
           <li>Plan a journey from Kundalahalli Gate to Hubballi.</li>
           <li>
-            Take the 18:30 Airavat from Majestic - service <code>1830BNGDVG</code>. Inside the
-            45-minute cutoff above? Pick a later departure or tomorrow instead.
+            Pick any itinerary whose coach leg shows a booking button. If one departure has slipped
+            inside the cutoff below, take the next.
           </li>
           <li>Choose a boarding point.</li>
           <li>Pick a seat off the seat map.</li>
           <li>Enter a passenger and confirm.</li>
         </ol>
         <p className="fleet-copy" data-reveal>
-          That run produced <code>PNR SPECIMEN-KSRTC-C5D85B31</code>. Yours will carry a different one.
+          Two runs of exactly this, at different times of day, produced{" "}
+          <code>PNR SPECIMEN-KSRTC-C5D85B31</code> on an 18:30 Airavat and{" "}
+          <code>SPECIMEN-KSRTC-C63A2847</code> on a 23:20 Airavat Club Class. Yours will carry a
+          different one.
+        </p>
+        <p className="fleet-copy" data-reveal>
+          Bengaluru to Mangaluru and Bengaluru to Chikkamagaluru also book, and Majestic works as a
+          starting point as readily as Kundalahalli Gate. Hubballi is named here only because its
+          departures are spread widest across the day.
         </p>
 
         <h2 className="page-subhead" data-reveal>5. Look at a seat map</h2>
