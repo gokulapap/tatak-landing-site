@@ -14,7 +14,7 @@ const preferences = [
     id: "fare",
     label: "Lowest fare",
     headline: "See the complete cost",
-    body: "Compare the fare for the whole journey—not a partial price that changes halfway through.",
+    body: "Compare the fare for the whole journey, not a partial price that changes halfway through.",
   },
   {
     id: "changes",
@@ -88,9 +88,9 @@ const useCases = [
   },
   {
     index: "02",
-    eyebrow: "Unfamiliar cross-city trip",
-    title: "Know each hand-off before you go.",
-    body: "See the walks, stops and transfers that turn separate modes into one journey.",
+    eyebrow: "A city you haven't been to",
+    title: "Know the way before the coach leaves.",
+    body: "Plan a reserved Rajahamsa or Airavat seat to Mangaluru, Hampi or Hubballi with the same search you'd use across town.",
     accent: "purple",
   },
   {
@@ -99,6 +99,63 @@ const useCases = [
     title: "Find the coach that fits your route.",
     body: "Explore Vayu Vajra airport-coach services alongside Bengaluru transit information.",
     accent: "green",
+  },
+];
+
+// One vehicle from each boarding model the app now sells: a city bus you
+// walk onto, an intercity bus you also walk onto, and an intercity coach you
+// book ahead. The illustrations are the same SVGs the Fleet page carries.
+const statewideFleet = [
+  {
+    id: "bmtc-bengaluru-sarige",
+    name: "Bengaluru Sarige",
+    detail: "BMTC ordinary",
+    alt: "A blue BMTC Bengaluru Sarige city bus seen from the front and door side",
+  },
+  {
+    id: "ksrtc-karnataka-sarige",
+    name: "Karnataka Sarige",
+    detail: "KSRTC inter-city, unreserved",
+    alt: "A red and silver KSRTC Karnataka Sarige intercity bus seen from the front and door side",
+  },
+  {
+    id: "nwkrtc-airavat-gold-class",
+    name: "Airavat Gold Class",
+    detail: "NWKRTC air conditioned coach, reserved",
+    alt: "A yellow NWKRTC Airavat Gold Class coach with a blue wave along its flank, seen from the front and door side",
+  },
+];
+
+const statewideFacts = [
+  {
+    id: "reserved-seats",
+    label: "Reserved seats",
+    body: "All fifteen KSRTC reserved classes are bookable end to end, over ONDC's TRV11 protocol through a separate provider - Rajahamsa Executive, Airavat, Ambaari Utsav and the rest. A completed booking returns a real PNR.",
+  },
+  {
+    id: "seat-maps",
+    label: "Seat maps",
+    body: "Drawn from the operator's own geometry - deck, row, column, window, adjacency - sent for every seat rather than guessed from a generic shape. Sleeper berths, 2+2 seaters and 3+2 seaters each render the way the coach is actually laid out.",
+  },
+  {
+    id: "karnataka-sarige",
+    label: "Karnataka Sarige",
+    body: "Unreserved, and boarded like a city bus: scan the sticker, choose where you got on and where you're getting off, and pay the operator's published fare for that pair of stands.",
+  },
+  {
+    id: "passes",
+    label: "Passes",
+    body: "A Karnataka Sarige pass, daily and monthly, now sits alongside the BMTC ones - and every pass settles a metro tap as well as a bus one.",
+  },
+  {
+    id: "live-tracking",
+    label: "Live tracking",
+    body: "A simulated fleet across the state: 644 city buses on 69 routes, 169 intercity coaches on 12 corridors, and Namma Metro running its real operating hours.",
+  },
+  {
+    id: "qr-stickers",
+    label: "QR stickers",
+    body: "The boarding sticker sheet lives on this site now, covering every service class rather than one tier of each, with codes checked against the running fleet.",
   },
 ];
 
@@ -207,9 +264,9 @@ export function TatakLanding() {
 
       <section className="hero" id="top">
         <div className="hero-copy" id="main-content" data-reveal>
-          <div className="eyebrow"><i /> Multimodal journey planning for Bengaluru</div>
-          <h1>One search for every way <em>across Bengaluru.</em></h1>
-          <p>Plan from door to destination across BMTC, Namma Metro and walking. Compare complete routes by time, fare and changes—with every live, published and estimated signal clearly labeled.</p>
+          <div className="eyebrow"><i /> Multimodal journey planning, now statewide</div>
+          <h1>One search for every way <em>across Karnataka.</em></h1>
+          <p>Plan from door to destination across BMTC, Namma Metro and walking. Compare complete routes by time, fare and changes, with every live, published and estimated signal clearly labeled. The same search reaches Karnataka&apos;s intercity network too, with a reserved seat and a real PNR when you need one, or a walk-up fare on Karnataka Sarige when you don&apos;t.</p>
           <div className="hero-actions">
             <AppLink className="button button-primary" label="Plan a journey" />
             <a className="button button-secondary" href="#journey"><span>See a real route</span><span aria-hidden="true">↓</span></a>
@@ -217,14 +274,14 @@ export function TatakLanding() {
           <div className="hero-note">
             <span><i className="live-pulse" /> Live prototype</span>
             <span>Independent project</span>
-            <span>Built for Bengaluru</span>
+            <span>Bengaluru &amp; beyond</span>
           </div>
         </div>
 
         <ProductPreview />
 
         <div className="network-strip" aria-label="Transport modes supported" data-reveal>
-          <span>One city journey</span>
+          <span>One Bengaluru journey</span>
           <div><i className="mode-icon walk">01</i><span><strong>Walking</strong><small>First and final mile</small></span></div>
           <div><i className="mode-icon bus">02</i><span><strong>BMTC</strong><small>City bus connections</small></span></div>
           <div><i className="mode-icon metro">03</i><span><strong>Namma Metro</strong><small>Purple and Green lines</small></span></div>
@@ -234,8 +291,8 @@ export function TatakLanding() {
       <section className="problem-section" id="why" aria-labelledby="problem-title">
         <header className="section-intro" data-reveal>
           <div className="section-label"><span>01</span> Why Tatak</div>
-          <h2 id="problem-title">Bengaluru moves in combinations. <em>Your planner should too.</em></h2>
-          <p>A useful answer is not a bus number or a metro line. It is the walk to the stop, the transfer in the middle, the fare for the whole trip—and clarity about what the data can actually promise.</p>
+          <h2 id="problem-title">Karnataka moves in combinations. <em>Your planner should too.</em></h2>
+          <p>A useful answer is not a bus number or a metro line. It is the walk to the stop, the transfer in the middle, the fare for the whole trip, and clarity about what the data can actually promise.</p>
         </header>
 
         <div className="comparison-grid">
@@ -281,9 +338,40 @@ export function TatakLanding() {
         </figure>
       </section>
 
+      <section className="statewide-section" id="statewide" aria-labelledby="statewide-title">
+        <header className="section-intro compact" data-reveal>
+          <div className="section-label"><span>02</span> Beyond Bengaluru</div>
+          <h2 id="statewide-title">One planner. <em>The whole state, not just the city.</em></h2>
+          <p>Bengaluru&apos;s stops now share one routing graph with 35 Karnataka intercity corridors - 9,250 stops and 7,629 routes in total - so a search that starts at a bus stand can end in Mangaluru, Hampi, Hubballi, Madikeri or Chikkamagaluru without switching planners.</p>
+        </header>
+
+        <ul className="fleet-trio statewide-fleet" data-reveal>
+          {statewideFleet.map((bus) => (
+            <li key={bus.id}>
+              <img src={publicAsset(`/fleet/${bus.id}.svg`)} alt={bus.alt} width="626" height="629" loading="lazy" />
+              <p>{bus.name} <span>{bus.detail}</span></p>
+            </li>
+          ))}
+        </ul>
+
+        <div className="info-panel" data-reveal>
+          {statewideFacts.map((fact) => (
+            <div className="mcp-field" key={fact.id}>
+              <span>{fact.label}</span>
+              <p>{fact.body}</p>
+            </div>
+          ))}
+        </div>
+
+        <p className="mcp-note" data-reveal>
+          The same nine MCP tools that answer a Bengaluru question already know these corridors too.{" "}
+          <a className="mcp-inline-link" href={publicAsset("/mcp/")}>See what an assistant can ask<span aria-hidden="true"> →</span></a>
+        </p>
+      </section>
+
       <section className="capabilities-section" aria-labelledby="capabilities-title">
         <header className="section-intro compact" data-reveal>
-          <div className="section-label"><span>02</span> Built for the decision</div>
+          <div className="section-label"><span>03</span> Built for the decision</div>
           <h2 id="capabilities-title">The context you need <em>before you leave.</em></h2>
         </header>
 
@@ -302,7 +390,7 @@ export function TatakLanding() {
 
           <article className="capability-card signal-capability" data-reveal>
             <span className="card-number">03</span>
-            <div><small>Data honesty</small><h3>Know what is live—and what is not.</h3><p>Current positions, published times and calculated estimates never look the same.</p></div>
+            <div><small>Data honesty</small><h3>Know what is live, and what is not.</h3><p>Current positions, published times and calculated estimates never look the same.</p></div>
             <div className="mini-signals" aria-hidden="true"><span className="live"><i />Live</span><span className="published"><i />Published</span><span className="estimated"><i>~</i>Estimated</span></div>
           </article>
         </div>
@@ -310,7 +398,7 @@ export function TatakLanding() {
 
       <section className="journey-section" id="journey" aria-labelledby="journey-title">
         <header className="section-intro" data-reveal>
-          <div className="section-label"><span>03</span> One real answer</div>
+          <div className="section-label"><span>04</span> One real answer</div>
           <h2 id="journey-title">Hebbala to Indiranagar. <em>Nothing hand-waved.</em></h2>
           <p>The top-ranked journey at 09:37, with each leg, change and confidence state visible before departure.</p>
         </header>
@@ -364,7 +452,7 @@ export function TatakLanding() {
 
       <section className="signals-section" id="signals" aria-labelledby="signals-title">
         <header className="signals-header" data-reveal>
-          <div className="section-label light"><span>04</span> A clearer signal</div>
+          <div className="section-label light"><span>05</span> A clearer signal</div>
           <h2 id="signals-title">Truth has a visual language.</h2>
           <p>Green is reserved for current information. Published times look published. Every estimate carries its tilde.</p>
         </header>
@@ -390,7 +478,7 @@ export function TatakLanding() {
 
       <section className="workflow-section" id="workflow" aria-labelledby="workflow-title">
         <header className="section-intro compact" data-reveal>
-          <div className="section-label"><span>05</span> How it works</div>
+          <div className="section-label"><span>06</span> How it works</div>
           <h2 id="workflow-title">From “where to?” to <em>ready to go.</em></h2>
         </header>
         <ol className="workflow-list">
@@ -403,8 +491,8 @@ export function TatakLanding() {
 
       <section className="use-cases-section" aria-labelledby="use-cases-title">
         <header className="section-intro" data-reveal>
-          <div className="section-label"><span>06</span> Made for real movement</div>
-          <h2 id="use-cases-title">For the journey you make every day—and the one you have never made.</h2>
+          <div className="section-label"><span>07</span> Made for real movement</div>
+          <h2 id="use-cases-title">For the journey you make every day, and the one you have never made.</h2>
         </header>
         <div className="use-case-grid">
           {useCases.map((item) => (
@@ -421,7 +509,7 @@ export function TatakLanding() {
           <h2 id="cta-title">Know the whole journey.<br /><em>Then just go.</em></h2>
         </div>
         <div className="final-cta-copy" data-reveal>
-          <p>Try the independent Tatak prototype and plan a connected Bengaluru journey.</p>
+          <p>Try the independent Tatak prototype and plan a connected journey anywhere in Karnataka.</p>
           <AppLink className="final-cta-link" label="Open Tatak" />
           <small>Opens the live prototype at app.tatak.tech</small>
         </div>

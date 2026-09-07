@@ -2153,7 +2153,11 @@ img {
   background: var(--canvas-deep);
 }
 
-.mcp-panel {
+/* .info-panel is the same bordered fact-list as .mcp-panel, under a name
+   that doesn't imply the MCP route. The home page's statewide section uses
+   it; the MCP block itself stays off the home page. */
+.mcp-panel,
+.info-panel {
   margin-top: 72px;
   padding: 8px 34px;
   border: 1px solid var(--line);
@@ -3778,6 +3782,7 @@ img {
   }
 
   .problem-section,
+  .statewide-section,
   .capabilities-section,
   .journey-section,
   .signals-section,
@@ -4483,4 +4488,18 @@ img {
   color: var(--muted);
   font-weight: 600;
   letter-spacing: 0.06em;
+}
+
+/* Statewide - the landing page's own use of the fleet-trio pattern, sitting
+   between the city story and the "built for the decision" section. Same
+   canvas-deep tone as the journey section below it, so the page doesn't read
+   as a fourth new colour dropped into an established rhythm. */
+.statewide-section {
+  padding: 140px max(24px, calc((100vw - var(--max)) / 2)) 145px;
+  border-top: 1px solid var(--line);
+  background: var(--canvas-deep);
+}
+
+.statewide-fleet {
+  margin-top: 70px;
 }

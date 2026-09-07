@@ -30,7 +30,7 @@ test("server-renders the complete Tatak landing page", async () => {
   const html = await response.text();
   assert.match(
     html,
-    /<title>Tatak — One search for every way across Bengaluru<\/title>/i,
+    /<title>Tatak - One search for every way across Karnataka<\/title>/i,
   );
   assert.match(html, /One search for every way/);
   assert.match(html, /Plan from door to destination/);
@@ -169,7 +169,7 @@ test("server-renders the stickers route with every category and a working payloa
   // check character (mintBin computes it, not a hand-typed literal).
   // The four that remain: the three BMTC tiers and Karnataka Sarige. The
   // HSP and HUB codes this used to assert belonged to reserved coaches.
-  for (const bin of ["BLR-10429", "BLR-20935", "BLR-30876", "KBS-01010"]) {
+  for (const bin of ["BLR-05465", "BLR-08484", "BLR-07408", "KBS-01032"]) {
     assert.match(html, new RegExp(`https://app\\.tatak\\.tech/board\\?code=${bin}`));
   }
   assert.match(html, /class="[^"]*sticker-qr[^"]*"/);
