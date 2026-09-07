@@ -8,32 +8,32 @@ function createMetadata(siteUrl: string): Metadata {
 
   return {
     metadataBase: new URL(siteUrl),
-    title: "Tatak — One search for every way across Bengaluru",
+    title: "Tatak - One search for every way across Karnataka",
     description:
-      "Plan door-to-door journeys across BMTC, Namma Metro and walking — with fares, live context and honest estimates in one answer.",
+      "Plan door-to-door across BMTC and Namma Metro, book a reserved seat on a statewide Karnataka intercity corridor, and see live positions for the fleet behind both, all in one search.",
     icons: {
       icon: assetUrl("icon-512.png"),
       apple: assetUrl("icon-512.png"),
     },
     openGraph: {
-      title: "One search for every way across Bengaluru.",
+      title: "One search for every way across Karnataka.",
       description:
-        "Plan complete Bengaluru journeys across BMTC, Namma Metro and walking—with live, published and estimated signals clearly labeled.",
+        "Plan complete journeys across BMTC, Namma Metro and Karnataka's intercity corridors, with live, published and estimated signals clearly labeled.",
       type: "website",
       images: [
         {
           url: assetUrl("og-tatak-premium.png"),
           width: 1200,
           height: 630,
-          alt: "Tatak — one search for every way across Bengaluru",
+          alt: "Tatak - one search for every way across Karnataka",
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title: "Tatak — One search for every way across Bengaluru",
+      title: "Tatak - One search for every way across Karnataka",
       description:
-        "Plan complete journeys across BMTC, Namma Metro and walking.",
+        "Plan complete journeys across BMTC, Namma Metro and Karnataka's intercity network.",
       images: [assetUrl("og-tatak-premium.png")],
     },
   };

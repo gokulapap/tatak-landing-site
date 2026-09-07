@@ -196,7 +196,7 @@ export function SiteFooter({ isHome = false }: { isHome?: boolean }) {
   return (
     <footer className="site-footer">
       <div className="footer-main">
-        <div><Brand className="footer-brand" href={homeHref("#top", isHome)} /><p>One calm answer for a city in motion.</p></div>
+        <div><Brand className="footer-brand" href={homeHref("#top", isHome)} /><p>One calm answer for a state in motion.</p></div>
         <nav aria-label="Footer navigation">
           <span>Explore</span>
           {navigation.map((item) => (

@@ -6,7 +6,7 @@ const mcpTools = [
   {
     id: "plan",
     label: "Plan a trip",
-    prompt: "Plan a trip from Indiranagar to Jayanagar.",
+    prompt: "Plan a trip from Bengaluru to Hampi.",
   },
   {
     id: "last-service",
@@ -23,7 +23,7 @@ const mcpTools = [
 // The nine tools and the question each one answers, in the order
 // docs/CONNECT-MCP.md lists them.
 const toolCatalogue = [
-  { name: "plan_journey", answers: "A to B by bus and metro" },
+  { name: "plan_journey", answers: "A to B by bus, metro or intercity coach" },
   { name: "next_departures", answers: "What leaves one stop next" },
   { name: "describe_route", answers: "What a route does, terminal to terminal" },
   { name: "last_service_home", answers: "The last service of the day on a journey" },
@@ -57,7 +57,7 @@ export function McpPage() {
         <header className="section-intro compact" data-reveal>
           <div className="section-label"><span>01</span> MCP server</div>
           <h1 id="mcp-title">Point any assistant <em>at the same planner.</em></h1>
-          <p>Tatak&apos;s route planner is also an MCP server, so an AI assistant can query Bengaluru&apos;s bus and metro network on its own, without the app open. Nine read-only tools. None of them books, buys, holds or pays for anything.</p>
+          <p>Tatak&apos;s route planner is also an MCP server, so an AI assistant can query Bengaluru&apos;s bus and metro network, plus the Karnataka intercity corridors now merged into it, on its own, without the app open. Nine read-only tools. None of them books, buys, holds or pays for anything.</p>
         </header>
 
         <div className="mcp-panel" data-reveal>
