@@ -182,6 +182,16 @@ export function FleetRosterPage() {
   const busRoutes = useMemo(() => orderedKeys(filteredBuses, (bus) => bus.route), [filteredBuses]);
   const coachCorridors = useMemo(() => orderedKeys(filteredCoaches, (coach) => coach.corridor), [filteredCoaches]);
 
+  // Nothing that appears or remounts as a result of searching may carry
+  // `data-reveal`. `useRevealAnimations` in `app/site-chrome.tsx` collects
+  // `[data-reveal]` once on mount, observes that snapshot, and reveals each
+  // element by adding `is-in-view` when it scrolls into view. `.reveal-ready`
+  // sets every one of them to `opacity: 0` until that happens. A node mounted
+  // afterwards - a group remounted because its `key` changed, or a no-match
+  // message that did not exist before - was never in the snapshot, is never
+  // observed, and stays invisible for good. Searching therefore filtered
+  // correctly and rendered nothing anybody could see, which reads as a broken
+  // search rather than a missing animation.
   const searching = normalizedQuery !== "";
   const totalMatches = filteredBuses.length + filteredCoaches.length;
 
@@ -275,13 +285,13 @@ export function FleetRosterPage() {
           <code>V-</code>/<code>VW-</code> is Vajra (AC), <code>KIA-</code> is Vayu Vajra (airport).
         </p>
         {busRoutes.length === 0 ? (
-          <p className="fleet-copy" data-reveal>No routes match &ldquo;{query}&rdquo;.</p>
+          <p className="fleet-copy">No routes match &ldquo;{query}&rdquo;.</p>
         ) : (
           busRoutes.map((route) => {
             const rows = filteredBuses.filter((bus) => bus.route === route);
             const tier = rows[0]?.tier ?? "";
             return (
-              <details key={`${route}-${searching ? "open" : "closed"}`} className="roster-group" open={searching} data-reveal>
+              <details key={`${route}-${searching ? "open" : "closed"}`} className="roster-group" open={searching}>
                 <summary>
                   <strong>{route}</strong>
                   <span className="fleet-tag">{tier}</span>
@@ -320,12 +330,12 @@ export function FleetRosterPage() {
           service classes and, on a bidirectional corridor, a second operator on the reverse leg.
         </p>
         {coachCorridors.length === 0 ? (
-          <p className="fleet-copy" data-reveal>No corridors match &ldquo;{query}&rdquo;.</p>
+          <p className="fleet-copy">No corridors match &ldquo;{query}&rdquo;.</p>
         ) : (
           coachCorridors.map((corridor) => {
             const rows = filteredCoaches.filter((coach) => coach.corridor === corridor);
             return (
-              <details key={`${corridor}-${searching ? "open" : "closed"}`} className="roster-group" open={searching} data-reveal>
+              <details key={`${corridor}-${searching ? "open" : "closed"}`} className="roster-group" open={searching}>
                 <summary>
                   <strong>{corridor}</strong>
                   <small>{rows.length} coach{rows.length === 1 ? "" : "es"}</small>
