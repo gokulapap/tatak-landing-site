@@ -2,7 +2,9 @@
 
 import { SiteFooter, SiteHeader, publicAsset, useRevealAnimations } from "../site-chrome";
 
-const DEMO_PASSWORD = "tatak-demo-2026";
+// Exported so /judges/ can lead with one of these accounts instead of
+// keeping a second, driftable copy of the login or the password.
+export const DEMO_PASSWORD = "tatak-demo-2026";
 
 // The counter side of the concession flow. Not rider logins, and not the
 // same door: /operator holds its own session cookie, so nothing a rider
@@ -20,7 +22,7 @@ const operators = [
   },
 ];
 
-const accounts = [
+export const accounts = [
   {
     label: "Student",
     email: "student@tatak.tech",
