@@ -265,6 +265,56 @@ test("server-renders the Android route with a checkable build, not a bare downlo
   assert.equal((html.match(/<h1\b/g) ?? []).length, 1);
 });
 
+test("server-renders the changelog, newest release leading, one section per release", async () => {
+  const response = await render("/changelog");
+  assert.equal(response.status, 200);
+
+  const html = await response.text();
+  assert.match(html, /<title>Changelog - Tatak<\/title>/i);
+
+  // The note that governs everything below it: nothing Tatak issues is a
+  // real ticket.
+  assert.match(html, /SPECIMEN - NOT VALID FOR TRAVEL/);
+
+  // Eleven releases, each its own section with an anchor taken from its
+  // date, so a link can point at one.
+  assert.equal((html.match(/class="changelog-release/g) ?? []).length, 11);
+  for (const id of [
+    "2026-09-08",
+    "2026-09-07",
+    "2026-09-06",
+    "2026-09-05",
+    "2026-09-04",
+    "2026-09-02",
+    "2026-08-27",
+    "2026-08-22",
+    "2026-08-18",
+    "2026-08-08",
+    "2026-08-05",
+  ]) {
+    assert.match(html, new RegExp(`id="${id}"`));
+  }
+
+  // Newest first, and the newest one carries the version it shipped under.
+  const newest = html.indexOf("the native app catches up with the web");
+  const oldest = html.indexOf("A native Kotlin Android app");
+  assert.ok(newest > -1 && oldest > -1 && newest < oldest);
+  assert.match(html, /Android 0\.10\.0-beta\.1/);
+  assert.match(html, /class="changelog-latest-tag"/);
+
+  // The 2026-09-05 bullet used to drop the noun and read "a senior whose
+  // deliberately is not".
+  assert.match(html, /a senior whose concession deliberately is not/);
+
+  assert.equal((html.match(/<h1\b/g) ?? []).length, 1);
+});
+
+test("links the changelog from the shared navigation", async () => {
+  const html = await (await render()).text();
+  assert.match(html, /href="\/changelog\/"/);
+  assert.match(html, />Changelog</);
+});
+
 test("links the Android page from the shared navigation", async () => {
   const html = await (await render()).text();
   assert.match(html, /href="\/android\/"/);
