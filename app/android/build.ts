@@ -6,9 +6,13 @@
  * client component prints the same string: one literal, read by both, so the
  * code on the page and the link under the button can never disagree.
  *
- * The APK is hosted as a GitHub Release asset on the app repository, not on
- * this site. Two reasons, both hard:
+ * The APK is hosted as a GitHub Release asset on this repository, not
+ * committed into it and not on the Tatak app repository either. Three
+ * reasons, all hard:
  *
+ * - The Tatak app repository is private. A release asset posted there sits
+ *   behind GitHub auth, so a direct link 404s for anyone without access -
+ *   which is everyone this page is written for.
  * - GitHub Pages serves this site, and Pages does not serve Git LFS objects.
  *   An 87 MB binary committed here without LFS would sit in this repository's
  *   history for good, and every clone would pay for it forever.
@@ -24,10 +28,10 @@
  * checked at all off a printed copy.
  */
 export const DOWNLOAD_URL =
-  "https://github.com/srivathsanvenkateswaran/Tatak/releases/latest/download/tatak.apk";
+  "https://github.com/gokulapap/tatak-landing-site/releases/latest/download/tatak.apk";
 
 /** The release page carries the checksum file and the notes for the build. */
-export const RELEASE_URL = "https://github.com/srivathsanvenkateswaran/Tatak/releases/latest";
+export const RELEASE_URL = "https://github.com/gokulapap/tatak-landing-site/releases/latest";
 
 /**
  * Read off the build itself, not off a changelog: `aapt dump badging` for the
