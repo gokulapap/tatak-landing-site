@@ -138,6 +138,10 @@ test("server-renders the fleet route with figures from the app's own tables", as
   for (const line of ["Green", "Purple", "Yellow"]) {
     assert.match(html, new RegExp(`line-dot is-${line.toLowerCase()}[^>]*></i>${line}`));
   }
+  // Fleet roster dropped out of the header, so this page carries the only
+  // link to it: the individual vehicles behind the classes described here.
+  assert.match(html, /href="\/fleet-roster\/"/);
+  assert.match(html, /fleet roster/);
   assert.equal((html.match(/<h1\b/g) ?? []).length, 1);
 });
 

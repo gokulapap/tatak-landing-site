@@ -285,6 +285,7 @@ export function FleetPage() {
           <div className="section-label"><span>01</span> Fleet</div>
           <h1 id="fleet-title">Fleet types we support</h1>
           <p>Tatak plans over three tiers of BMTC city bus, three Namma Metro lines and sixteen intercity coach classes. Whether you can simply get on and pay is decided by the service class, not by the operator on the livery: only some of these are sold by the seat.</p>
+          <p>This page is the classes. For the individual vehicles behind them, see the <a href={publicAsset("/fleet-roster/")}>fleet roster</a> - all 813 tracked buses and coaches, by registration.</p>
         </header>
 
         <div className="fleet-row" data-reveal>
