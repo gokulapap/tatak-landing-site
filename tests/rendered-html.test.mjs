@@ -231,9 +231,9 @@ test("server-renders the Android route with a checkable build, not a bare downlo
   // ships, and would 404 in between.
   assert.match(
     html,
-    /https:\/\/github\.com\/srivathsanvenkateswaran\/Tatak\/releases\/latest\/download\/tatak\.apk/,
+    /https:\/\/github\.com\/gokulapap\/tatak-landing-site\/releases\/latest\/download\/tatak\.apk/,
   );
-  assert.match(html, /https:\/\/github\.com\/srivathsanvenkateswaran\/Tatak\/releases\/latest"/);
+  assert.match(html, /https:\/\/github\.com\/gokulapap\/tatak-landing-site\/releases\/latest"/);
 
   // The three facts that make the sideload checkable rather than blind: what
   // it is, how big it is, and what it should hash to. The 2026-08-21 security
