@@ -265,7 +265,7 @@ test("server-renders the Android route with a checkable build, not a bare downlo
   assert.equal((html.match(/<h1\b/g) ?? []).length, 1);
 });
 
-test("server-renders the changelog, newest release leading, one section per release", async () => {
+test("server-renders the changelog as a rail of releases and changes", async () => {
   const response = await render("/changelog");
   assert.equal(response.status, 200);
 
@@ -276,9 +276,10 @@ test("server-renders the changelog, newest release leading, one section per rele
   // real ticket.
   assert.match(html, /SPECIMEN - NOT VALID FOR TRAVEL/);
 
-  // Eleven releases, each its own section with an anchor taken from its
-  // date, so a link can point at one.
+  // Eleven stops on one rail, each its own section with an anchor taken from
+  // its date, so a link can point at one.
   assert.equal((html.match(/class="changelog-release/g) ?? []).length, 11);
+  assert.equal((html.match(/class="changelog-ring"/g) ?? []).length, 11);
   for (const id of [
     "2026-09-08",
     "2026-09-07",
@@ -295,14 +296,62 @@ test("server-renders the changelog, newest release leading, one section per rele
     assert.match(html, new RegExp(`id="${id}"`));
   }
 
-  // Newest first, and the newest one carries the version it shipped under.
-  const newest = html.indexOf("the native app catches up with the web");
+  // A dot per change, on the same rail as the rings, and one terminal dot
+  // where the line stops.
+  const titles = [...html.matchAll(/class="changelog-change-title">([^<]+)</g)].map(
+    (match) => match[1],
+  );
+  assert.equal(titles.length, 52);
+  assert.equal((html.match(/class="changelog-dot"/g) ?? []).length, titles.length);
+  assert.equal((html.match(/class="changelog-term"/g) ?? []).length, 1);
+
+  // Four releases shipped under a version and print it as a chip; the other
+  // seven lead with the date chip alone. Every release carries a date chip.
+  assert.equal((html.match(/class="changelog-version"/g) ?? []).length, 4);
+  for (const version of [
+    "Android 0.10.0-beta.1",
+    "0.10.0-beta.1",
+    "0.9.0-beta.1",
+    "0.1.0 to 0.8.0-beta.6",
+  ]) {
+    assert.ok(
+      html.includes(`class="changelog-version">${version}</span>`),
+      `missing version chip ${version}`,
+    );
+  }
+  assert.equal((html.match(/class="changelog-date"/g) ?? []).length, 11);
+
+  // No headline sentence anywhere: the old page led each release with one, and
+  // the rail replaced it with the version and the date.
+  assert.doesNotMatch(html, /changelog-headline/);
+  assert.doesNotMatch(html, /Coaches you can actually book/);
+
+  // A change title names a feature in a few words, and the body under it keeps
+  // the numbers the old bullet carried.
+  assert.match(html, /Seat map for every coach class/);
+  assert.match(html, /all fifteen classes reach the seat step/);
+  assert.match(html, /Pass settles the fare/);
+  assert.match(html, /Android download page/);
+  // A few words naming a feature, never a sentence. Six is the ceiling because
+  // "Seat map for every coach class" is six and is the shape being asked for;
+  // anything longer has started arguing rather than naming.
+  for (const title of titles) {
+    const words = title.trim().split(/\s+/).length;
+    assert.ok(words >= 2 && words <= 6, `title is not a short feature name: ${title}`);
+    assert.doesNotMatch(title, /[.!?]$/, `title reads as a sentence: ${title}`);
+  }
+
+  // Newest release first, oldest last.
+  const newest = html.indexOf("Android download page");
   const oldest = html.indexOf("A native Kotlin Android app");
   assert.ok(newest > -1 && oldest > -1 && newest < oldest);
   assert.match(html, /Android 0\.10\.0-beta\.1/);
   assert.match(html, /class="changelog-latest-tag"/);
 
-  // The 2026-09-05 bullet used to drop the noun and read "a senior whose
+  // The specimen badges the app prints verbatim survive as <code>.
+  assert.match(html, /<code>SYNTHETIC ACCESS DATA - NOT SURVEYED<\/code>/);
+
+  // The 2026-09-05 change used to drop the noun and read "a senior whose
   // deliberately is not".
   assert.match(html, /a senior whose concession deliberately is not/);
 
