@@ -54,10 +54,14 @@ test("server-renders the complete Tatak landing page", async () => {
   assert.match(html, /href="\/stickers\/"/);
   assert.doesNotMatch(html, /app\.tatak\.tech\/stickers\.html/);
 
-  // The hero's second call to action points at the judges walkthrough now,
-  // not at the in-page #journey anchor it used to scroll to.
+  // The hero has three doors now: the web app, the Android build, and the
+  // judges walkthrough. None of them point at the in-page #journey anchor
+  // the second button used to scroll to.
   assert.match(html, /href="\/judges\/"/);
-  assert.match(html, /Instructions for judges/);
+  assert.match(html, /Instructions for Judges/);
+  assert.match(html, /href="\/android\/"/);
+  assert.match(html, /Try Tatak on Android/);
+  assert.match(html, /Try Tatak on Web/);
   assert.doesNotMatch(html, /href="#journey"/);
 });
 

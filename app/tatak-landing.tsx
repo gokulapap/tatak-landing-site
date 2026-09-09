@@ -268,8 +268,9 @@ export function TatakLanding() {
           <h1>One search for every way <em>across Karnataka.</em></h1>
           <p>Plan from door to destination across BMTC, Namma Metro and walking. Compare complete routes by time, fare and changes, with every live, published and estimated signal clearly labeled. The same search reaches Karnataka&apos;s intercity network too, with a reserved seat and a real PNR when you need one, or a walk-up fare on Karnataka Sarige when you don&apos;t.</p>
           <div className="hero-actions">
-            <AppLink className="button button-primary" label="Plan a journey" />
-            <a className="button button-secondary" href={publicAsset("/judges/")}><span>Instructions for judges</span><span aria-hidden="true">→</span></a>
+            <AppLink className="button button-primary" label="Try Tatak on Web" />
+            <a className="button button-secondary" href={publicAsset("/android/")}><span>Try Tatak on Android</span><span aria-hidden="true">→</span></a>
+            <a className="button button-secondary" href={publicAsset("/judges/")}><span>Instructions for Judges</span><span aria-hidden="true">→</span></a>
           </div>
           <div className="hero-note">
             <span><i className="live-pulse" /> Live prototype</span>
