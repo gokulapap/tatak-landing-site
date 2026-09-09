@@ -4,7 +4,7 @@ import { SiteFooter, SiteHeader, publicAsset, useRevealAnimations } from "../sit
 import { releaseAnchor, releases } from "./entries";
 
 /**
- * A bullet is plain text apart from the literals the app prints verbatim - a
+ * A body is plain text apart from the literals the app prints verbatim - a
  * badge, a stamp - which `entries.ts` marks with backticks. Splitting on those
  * keeps the data module free of JSX and this page free of a markdown parser.
  */
@@ -14,6 +14,20 @@ function inline(text: string) {
     .map((part, index) => (index % 2 === 1 ? <code key={index}>{part}</code> : part));
 }
 
+/**
+ * The changelog is drawn as the app's own itinerary rail.
+ *
+ * Tatak's answer to "how do I get there" is a vertical line with a ring at
+ * every place you change and a dot at every step in between
+ * (app/plan/ItineraryDetail.tsx, `.legrail` in app/styles/results.css). This
+ * page asks the same question of the project, so it gets the same drawing: one
+ * line down the left, an interchange ring for each release, a filled dot for
+ * each change on it, and a terminal dot where the line stops.
+ *
+ * The marks are decorative by contract - `aria-hidden`, and the release's
+ * accessible name is its version and date - because a screen reader is
+ * already reading a nested list and does not need the geometry described.
+ */
 export function ChangelogPage() {
   useRevealAnimations();
 
@@ -33,7 +47,11 @@ export function ChangelogPage() {
           </p>
         </header>
 
-        <div className="changelog-list">
+        {/* The reveal is on the rail and not on each release: the animation
+            is a translateY, the line is drawn on this container, and eleven
+            releases sliding independently would each carry their ring 18px
+            off the line they are supposed to sit on. */}
+        <div className="changelog-rail" data-reveal>
           {releases.map((release, index) => {
             const id = releaseAnchor(release);
 
@@ -42,25 +60,39 @@ export function ChangelogPage() {
                 className={`changelog-release${index === 0 ? " is-latest" : ""}`}
                 id={id}
                 key={id}
-                aria-labelledby={`${id}-headline`}
-                data-reveal
+                aria-labelledby={`${id}-stop`}
               >
-                <p className="changelog-eyebrow">
+                <span className="changelog-ring" aria-hidden="true" />
+                <h2 className="changelog-stop" id={`${id}-stop`}>
+                  {release.version ? (
+                    <span className="changelog-version">{release.version}</span>
+                  ) : null}
                   {/* The date links to its own section, so a link can be
                       copied off the page and point at one release. */}
                   <a className="changelog-date" href={`#${id}`}>{release.date}</a>
-                  {release.version ? <span className="changelog-version">{release.version}</span> : null}
                   {index === 0 ? <span className="changelog-latest-tag">Latest</span> : null}
-                </p>
-                <h2 className="changelog-headline" id={`${id}-headline`}>{release.headline}</h2>
-                <ul className="changelog-points">
-                  {release.bullets.map((bullet) => (
-                    <li key={bullet}>{inline(bullet)}</li>
+                </h2>
+
+                <ol className="changelog-changes">
+                  {release.changes.map((change) => (
+                    <li className="changelog-change" key={change.title}>
+                      <span className="changelog-dot" aria-hidden="true" />
+                      <h3 className="changelog-change-title">{change.title}</h3>
+                      <p className="changelog-change-body">{inline(change.body)}</p>
+                    </li>
                   ))}
-                </ul>
+                </ol>
               </section>
             );
           })}
+
+          {/* The last stop. The app draws one at the end of every itinerary,
+              and without it the line would stop at a change rather than at
+              the end of the journey. */}
+          <p className="changelog-terminus">
+            <span className="changelog-term" aria-hidden="true" />
+            Where Tatak started.
+          </p>
         </div>
 
         <p className="mcp-note" data-reveal>
