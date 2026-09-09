@@ -2290,6 +2290,72 @@ img {
   line-height: 1.8;
 }
 
+/* Android app */
+.android-page {
+  background: var(--canvas-deep);
+}
+
+/* The download and the QR of the same link, side by side: one for whoever is
+   already on the phone, one for whoever is reading this on a laptop. */
+.android-get {
+  margin-top: 72px;
+  padding: 34px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 200px;
+  align-items: center;
+  gap: 34px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+}
+
+.android-download {
+  gap: 16px;
+}
+
+.android-get-note {
+  max-width: 42ch;
+  margin: 18px 0 14px;
+  color: var(--ink-soft);
+  font-size: 12px;
+  line-height: 1.75;
+}
+
+.android-qr {
+  margin: 0;
+  justify-self: end;
+  text-align: center;
+}
+
+/* White ground and padding rather than a bare svg: the quiet zone a scanner
+   needs is margin, and qrMatrix deliberately does not draw one. */
+.android-qr-panel {
+  width: 200px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface-strong);
+}
+
+.android-qr-panel svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.android-qr figcaption {
+  max-width: 200px;
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.android-steps {
+  margin-top: 26px;
+}
+
 /* Shared furniture for the standalone routes */
 .page-subhead {
   max-width: 22ch;
@@ -3829,6 +3895,7 @@ img {
   .workflow-list,
   .mcp-panel,
   .mcp-tool-grid,
+  .android-get,
   .use-case-grid {
     margin-top: 45px;
   }
@@ -3841,6 +3908,16 @@ img {
     grid-template-columns: minmax(0, 1fr);
     gap: 10px;
     padding: 20px 0;
+  }
+
+  .android-get {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 22px;
+    gap: 26px;
+  }
+
+  .android-qr {
+    justify-self: start;
   }
 
   .fragment-card,

@@ -218,3 +218,51 @@ test("server-renders the judges route with verified walkthroughs and no stale cr
 
   assert.equal((html.match(/<h1\b/g) ?? []).length, 1);
 });
+
+test("server-renders the Android route with a checkable build, not a bare download", async () => {
+  const response = await render("/android");
+  assert.equal(response.status, 200);
+
+  const html = await response.text();
+  assert.match(html, /<title>Get the Android app - Tatak<\/title>/i);
+
+  // The stable latest-release redirect, not a per-version asset URL. A
+  // versioned link would have to be edited on this site every time a build
+  // ships, and would 404 in between.
+  assert.match(
+    html,
+    /https:\/\/github\.com\/srivathsanvenkateswaran\/Tatak\/releases\/latest\/download\/tatak\.apk/,
+  );
+  assert.match(html, /https:\/\/github\.com\/srivathsanvenkateswaran\/Tatak\/releases\/latest"/);
+
+  // The three facts that make the sideload checkable rather than blind: what
+  // it is, how big it is, and what it should hash to. The 2026-08-21 security
+  // review flagged a download offered with none of them.
+  assert.match(html, /0\.10\.0-beta\.1/);
+  assert.match(html, /91,139,530 bytes/);
+  assert.match(
+    html,
+    /73bda26514ddcb2beea483fe43e15120b662fe8973b88a3b07fead2ce0841a80/,
+  );
+  assert.match(html, /shasum -a 256 tatak\.apk/);
+
+  // Both warnings Android actually shows, named before they appear.
+  assert.match(html, /Play Protect/);
+  assert.match(html, /can harm your device/);
+
+  // The QR is encoded into the HTML at build time, not fetched at runtime.
+  assert.match(html, /class="android-qr-panel"/);
+  assert.match(html, /<rect x="\d+" y="\d+" width="\d+" height="1"\/>/);
+  assert.doesNotMatch(html, /api\.qrserver\.com|chart\.googleapis\.com/);
+
+  // The caveat the app itself carries.
+  assert.match(html, /not valid for travel/);
+
+  assert.equal((html.match(/<h1\b/g) ?? []).length, 1);
+});
+
+test("links the Android page from the shared navigation", async () => {
+  const html = await (await render()).text();
+  assert.match(html, /href="\/android\/"/);
+  assert.match(html, /Android app/);
+});
