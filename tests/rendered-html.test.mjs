@@ -138,6 +138,10 @@ test("server-renders the fleet route with figures from the app's own tables", as
   for (const line of ["Green", "Purple", "Yellow"]) {
     assert.match(html, new RegExp(`line-dot is-${line.toLowerCase()}[^>]*></i>${line}`));
   }
+  // Fleet roster dropped out of the header, so this page carries the only
+  // link to it: the individual vehicles behind the classes described here.
+  assert.match(html, /href="\/fleet-roster\/"/);
+  assert.match(html, /fleet roster/);
   assert.equal((html.match(/<h1\b/g) ?? []).length, 1);
 });
 
@@ -315,8 +319,47 @@ test("links the changelog from the shared navigation", async () => {
   assert.match(html, />Changelog</);
 });
 
-test("links the Android page from the shared navigation", async () => {
+test("links the Android page from the footer", async () => {
   const html = await (await render()).text();
-  assert.match(html, /href="\/android\/"/);
-  assert.match(html, /Android app/);
+  const footerNav = html.match(/<nav aria-label="Footer navigation">[\s\S]*?<\/nav>/)?.[0];
+  assert.ok(footerNav, "footer nav not found");
+  assert.match(footerNav, /href="\/android\/"/);
+  assert.match(footerNav, /Android app/);
+});
+
+test("trims the header and mobile nav to seven links, keeping the rest in the footer", async () => {
+  const html = await (await render()).text();
+
+  const desktopNav = html.match(/<nav class="desktop-nav"[^>]*>[\s\S]*?<\/nav>/)?.[0];
+  const mobileNav = html.match(/<nav id="mobile-navigation"[\s\S]*?<\/nav>/)?.[0];
+  const footerNav = html.match(/<nav aria-label="Footer navigation">[\s\S]*?<\/nav>/)?.[0];
+  assert.ok(desktopNav, "desktop nav not found");
+  assert.ok(mobileNav, "mobile nav not found");
+  assert.ok(footerNav, "footer nav not found");
+
+  // Instructions for judges, Android app and Fleet roster are already
+  // reachable from the home hero (the first two) and from the Fleet page
+  // (the third), so the header drops them.
+  for (const dropped of [/href="\/judges\/"/, /href="\/android\/"/, /href="\/fleet-roster\/"/]) {
+    assert.doesNotMatch(desktopNav, dropped);
+    assert.doesNotMatch(mobileNav, dropped);
+  }
+
+  // What is left, in order, numbered 01 through 07 in the mobile nav.
+  const kept = ["/changelog/", "/stickers/", "/mcp/", "/fleet/", "/emission/", "/sample-users/", "/contact/"];
+  for (const href of kept) {
+    assert.match(desktopNav, new RegExp(`href="${href.replace(/\//g, "\\/")}"`));
+  }
+  kept.forEach((href, index) => {
+    const number = String(index + 1).padStart(2, "0");
+    assert.match(
+      mobileNav,
+      new RegExp(`href="${href.replace(/\//g, "\\/")}"[^<]*>[^<]*<span>${number}</span>`),
+    );
+  });
+
+  // The footer keeps the full ten-link list.
+  for (const href of ["/judges/", "/android/", "/fleet-roster/", ...kept]) {
+    assert.match(footerNav, new RegExp(`href="${href.replace(/\//g, "\\/")}"`));
+  }
 });

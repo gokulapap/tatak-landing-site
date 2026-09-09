@@ -11,6 +11,7 @@ type NavItem = {
   label: string;
   external?: boolean;
   route?: boolean;
+  inHeader?: boolean;
 };
 
 /**
@@ -25,20 +26,27 @@ type NavItem = {
  * `/stickers/`, the same as every other route below.
  *
  * One array feeds the desktop nav, the mobile nav and the footer, so this
- * list is every link in all three.
+ * list is every link in all three. The header and mobile nav only show the
+ * entries with `inHeader` unset (default true); the footer always shows all
+ * ten, since it is the one place a visitor can find every page on the site.
+ * Instructions for judges and the Android app are off the header because
+ * the home hero already carries a button for each. Fleet roster is off the
+ * header because /fleet/ links to it directly.
  */
 export const navigation: NavItem[] = [
-  { href: "/judges/", label: "Instructions for judges", route: true },
-  { href: "/android/", label: "Android app", route: true },
+  { href: "/judges/", label: "Instructions for judges", route: true, inHeader: false },
+  { href: "/android/", label: "Android app", route: true, inHeader: false },
   { href: "/changelog/", label: "Changelog", route: true },
   { href: "/stickers/", label: "QR stickers", route: true },
   { href: "/mcp/", label: "MCP server", route: true },
   { href: "/fleet/", label: "Fleet", route: true },
-  { href: "/fleet-roster/", label: "Fleet roster", route: true },
+  { href: "/fleet-roster/", label: "Fleet roster", route: true, inHeader: false },
   { href: "/emission/", label: "Emission method", route: true },
   { href: "/sample-users/", label: "Sample users", route: true },
   { href: "/contact/", label: "Contact", route: true },
 ];
+
+const headerNavigation = navigation.filter((item) => item.inHeader !== false);
 
 export const publicAsset = (path: string) =>
   `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}${path}`;
@@ -152,7 +160,7 @@ export function SiteHeader({ isHome = false }: { isHome?: boolean }) {
     <header ref={navRef} className="site-nav">
       <Brand href={homeHref("#top", isHome)} />
       <nav className="desktop-nav" aria-label="Primary navigation">
-        {navigation.map((item) => (
+        {headerNavigation.map((item) => (
           <a key={item.href} href={navItemHref(item, isHome)} {...navItemTargetProps(item)}>
             {item.label}
           </a>
@@ -175,7 +183,7 @@ export function SiteHeader({ isHome = false }: { isHome?: boolean }) {
         aria-label="Mobile navigation"
         aria-hidden={!menuOpen}
       >
-        {navigation.map((item, index) => (
+        {headerNavigation.map((item, index) => (
           <a
             key={item.href}
             href={navItemHref(item, isHome)}
