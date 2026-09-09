@@ -15,18 +15,18 @@
  * is not a stop. What identifies a release is its version and its date, which
  * the page prints as two chips beside the ring.
  *
- * A change `title` names the feature in two to five words, the way the app's
- * own leg cards name a leg. It is not a slogan and not a sentence: "Seat map
- * for every coach class", never "Coaches you can actually book". The `body`
- * carries the facts, the numbers and the caveats, in one or two plain
- * sentences.
+ * A change `title` names the feature in a few words - six at the outside - the
+ * way the app's own leg cards name a leg. It is not a slogan and not a
+ * sentence: "Seat map for every coach class", never "Coaches you can actually
+ * book". The `body` carries the facts, the numbers and the caveats, in one or
+ * two plain sentences.
  *
  * Backticks inside a body mark a literal the app prints verbatim - a badge, a
  * stamp. The page renders those spans as <code>; nothing else in a body is
  * markup.
  */
 export type Change = {
-  /** Two to five words naming the feature. Never a slogan. */
+  /** A few words naming the feature, six at the outside. Never a slogan. */
   title: string;
   /** One or two plain sentences: what it does, and what it costs to believe. */
   body: string;

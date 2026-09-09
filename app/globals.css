@@ -3062,6 +3062,15 @@ img {
   scroll-margin-top: 110px;
 }
 
+/* A release fades in and does not move. The site's reveal is a translateY(18px)
+   and the rail line is drawn once on the container, so a sliding release would
+   carry its ring 18px clear of the line it is supposed to sit on for the whole
+   600ms. The line is there from the start and the stops arrive on it, which is
+   the right way round for a rail. */
+.reveal-ready .changelog-release[data-reveal] {
+  transform: none;
+}
+
 .changelog-release + .changelog-release {
   margin-top: 44px;
 }

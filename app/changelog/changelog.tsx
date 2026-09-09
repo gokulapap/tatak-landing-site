@@ -47,11 +47,13 @@ export function ChangelogPage() {
           </p>
         </header>
 
-        {/* The reveal is on the rail and not on each release: the animation
-            is a translateY, the line is drawn on this container, and eleven
-            releases sliding independently would each carry their ring 18px
-            off the line they are supposed to sit on. */}
-        <div className="changelog-rail" data-reveal>
+        {/* The rail itself never reveals. The observer in `useRevealAnimations`
+            fires at a threshold of 0.08, and this container is taller than
+            twelve viewports, so it could never reach 8% visible and would
+            simply stay at opacity 0. The releases on it reveal instead, and
+            globals.css takes the translate off that reveal so a ring can never
+            leave the line it sits on. */}
+        <div className="changelog-rail">
           {releases.map((release, index) => {
             const id = releaseAnchor(release);
 
@@ -61,6 +63,7 @@ export function ChangelogPage() {
                 id={id}
                 key={id}
                 aria-labelledby={`${id}-stop`}
+                data-reveal
               >
                 <span className="changelog-ring" aria-hidden="true" />
                 <h2 className="changelog-stop" id={`${id}-stop`}>
